@@ -369,25 +369,25 @@ Parameters:
   DBMaxIdle:
     Default: 20
     Description: The maximum number of database connections that are allowed to remain idle in the pool
-    Type: String
+    Type: Number
   DBMaxWaitMillis:
     Default: 10000
-    Description: The length of time (in milliseconds) that Crowd is allowed to wait for a database connection to become available (while there are no free ones available in the pool), before returning an error
-    Type: String
+    Description: The length of time (in milliseconds) that Jira is allowed to wait for a database connection to become available (while there are no free ones available in the pool), before returning an error
+    Type: Number
   DBMinEvictableIdleTimeMillis:
     Default: 180000
     Description: The minimum amount of time an object may sit idle in the database connection pool before it is eligible for eviction by the idle object eviction
-    Type: String
+    Type: Number
   DBMinIdle:
     Default: 10
     Description: The minimum number of idle database connections that are kept open at any time
-    Type: String
+    Type: Number
   DBMultiAZ:
     Description: Whether to provision a multi-AZ RDS instance.
-    Default: true
+    Default: "true"
     AllowedValues:
-      - true
-      - false
+      - "true"
+      - "false"
     ConstraintDescription: Must be 'true' or 'false'.
     Type: String
   DBPassword:
@@ -401,29 +401,32 @@ Parameters:
   DBPoolMaxSize:
     Default: 20
     Description: The maximum number of database connections that can be opened at any time
-    Type: String
+    Type: Number
   DBPoolMinSize:
     Default: 20
     Description: The minimum number of idle database connections that are kept open at any time
-    Type: String
+    Type: Number
   DBRemoveAbandoned:
-    Default: true
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
     Description: Flag to remove abandoned database connections if they exceed the Removed Abandoned Timeout
     Type: String
   DBRemoveAbandonedTimeout:
     Default: 60
     Description: The length of time (in seconds) that a database connection can be idle before it is considered abandoned
-    Type: String
+    Type: Number
   DBStorage:
-    Default: 20
+    Default: 200
     Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 (not used for Aurora).
     Type: Number
   DBStorageEncrypted:
-    Default: false
+    Default: "false"
     AllowedValues:
-      - true
-      - false
-    Description: Whether to encrypt the database
+      - "true"
+      - "false"
+    Description: Whether or not to encrypt the database
     Type: String
   DBStorageType:
     Default: General Purpose (SSD)
@@ -434,17 +437,23 @@ Parameters:
     Description: Database storage type (not used for Aurora).
     Type: String
   DBTestOnBorrow:
-    Default: false
-    Description: Tests if the database connection is valid when it is borrowed from the database connection pool by Crowd
+    Default: "false"
+    AllowedValues:
+      - "true"
+      - "false"
+    Description: Tests if the database connection is valid when it is borrowed from the database connection pool by Jira
     Type: String
   DBTestWhileIdle:
-    Default: true
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
     Description: Periodically tests if the database connection is valid when it is idle
     Type: String
   DBTimeBetweenEvictionRunsMillis:
     Default: 60000
     Description: The number of milliseconds to sleep between runs of the idle object eviction thread. When non-positive, no idle object eviction thread will be run
-    Type: String
+    Type: Number
   DeploymentAutomationRepository:
     Default: "https://bitbucket.org/atlassian/dc-deployments-automation.git"
     Type: String
@@ -476,8 +485,8 @@ Parameters:
     Description: The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames
     Type: String
   InternetFacingLoadBalancer:
-    Default: true
-    AllowedValues: [true, false]
+    Default: "true"
+    AllowedValues: ["true", "false"]
     ConstraintDescription: Must be 'true' or 'false'.
     Description: Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).
     Type: String
@@ -498,10 +507,10 @@ Parameters:
     Default: ''
   MailEnabled:
     AllowedValues:
-      - true
-      - false
+      - "true"
+      - "false"
     ConstraintDescription: Must be 'true' or 'false'.
-    Default: true
+    Default: "true"
     Description: Enable mail processing and sending
     Type: String
   SSLCertificateARN:
@@ -513,11 +522,11 @@ Parameters:
   TomcatAcceptCount:
     Default: 10
     Description: The maximum queue length for incoming connection requests when all possible request processing threads are in use
-    Type: String
+    Type: Number
   TomcatConnectionTimeout:
     Default: 20000
     Description: The number of milliseconds this Connector will wait, after accepting a connection, for the request URI line to be presented
-    Type: String
+    Type: Number
   TomcatContextPath:
     Default: ''
     AllowedPattern: '^(\/[A-z_\-0-9\.]+)?$'
@@ -526,19 +535,22 @@ Parameters:
   TomcatDefaultConnectorPort:
     Default: 8080
     Description: The port on which to serve the application
-    Type: String
+    Type: Number
   TomcatEnableLookups:
-    Default: false
+    Default: "false"
+    AllowedValues:
+      - "true"
+      - "false"
     Description: Set to true if you want calls to request.getRemoteHost() to perform DNS lookups in order to return the actual host name of the remote client
     Type: String
   TomcatMaxThreads:
     Default: 200
     Description: The maximum number of request processing threads to be created by this Connector, which therefore determines the maximum number of simultaneous requests that can be handled
-    Type: String
+    Type: Number
   TomcatMinSpareThreads:
     Default: 10
     Description: The minimum number of threads always kept running
-    Type: String
+    Type: Number
   TomcatProtocol:
     Default: 'HTTP/1.1'
     Description: Sets the protocol to handle incoming traffic
@@ -546,7 +558,7 @@ Parameters:
   TomcatRedirectPort:
     Default: 8443
     Description: The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to a SSL URI
-    Type: String
+    Type: Number
   QSS3BucketName:
     Default: 'aws-quickstart'
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
@@ -966,6 +978,14 @@ Resources:
         - Key: Cluster
           Value: !Ref AWS::StackName
           PropagateAtLaunch: true
+        # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
+        - Key: "atl:quickstart:commit-id"
+          Value: "COMMIT: f4f6f23a003db564a2347d9fae9924edd95dbfa5"
+          PropagateAtLaunch: true
+        - Key: "atl:quickstart:timestamp"
+          Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
+          PropagateAtLaunch: true
+
   ClusterNodeLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     DependsOn:
@@ -1097,12 +1117,12 @@ Resources:
       IamInstanceProfile: !Ref ClusterNodeInstanceProfile
       ImageId:
         !FindInMap
-        - AWSRegionArch2AMI
-        - !Ref AWS::Region
-        - !FindInMap
-          - AWSInstanceType2Arch
-          - !Ref ClusterNodeInstanceType
-          - Arch
+          - AWSRegionArch2AMI
+          - !Ref AWS::Region
+          - !FindInMap
+              - AWSInstanceType2Arch
+              - !Ref ClusterNodeInstanceType
+              - Arch
       InstanceType: !Ref ClusterNodeInstanceType
       SecurityGroups: [!Ref SecurityGroup]
       UserData:
@@ -1171,16 +1191,21 @@ Resources:
           Value: !Join [' ', [!Ref 'AWS::StackName', 'cluster shared-files']]
         - Key: Application
           Value: !Ref AWS::StackId
+        # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
+        - Key: "atl:quickstart:commit-id"
+          Value: "COMMIT: f4f6f23a003db564a2347d9fae9924edd95dbfa5"
+        - Key: "atl:quickstart:timestamp"
+          Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
   EFSMountAz1:
     Type: AWS::EFS::MountTarget
     Properties:
       FileSystemId: !Ref ElasticFileSystem
       SecurityGroups: [!Ref SecurityGroup]
       SubnetId: !Select
-        - 0
-        - !Split
-          - ","
-          - Fn::ImportValue: !Sub "${ExportPrefix}PriNets"
+      - 0
+      - !Split
+           - ","
+           - Fn::ImportValue: !Sub "${ExportPrefix}PriNets"
   EFSMountAz2:
     Type: AWS::EFS::MountTarget
     Properties:
@@ -1234,6 +1259,7 @@ Resources:
       TTL: '900'
       ResourceRecords:
         - !GetAtt DB.Outputs.RDSEndPointAddress
+
   # Loadbalancer
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -1251,6 +1277,12 @@ Resources:
           Value: !Sub ["${StackName}-LoadBalancer", StackName: !Ref 'AWS::StackName']
         - Key: Cluster
           Value: !Ref AWS::StackName
+        # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
+        - Key: "atl:quickstart:commit-id"
+          Value: "COMMIT: f4f6f23a003db564a2347d9fae9924edd95dbfa5"
+        - Key: "atl:quickstart:timestamp"
+          Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
+
   LoadBalancerHTTPListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -1309,6 +1341,11 @@ Resources:
           Value: MainTargetGroup
         - Key: Cluster
           Value: !Ref AWS::StackName
+        # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
+        - Key: "atl:quickstart:commit-id"
+          Value: "COMMIT: f4f6f23a003db564a2347d9fae9924edd95dbfa5"
+        - Key: "atl:quickstart:timestamp"
+          Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
     DependsOn:
       - LoadBalancer
   LoadBalancerCname:
@@ -1332,6 +1369,14 @@ Resources:
           ToPort: 22
           CidrIp: !Ref CidrBlock
         - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp:
+            !Sub
+              - "${BastionIp}/32"
+              - BastionIp:
+                  Fn::ImportValue: !Sub '${ExportPrefix}BastionPrivIp'
+        - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
           CidrIp: !Ref CidrBlock
@@ -1339,9 +1384,46 @@ Resources:
           FromPort: 443
           ToPort: 443
           CidrIp: !Ref CidrBlock
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp:
+            !Sub
+              - "${NAT1IP}/32"
+              - NAT1IP:
+                  Fn::ImportValue: !Sub '${ExportPrefix}NAT1EIP'
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp:
+            !Sub
+            - "${NAT2IP}/32"
+            - NAT2IP:
+                Fn::ImportValue: !Sub '${ExportPrefix}NAT2EIP'
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp:
+            !Sub
+            - "${NAT1IP}/32"
+            - NAT1IP:
+                Fn::ImportValue: !Sub '${ExportPrefix}NAT1EIP'
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp:
+            !Sub
+            - "${NAT2IP}/32"
+            - NAT2IP:
+                Fn::ImportValue: !Sub '${ExportPrefix}NAT2EIP'
       Tags:
         - Key: Name
           Value: !Join [' ', [!Ref "AWS::StackName", 'sg']]
+        # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
+        - Key: "atl:quickstart:commit-id"
+          Value: "COMMIT: f4f6f23a003db564a2347d9fae9924edd95dbfa5"
+        - Key: "atl:quickstart:timestamp"
+          Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
       VpcId:
         Fn::ImportValue: !Sub "${ExportPrefix}VPCID"
   SecurityGroupIngress:
@@ -1371,6 +1453,11 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub ["${StackName} Encryption Key", {StackName: !Ref 'AWS::StackName'}]
+        # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
+        - Key: "atl:quickstart:commit-id"
+          Value: "COMMIT: f4f6f23a003db564a2347d9fae9924edd95dbfa5"
+        - Key: "atl:quickstart:timestamp"
+          Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
   EncryptionKeyAlias:
     Condition: UseDatabaseEncryption
     Type: AWS::KMS::Alias
