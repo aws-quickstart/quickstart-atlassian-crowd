@@ -311,15 +311,15 @@ Parameters:
       - z1d.6xlarge
       - z1d.12xlarge
     ConstraintDescription: Must be an EC2 instance type from the selection list
-    Description: Instance type for the cluster application nodes.
+    Description: The EC2 instance type for the Crowd cluster application nodes. 
     Type: String
   ClusterNodeMax:
-    Description: Maximum number of nodes in the cluster.
+    Description: Maximum number of Crowd application nodes in the cluster.
     Default: 1
     Type: Number
   ClusterNodeMin:
     Default: 1
-    Description: Set to 1 for new deployment. Can be updated post launch.
+    Description: Set to 1 for new deployments. You can update this after launch.
     Type: Number
   ClusterNodeVolumeSize:
     Default: 50
@@ -327,7 +327,7 @@ Parameters:
     Type: Number
   CustomDnsName:
     Default: ""
-    Description: 'Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.'
+    Description: 'An existing custom DNS name for your Crowd Data Center instance. This will take precedence over the 'Route 53 hosted Zone' parameter. You must own this domain and configure it to point to the load balancer.'
     Type: String
   DBInstanceClass:
     Default: db.m4.large
@@ -365,7 +365,7 @@ Parameters:
       - db.t2.xlarge
       - db.t2.2xlarge
     ConstraintDescription: Must be a valid RDS instance class, from the selection list
-    Description: RDS instance type (must be r family if using Aurora).
+    Description: The EC2 instance type for the Amazon RDS database.
     Type: String
   DBIops:
     Default: 1000
@@ -401,7 +401,7 @@ Parameters:
     Description: The minimum number of idle database connections that are kept open at any time
     Type: Number
   DBMultiAZ:
-    Description: Whether to provision a multi-AZ RDS instance.
+    Description: If 'True', the Quick Start deploys the Amazon RDS instances in two Availability Zones for high availability. If high availability isn't a concern, you can set this parameter to 'False'.
     Default: "true"
     AllowedValues:
       - "true"
@@ -437,14 +437,14 @@ Parameters:
     Type: String
   DBStorage:
     Default: 200
-    Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 (not used for Aurora).
+    Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144.
     Type: Number
   DBStorageEncrypted:
     Default: "false"
     AllowedValues:
       - "true"
       - "false"
-    Description: Whether or not to encrypt the database
+    Description: Set this parameter to 'True' if you want to encrypt the database. 
     Type: String
   DBStorageType:
     Default: General Purpose (SSD)
@@ -500,13 +500,13 @@ Parameters:
   HostedZone:
     Default: ''
     ConstraintDescription: Must be the name of an existing Route53 Hosted Zone.
-    Description: The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames
+    Description: To configure an internal-facing site, you can use Amazon Route 53 to create a link between the public DNS and internal DNS. Use this parameter to specify the domain name of your Route 53 private hosted zone.
     Type: String
   CrowdVersion:
     Default: 4.0.0
     AllowedPattern: '(\d+\.\d+\.\d+(-?.*))|(latest)'
     ConstraintDescription: Must be a valid version number or 'latest'; for example, 4.0.0 for Crowd Software.
-    Description: The version of Crowd Software to install. Find valid versions at https://confluence.atlassian.com/crowd/crowd-4-0-release-notes-994320250.html (Crowd Software) or https://confluence.atlassian.com/x/XM2EO (Atlassian Enterprise Releases).
+    Description: The version of Crowd Software to install. Find valid versions on the Crowd Release Notes page (https://confluence.atlassian.com/x/tgkD).
     Type: String
   JvmHeapOverride:
     Default: ''
@@ -520,7 +520,7 @@ Parameters:
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: The EC2 Key Pair to allow SSH access to the instances.
+    Description: A public/private key pair, which allows you to connect securely to your instance after it launches. When you created an AWS account, this is the key pair you created in your preferred region.
     Type: AWS::EC2::KeyPair::KeyName
     Default: ''
   MailEnabled:
@@ -581,11 +581,10 @@ Parameters:
   # VPC parameters
   AccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
-    Description: CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.
+    Description: The CIDR IP range that is permitted to access Crowd. We recommend that you set this value to a trusted IP range. If you want to give public access use '0.0.0.0/0'.
     Type: String
   AvailabilityZones:
-    Description: 'List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here;
-      if more are specified only the first 2 will be used.'
+    Description: 'The list of Availability Zones to use for the subnets in the VPC. The Quick Start uses two Availability Zones from your list and preserves the logical order you specify. If more are Availability Zones are specified, only the first two will be used.'
     Type: List<AWS::EC2::AvailabilityZone::Name>
   PrivateSubnet1CIDR:
     Default: 10.0.0.0/19
@@ -613,9 +612,7 @@ Parameters:
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
       letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
       (-).
-    Description: S3 bucket name for the Quick Start assets. Quick Start bucket name
-      can include numbers, lowercase letters, uppercase letters, and hyphens (-).
-      It cannot start or end with a hyphen (-).
+    Description: The S3 bucket you have created for your copy of Quick Start assets, if you decide to customize or extend the Quick Start for your own use. The bucket name can include numbers, lowercase letters, uppercase letters, and hyphens, but should not start or end with a hyphen (-).
     Type: String
   QSS3KeyPrefix:
     Default: 'quickstart-atlassian-crowd/'
