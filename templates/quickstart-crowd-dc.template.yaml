@@ -189,7 +189,7 @@ Parameters:
   CidrBlock:
     AllowedPattern: '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})'
     ConstraintDescription: Must be a valid IP CIDR range of the form x.x.x.x/x.
-    Description:The CIDR IP range that is permitted to access Crowd. We recommend that you set this value to a trusted IP range. If you want to give public access use '0.0.0.0/0'.
+    Description: The CIDR IP range that is permitted to access Crowd. We recommend that you set this value to a trusted IP range. If you want to give public access use '0.0.0.0/0'.
     Type: String
     MinLength: 9
     MaxLength: 18
@@ -309,7 +309,7 @@ Parameters:
     Type: Number
   CustomDnsName:
     Default: ""
-    Description: 'An existing custom DNS name for your Crowd Data Center instance. This will take precedence over the 'Route 53 hosted Zone' parameter. You must own this domain and configure it to point to the load balancer.'
+    Description: "An existing custom DNS name for your Crowd Data Center instance. This will take precedence over the 'Route 53 hosted Zone' parameter. You must own this domain and configure it to point to the load balancer."
     Type: String
   DBInstanceClass:
     Default: db.m4.large
