@@ -309,7 +309,7 @@ Parameters:
     Type: Number
   CustomDnsName:
     Default: ""
-    Description: 'An existing custom DNS name for your Crowd Data Center instance. This will take precedence over the 'Route 53 hosted Zone' parameter. You must own this domain and configure it to point to the load balancer.'
+    Description: An existing custom DNS name for your Crowd Data Center instance. This will take precedence over the 'Route 53 hosted Zone' parameter. You must own this domain and configure it to point to the load balancer.
     Type: String
   DBInstanceClass:
     Default: db.m4.large
