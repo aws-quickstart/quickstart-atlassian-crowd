@@ -189,7 +189,7 @@ Parameters:
   CidrBlock:
     AllowedPattern: '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})'
     ConstraintDescription: Must be a valid IP CIDR range of the form x.x.x.x/x.
-    Description: The CIDR IP range that is permitted to access Crowd. We recommend that you set this value to a trusted IP range. If you want to give public access use '0.0.0.0/0'.
+    Description: CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.
     Type: String
     MinLength: 9
     MaxLength: 18
@@ -293,15 +293,15 @@ Parameters:
       - z1d.6xlarge
       - z1d.12xlarge
     ConstraintDescription: Must be an EC2 instance type from the selection list
-    Description: The EC2 instance type for the Crowd cluster application nodes.
+    Description: Instance type for the cluster application nodes.
     Type: String
   ClusterNodeMax:
-    Description: Maximum number of Crowd application nodes in the cluster.
+    Description: Maximum number of nodes in the cluster.
     Default: 1
     Type: Number
   ClusterNodeMin:
     Default: 1
-    Description: Set to 1 for new deployment. You can update this after launch.
+    Description: Set to 1 for new deployment. Can be updated post launch.
     Type: Number
   ClusterNodeVolumeSize:
     Default: 50
@@ -309,7 +309,7 @@ Parameters:
     Type: Number
   CustomDnsName:
     Default: ""
-    Description: "An existing custom DNS name for your Crowd Data Center instance. This will take precedence over the 'Route 53 hosted Zone' parameter. You must own this domain and configure it to point to the load balancer."
+    Description: 'Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.'
     Type: String
   DBInstanceClass:
     Default: db.m5.large
@@ -347,7 +347,7 @@ Parameters:
       - db.t2.xlarge
       - db.t2.2xlarge
     ConstraintDescription: Must be a valid RDS instance class, from the selection list
-    Description: The EC2 instance type for the Amazon RDS database.
+    Description: RDS instance type (must be r family if using Aurora).
     Type: String
   DBIops:
     Default: 1000
@@ -360,8 +360,8 @@ Parameters:
     AllowedPattern: >-
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])(?!.*[@/"']).*$
     ConstraintDescription: >-
-      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, 1 (non / @ " ') symbol
-    Description: "Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ @ + % &"
+      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &
+    Description: "Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &"
     NoEcho: True
     MaxLength: 128
     MinLength: 8
@@ -383,7 +383,7 @@ Parameters:
     Description: The minimum number of idle database connections that are kept open at any time
     Type: Number
   DBMultiAZ:
-    Description: If 'True', the Quick Start deploys the Amazon RDS instances in two Availability Zones for high availability. If high availability isn't a concern, you can set this parameter to 'False'.
+    Description: Whether to provision a multi-AZ RDS instance.
     Default: "true"
     AllowedValues:
       - "true"
@@ -391,9 +391,11 @@ Parameters:
     ConstraintDescription: Must be 'true' or 'false'.
     Type: String
   DBPassword:
-    AllowedPattern: '(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*'
-    ConstraintDescription: Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, 1 (non / @ " ') symbol
-    Description: 'Database password used by Crowd. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ @ + % &'
+    AllowedPattern: >-
+      ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
+    ConstraintDescription: >-
+      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and must not contain: [, ], {, }
+    Description: "Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and must not contain: [, ], {, }"
     MinLength: 8
     MaxLength: 128
     NoEcho: true
@@ -419,14 +421,14 @@ Parameters:
     Type: Number
   DBStorage:
     Default: 200
-    Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144.
+    Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 (not used for Aurora).
     Type: Number
   DBStorageEncrypted:
     Default: "false"
     AllowedValues:
       - "true"
       - "false"
-    Description: Set this parameter to 'True' if you want to encrypt the database.
+    Description: Whether or not to encrypt the database
     Type: String
   DBStorageType:
     Default: General Purpose (SSD)
@@ -482,7 +484,7 @@ Parameters:
   HostedZone:
     Default: ''
     ConstraintDescription: Must be the name of an existing Route53 Hosted Zone.
-    Description: To configure an internal-facing site, you can use Amazon Route 53 to create a link between the public DNS and internal DNS. Use this parameter to specify the domain name of your Route 53 private hosted zone.
+    Description: The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames
     Type: String
   InternetFacingLoadBalancer:
     Default: "true"
@@ -515,7 +517,7 @@ Parameters:
     Type: String
   SSLCertificateARN:
     Default: ''
-    Description: "Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you’ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it’s successfully created."
+    Description: "Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you'll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it's successfully created."
     MinLength: 0
     MaxLength: 90
     Type: String
@@ -565,7 +567,9 @@ Parameters:
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
       letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
       (-).
-    Description: The S3 bucket you have created for your copy of Quick Start assets, if you decide to customize or extend the Quick Start for your own use. The bucket name can include numbers, lowercase letters, uppercase letters, and hyphens, but should not start or end with a hyphen (-).
+    Description: S3 bucket name for the Quick Start assets. Quick Start bucket name
+      can include numbers, lowercase letters, uppercase letters, and hyphens (-).
+      It cannot start or end with a hyphen (-).
     Type: String
   QSS3KeyPrefix:
     Default: 'quickstart-atlassian-crowd/'
@@ -1244,6 +1248,7 @@ Resources:
         DBAllocatedStorage: !Ref DBStorage
         DBStorageEncrypted: !Ref DBStorageEncrypted
         DBStorageType: !Ref DBStorageType
+        ExportPrefix: !Ref ExportPrefix
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
   DBCname:
