@@ -412,8 +412,8 @@ Parameters:
     AllowedPattern: >-
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
     ConstraintDescription: >-
-      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and must not contain: [, ], {, }
-    Description: "Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and must not contain: [, ], {, }"
+      Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }
+    Description: "Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }"
     MinLength: 8
     MaxLength: 128
     NoEcho: true
