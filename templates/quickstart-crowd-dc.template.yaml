@@ -392,10 +392,10 @@ Parameters:
     Type: String
   DBPassword:
     AllowedPattern: >-
-      ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$
+      ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
     ConstraintDescription: >-
-      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and no special characters
-    Description: "Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and no special characters"
+      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and must not contain: [, ], {, }
+    Description: "Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and must not contain: [, ], {, }"
     MinLength: 8
     MaxLength: 128
     NoEcho: true
