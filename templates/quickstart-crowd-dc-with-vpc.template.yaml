@@ -60,17 +60,6 @@ Metadata:
             - TomcatContextPath
             - CatalinaOpts
             - JvmHeapOverride
-            - DBPoolMaxSize
-            - DBPoolMinSize
-            - DBMaxIdle
-            - DBMaxWaitMillis
-            - DBMinEvictableIdleTimeMillis
-            - DBMinIdle
-            - DBRemoveAbandoned
-            - DBRemoveAbandonedTimeout
-            - DBTestOnBorrow
-            - DBTestWhileIdle
-            - DBTimeBetweenEvictionRunsMillis
             - MailEnabled
             - TomcatAcceptCount
             - TomcatConnectionTimeout
@@ -112,38 +101,16 @@ Metadata:
         default: RDS Provisioned IOPS
       DBMasterUserPassword:
         default: Master (admin) password *
-      DBMaxIdle:
-        default: DB Maximum Idle
-      DBMaxWaitMillis:
-        default: DB Maximum Wait
-      DBMinEvictableIdleTimeMillis:
-        default: DB Minimum Evictable Idle Time
-      DBMinIdle:
-        default: DB Minimum Idle Connections
       DBMultiAZ:
         default: Enable RDS Multi-AZ deployment
       DBPassword:
         default: Application user database password *
-      DBPoolMaxSize:
-        default: DB Pool Maximum Size
-      DBPoolMinSize:
-        default: DB Pool Minimum Size
-      DBRemoveAbandoned:
-        default: DB Remove Abandoned?
-      DBRemoveAbandonedTimeout:
-        default: DB Remove Abandoned Timeout
       DBStorage:
         default: Database storage
       DBStorageEncrypted:
         default: Database encryption
       DBStorageType:
         default: Database storage type
-      DBTestOnBorrow:
-        default: DB Test On Borrow?
-      DBTestWhileIdle:
-        default: DB Test While Idle?
-      DBTimeBetweenEvictionRunsMillis:
-        default: DB Time Between Eviction Runs
       DeploymentAutomationRepository:
         default: Deployment Automation Git Repository URL
       DeploymentAutomationBranch:
@@ -384,22 +351,6 @@ Parameters:
     MaxLength: 128
     MinLength: 8
     Type: String
-  DBMaxIdle:
-    Default: 20
-    Description: The maximum number of database connections that are allowed to remain idle in the pool
-    Type: Number
-  DBMaxWaitMillis:
-    Default: 10000
-    Description: The length of time (in milliseconds) that Jira is allowed to wait for a database connection to become available (while there are no free ones available in the pool), before returning an error
-    Type: Number
-  DBMinEvictableIdleTimeMillis:
-    Default: 180000
-    Description: The minimum amount of time an object may sit idle in the database connection pool before it is eligible for eviction by the idle object eviction
-    Type: Number
-  DBMinIdle:
-    Default: 10
-    Description: The minimum number of idle database connections that are kept open at any time
-    Type: Number
   DBMultiAZ:
     Description: Whether to provision a multi-AZ RDS instance.
     Default: "true"
@@ -417,25 +368,6 @@ Parameters:
     MinLength: 8
     MaxLength: 128
     NoEcho: true
-    Type: String
-  DBPoolMaxSize:
-    Default: 20
-    Description: The maximum number of database connections that can be opened at any time
-    Type: Number
-  DBPoolMinSize:
-    Default: 20
-    Description: The minimum number of idle database connections that are kept open at any time
-    Type: Number
-  DBRemoveAbandoned:
-    Default: "true"
-    AllowedValues:
-      - "true"
-      - "false"
-    Description: Flag to remove abandoned database connections if they exceed the Removed Abandoned Timeout
-    Type: String
-  DBRemoveAbandonedTimeout:
-    Default: 60
-    Description: The length of time (in seconds) that a database connection can be idle before it is considered abandoned
     Type: String
   DBStorage:
     Default: 200
@@ -456,24 +388,6 @@ Parameters:
     ConstraintDescription: Must be 'General Purpose (SSD)' or 'Provisioned IOPS'.
     Description: Database storage type (not used for Aurora).
     Type: String
-  DBTestOnBorrow:
-    Default: "false"
-    AllowedValues:
-      - "true"
-      - "false"
-    Description: Tests if the database connection is valid when it is borrowed from the database connection pool by Jira
-    Type: String
-  DBTestWhileIdle:
-    Default: "true"
-    AllowedValues:
-      - "true"
-      - "false"
-    Description: Periodically tests if the database connection is valid when it is idle
-    Type: String
-  DBTimeBetweenEvictionRunsMillis:
-    Default: 60000
-    Description: The number of milliseconds to sleep between runs of the idle object eviction thread. When non-positive, no idle object eviction thread will be run
-    Type: Number
   DeploymentAutomationRepository:
     Default: "https://bitbucket.org/atlassian/dc-deployments-automation.git"
     Type: String
@@ -682,22 +596,11 @@ Resources:
         DBInstanceClass: !Ref 'DBInstanceClass'
         DBIops: !Ref 'DBIops'
         DBMasterUserPassword: !Ref 'DBMasterUserPassword'
-        DBMaxIdle: !Ref 'DBMaxIdle'
-        DBMaxWaitMillis: !Ref 'DBMaxWaitMillis'
-        DBMinEvictableIdleTimeMillis: !Ref 'DBMinEvictableIdleTimeMillis'
-        DBMinIdle: !Ref 'DBMinIdle'
         DBMultiAZ: !Ref 'DBMultiAZ'
         DBPassword: !Ref 'DBPassword'
-        DBPoolMaxSize: !Ref 'DBPoolMaxSize'
-        DBPoolMinSize: !Ref 'DBPoolMinSize'
-        DBRemoveAbandoned: !Ref 'DBRemoveAbandoned'
-        DBRemoveAbandonedTimeout: !Ref 'DBRemoveAbandonedTimeout'
         DBStorage: !Ref 'DBStorage'
         DBStorageEncrypted: !Ref 'DBStorageEncrypted'
         DBStorageType: !Ref 'DBStorageType'
-        DBTestOnBorrow: !Ref 'DBTestOnBorrow'
-        DBTestWhileIdle: !Ref 'DBTestWhileIdle'
-        DBTimeBetweenEvictionRunsMillis: !Ref 'DBTimeBetweenEvictionRunsMillis'
         DeploymentAutomationRepository: !Ref 'DeploymentAutomationRepository'
         DeploymentAutomationBranch: !Ref 'DeploymentAutomationBranch'
         DeploymentAutomationKeyName: !Ref 'DeploymentAutomationKeyName'
