@@ -1041,6 +1041,7 @@ Resources:
             - !Sub [" --resource ClusterNodeLaunchConfig --region ${Region}\n", {Region: !Ref "AWS::Region"}]
             - !Sub ["/opt/aws/bin/cfn-signal -e $? --stack ${StackName}", {StackName: !Ref "AWS::StackName"}]
             - !Sub [" --resource ClusterNodeLaunchConfig --region ${Region}", {Region: !Ref "AWS::Region"}]
+  # Elastic file system
   ElasticFileSystem:
     Type: AWS::EFS::FileSystem
     Properties:
