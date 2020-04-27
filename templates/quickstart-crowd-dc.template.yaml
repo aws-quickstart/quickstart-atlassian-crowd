@@ -986,7 +986,8 @@ Resources:
                     export GIT_SSH_COMMAND="ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
                 fi
 
-                ### DYLAN ###
+                ### DYLAN SET THE STACK NAME ON THE SSM###
+                yum install -y awscli jq
                 git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
                 cd /opt/atlassian/dc-deployments-automation/
 
