@@ -972,6 +972,8 @@ Resources:
                 #!/bin/bash
                 key_location=/root/.ssh/deployment_repo_key
                 key_name="${DeploymentAutomationKeyName}"
+                dc_deployments_automation_root=/opt/atlassian/
+                mountpoint=/media/atl
 
                 yum install -y git
                 if [[ ! -z "$key_name" ]]; then
@@ -985,7 +987,16 @@ Resources:
                     export GIT_SSH_COMMAND="ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
                 fi
 
-                git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
+                ### dc-deployments-automation repo pinning ###
+                yum install -y amazon-efs-utils
+                mkdir -p $mountpoint
+                chmod 0755 $mountpoint
+                mount -t efs -o defaults,_netdev "${ElasticFileSystem}":/ $mountpoint
+                if [[ ! -d $mountpoint/shared/dc-deployments-automation ]]; then
+                  mkdir -p $mountpoint/shared/dc-deployments-automation
+                  git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" $mountpoint/shared/dc-deployments-automation
+                fi
+                ln -s $mountpoint/shared/dc-deployments-automation $dc_deployments_automation_root
               mode: "000750"
               owner: root
               group: root
