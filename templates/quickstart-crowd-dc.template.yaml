@@ -995,11 +995,11 @@ Resources:
 
                 if [[ "$pinned_commit_id" == "null" ]]; then
                   head_id=$(git rev-parse HEAD)
-                  echo "Creating SSM param [pinned-ansible-repo-head-id] with value: [$head_id]"
+                  echo "Creating SSM param [$ssm_pin] with value: [$head_id]"
                   aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --type String
                 else
                   echo "Ansible repo has been pinned, checking out commit: [$pinned_commit_id]"
-                  git checkout "$head_id"
+                  git checkout "$pinned_commit_id"
                 fi
               mode: "000750"
               owner: root
