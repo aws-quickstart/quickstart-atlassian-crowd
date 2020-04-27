@@ -972,8 +972,7 @@ Resources:
                 #!/bin/bash
                 key_location=/root/.ssh/deployment_repo_key
                 key_name="${DeploymentAutomationKeyName}"
-                dc_deployments_automation_root=/opt/atlassian/
-                mountpoint=/media/atl
+                ssm_pin=pinned-ansible-repo-head-id
 
                 yum install -y git
                 if [[ ! -z "$key_name" ]]; then
@@ -987,16 +986,21 @@ Resources:
                     export GIT_SSH_COMMAND="ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
                 fi
 
-                ### dc-deployments-automation repo pinning ###
-                yum install -y amazon-efs-utils
-                mkdir -p $mountpoint
-                chmod 0755 $mountpoint
-                mount -t efs -o defaults,_netdev "${ElasticFileSystem}":/ $mountpoint
-                if [[ ! -d $mountpoint/shared/dc-deployments-automation ]]; then
-                  mkdir -p $mountpoint/shared/dc-deployments-automation
-                  git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" $mountpoint/shared/dc-deployments-automation
+                ### DYLAN ###
+                git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
+                cd /opt/atlassian/dc-deployments-automation/
+
+                # Get the SSM
+                pinned_commit_id=$(aws --region=${AWS::Region} ssm get-parameters --names "$ssm_pin" | jq --raw-output '.Parameters[0] .Value')
+
+                if [[ "$pinned_commit_id" == "null" ]]; then
+                  head_id=$(git rev-parse HEAD)
+                  echo "Creating SSM param [pinned-ansible-repo-head-id] with value: [$head_id]"
+                  aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --type String
+                else
+                  echo "Ansible repo has been pinned, checking out commit: [$pinned_commit_id]"
+                  git checkout "$head_id"
                 fi
-                ln -s $mountpoint/shared/dc-deployments-automation $dc_deployments_automation_root
               mode: "000750"
               owner: root
               group: root
