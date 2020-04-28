@@ -877,7 +877,7 @@ Resources:
               - Action:
                   - 'ssm:PutParameter'
                 Effect: Allow
-                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/pinned-ansible-sha-for-${AWS::StackName}"
+                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${AWS::StackName}/pinned-ansible-sha"
   ClusterNodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -915,6 +915,7 @@ Resources:
     DependsOn:
       - EFSMountAz1
       - EFSMountAz2
+      - AnsibleRepoPinSHA
     Metadata:
       Comment: ''
       AWS::CloudFormation::Init:
@@ -980,13 +981,13 @@ Resources:
                 #!/bin/bash
                 key_location=/root/.ssh/deployment_repo_key
                 key_name="${DeploymentAutomationKeyName}"
-                ssm_pin=pinned-ansible-sha-for-${AWS::StackName}
+                ssm_pin=/${AWS::StackName}/pinned-ansible-sha
 
                 yum install -y git awscli jq
 
                 if [[ ! -z "$key_name" ]]; then
                     # Ensure awscli is up to date
-                    key_val=$(aws --region=${AWS::Region} ssm get-parameters --names "$key_name" --with-decryption | jq --raw-output '.Parameters[0] .Value')
+                    key_val=$(aws --region=${AWS::Region} ssm get-parameters --names "$key_name" --with-decryption | jq --raw-output '.Parameters[0].Value')
                     echo -e "$key_val" > $key_location
                     chmod 600 $key_location
                     export GIT_SSH_COMMAND="ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -i $key_location"
@@ -1350,8 +1351,8 @@ Resources:
   AnsibleRepoPinSHA:
     Type: AWS::SSM::Parameter
     Properties:
-      Description: "The dc-deployments-automation commit SHA for which all nodes in the cluster will use"
-      Name: !Sub "pinned-ansible-sha-for-${AWS::StackName}"
+      Description: "The dc-deployments-automation commit SHA that all nodes in the cluster will use"
+      Name: !Sub "/${AWS::StackName}/pinned-ansible-sha"
       Type: String
       AllowedPattern: '^(NOT_SET)|([0-9a-f]{5,40})$'
       Value: "NOT_SET"
