@@ -976,6 +976,7 @@ Resources:
                 ssm_pin=${AWS::StackName}-pinned-ansible-repo-head-id
 
                 yum install -y git awscli jq
+
                 if [[ ! -z "$key_name" ]]; then
                     # Ensure awscli is up to date
                     key_val=$(aws --region=${AWS::Region} ssm get-parameters --names "$key_name" --with-decryption | jq --raw-output '.Parameters[0] .Value')
@@ -986,7 +987,7 @@ Resources:
                     export GIT_SSH_COMMAND="ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
                 fi
 
-                ### DYLAN SET THE STACK NAME ON THE SSM###
+                ### Ansible repo pinning ###
                 git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
                 cd /opt/atlassian/dc-deployments-automation/
 
@@ -1344,6 +1345,9 @@ Resources:
     Properties:
       Description: "The dc-deployments-automation commit SHA for which all nodes in the cluster will use"
       Name: !Sub "${AWS::StackName}-pinned-ansible-repo-head-id"
+      Type: String
+      ConstraintDescription: Must be a valid SHA1 or the value 'NOT_SET'.
+      AllowedPattern: '^(NOT_SET)|([0-9a-f]{5,40})$'
       Value: "NOT_SET"
       
   # Optional: Cloudwatch dashboard to be created when CloudWatch is enabled
