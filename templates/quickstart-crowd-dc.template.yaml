@@ -980,7 +980,7 @@ Resources:
                 #!/bin/bash
                 key_location=/root/.ssh/deployment_repo_key
                 key_name="${DeploymentAutomationKeyName}"
-                ssm_pin=${AWS::StackName}-pinned-ansible-repo-head-id
+                ssm_pin=$pinned-ansible-sha-for-${AWS::StackName}
 
                 yum install -y git awscli jq
 
