@@ -877,7 +877,7 @@ Resources:
               - Action:
                   - 'ssm:PutParameter'
                 Effect: Allow
-                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${AWS::StackName}-pinned-ansible-repo-head-id"
+                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/pinned-ansible-sha-for-${AWS::StackName}"
   ClusterNodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -980,7 +980,7 @@ Resources:
                 #!/bin/bash
                 key_location=/root/.ssh/deployment_repo_key
                 key_name="${DeploymentAutomationKeyName}"
-                ssm_pin=$pinned-ansible-sha-for-${AWS::StackName}
+                ssm_pin=pinned-ansible-sha-for-${AWS::StackName}
 
                 yum install -y git awscli jq
 
