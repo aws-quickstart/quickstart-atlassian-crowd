@@ -1001,7 +1001,7 @@ Resources:
                 cd /opt/atlassian/dc-deployments-automation/
 
                 if [[ "$pinned_commit_id" == "NOT_SET" ]]; then
-                  echo "SSM param [$ssm_pin] has not yet been set - This is the first node joining the cluster ${AWS::StackName}"
+                  echo "SSM param [$ssm_pin] has not yet been set - This is the first node joining the cluster [${AWS::StackName}]"
                   head_id=$(git rev-parse HEAD)
                   echo "Updating SSM param [$ssm_pin] with current HEAD SHA: [$head_id]"
                   aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --overwrite --type String
