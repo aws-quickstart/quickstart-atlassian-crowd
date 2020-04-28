@@ -995,15 +995,15 @@ Resources:
                 fi
 
                 ### Ansible repo pinning ###
+                pinned_commit_id=$(aws --region=${AWS::Region} ssm get-parameters --names "$ssm_pin" | jq --raw-output '.Parameters[0] .Value')
+
                 git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
                 cd /opt/atlassian/dc-deployments-automation/
 
-                # Get the SSM
-                pinned_commit_id=$(aws --region=${AWS::Region} ssm get-parameters --names "$ssm_pin" | jq --raw-output '.Parameters[0] .Value')
-
                 if [[ "$pinned_commit_id" == "NOT_SET" ]]; then
+                  echo "SSM param [$ssm_pin] has not yet been set - This is the first node joining the cluster ${AWS::StackName}"
                   head_id=$(git rev-parse HEAD)
-                  echo "Updating SSM param [$ssm_pin] with value: [$head_id]"
+                  echo "Updating SSM param [$ssm_pin] with current HEAD SHA: [$head_id]"
                   aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --overwrite --type String
                 else
                   echo "Ansible repo has been pinned, checking out commit: [$pinned_commit_id]"
