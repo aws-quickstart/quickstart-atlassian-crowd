@@ -844,7 +844,6 @@ Resources:
             Action: ['sts:AssumeRole']
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonEC2RoleforSSM'
-        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMFullAccess'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
       Path: /
       Policies:
@@ -871,6 +870,14 @@ Resources:
                   - !Sub 'arn:${AWS::Partition}:route53:::change/*'
                   - !Sub 'arn:${AWS::Partition}:route53:::hostedzone/*'
                   - !Sub 'arn:${AWS::Partition}:route53:::delegationset/*'
+        - PolicyName: SSMParameterPutAccess
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 'ssm:PutParameter'
+                Effect: Allow
+                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${AWS::StackName}-pinned-ansible-repo-head-id"
   ClusterNodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -996,8 +1003,8 @@ Resources:
 
                 if [[ "$pinned_commit_id" == "NOT_SET" ]]; then
                   head_id=$(git rev-parse HEAD)
-                  echo "Creating SSM param [$ssm_pin] with value: [$head_id]"
-                  aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --type String
+                  echo "Updating SSM param [$ssm_pin] with value: [$head_id]"
+                  aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --overwrite --type String
                 else
                   echo "Ansible repo has been pinned, checking out commit: [$pinned_commit_id]"
                   git checkout "$pinned_commit_id"
@@ -1340,13 +1347,12 @@ Resources:
     Properties:
       AliasName: !Sub "alias/${AWS::StackName}"
       TargetKeyId: !Ref EncryptionKey
-  AnsibleRepoPinSha:
+  AnsibleRepoPinSHA:
     Type: AWS::SSM::Parameter
     Properties:
       Description: "The dc-deployments-automation commit SHA for which all nodes in the cluster will use"
       Name: !Sub "${AWS::StackName}-pinned-ansible-repo-head-id"
       Type: String
-      ConstraintDescription: Must be a valid SHA1 or the value 'NOT_SET'.
       AllowedPattern: '^(NOT_SET)|([0-9a-f]{5,40})$'
       Value: "NOT_SET"
       
