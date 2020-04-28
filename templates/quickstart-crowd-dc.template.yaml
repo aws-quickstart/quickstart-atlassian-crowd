@@ -1351,7 +1351,7 @@ Resources:
     Type: AWS::SSM::Parameter
     Properties:
       Description: "The dc-deployments-automation commit SHA for which all nodes in the cluster will use"
-      Name: !Sub "${AWS::StackName}-pinned-ansible-repo-head-id"
+      Name: !Sub "pinned-ansible-sha-for-${AWS::StackName}"
       Type: String
       AllowedPattern: '^(NOT_SET)|([0-9a-f]{5,40})$'
       Value: "NOT_SET"
