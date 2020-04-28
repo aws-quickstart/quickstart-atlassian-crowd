@@ -1007,7 +1007,7 @@ Resources:
                   aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --overwrite --type String
                 else
                   echo "Ansible repo has been pinned, checking out commit: [$pinned_commit_id]"
-                  git checkout "$pinned_commit_id"
+                  git checkout -b "pinned-ansible-sha-$pinned_commit_id" "$pinned_commit_id"
                 fi
               mode: "000750"
               owner: root
