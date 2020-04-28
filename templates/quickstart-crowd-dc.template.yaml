@@ -844,6 +844,7 @@ Resources:
             Action: ['sts:AssumeRole']
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonEC2RoleforSSM'
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMFullAccess'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
       Path: /
       Policies:
@@ -974,10 +975,9 @@ Resources:
                 key_name="${DeploymentAutomationKeyName}"
                 ssm_pin=${AWS::StackName}-pinned-ansible-repo-head-id
 
-                yum install -y git
+                yum install -y git awscli jq
                 if [[ ! -z "$key_name" ]]; then
                     # Ensure awscli is up to date
-                    yum install -y awscli jq
                     key_val=$(aws --region=${AWS::Region} ssm get-parameters --names "$key_name" --with-decryption | jq --raw-output '.Parameters[0] .Value')
                     echo -e "$key_val" > $key_location
                     chmod 600 $key_location
@@ -987,7 +987,6 @@ Resources:
                 fi
 
                 ### DYLAN SET THE STACK NAME ON THE SSM###
-                yum install -y awscli jq
                 git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
                 cd /opt/atlassian/dc-deployments-automation/
 
@@ -1340,7 +1339,14 @@ Resources:
     Properties:
       AliasName: !Sub "alias/${AWS::StackName}"
       TargetKeyId: !Ref EncryptionKey
-
+  AnsibleSSMPinSha:
+    Type: AWS::SSM::Parameter
+    Properties:
+      AllowedPattern: String
+      Description: "The dc-deployments-automation commit SHA to pin all nodes in the cluster to"
+      Name: String
+      Value: "NOT_SET"
+      
   # Optional: Cloudwatch dashboard to be created when CloudWatch is enabled
   CloudWatchDashboard:
     DependsOn:
