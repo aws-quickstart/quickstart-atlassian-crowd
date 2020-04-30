@@ -3,7 +3,7 @@ project:
   owner: quickstart-eng@amazon.com
   package_lambda: false
   regions:
-    - us-east-1
+  - us-east-1
   s3_bucket: ''
 tests:
   crowd:
@@ -20,6 +20,6 @@ tests:
       QSS3BucketName: $[taskcat_autobucket]
       QSS3KeyPrefix: quickstart-atlassian-crowd/
     regions:
-      - us-east-1
+    - us-east-1
     s3_bucket: ''
     template: templates/quickstart-crowd-dc-with-vpc.template.yaml
