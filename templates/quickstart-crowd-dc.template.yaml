@@ -1001,9 +1001,9 @@ Resources:
                 git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
                 cd /opt/atlassian/dc-deployments-automation/
 
-                if [[ "$pinned_commit_id" == "NOT_SET" ]]; then
-                  echo "SSM param [$ssm_pin] has not yet been set - This is the first node joining the cluster [${AWS::StackName}]"
+                if [[ "$pinned_commit_id" == "latest" || -z "$pinned_commit_id" ]]; then
                   head_id=$(git rev-parse HEAD)
+                  echo "SSM param [$ssm_pin] has been set to 'latest' - Using the HEAD SHA [$head_id] to build cluster [${AWS::StackName}]"
                   echo "Updating SSM param [$ssm_pin] with current HEAD SHA: [$head_id]"
                   aws --region=${AWS::Region} ssm put-parameter --name "$ssm_pin" --value "$head_id" --overwrite --type String
                 else
@@ -1354,8 +1354,8 @@ Resources:
       Description: "The dc-deployments-automation commit SHA that all nodes in the cluster will use"
       Name: !Sub "/${AWS::StackName}/pinned-ansible-sha"
       Type: String
-      AllowedPattern: '^(NOT_SET)|([0-9a-f]{5,40})$'
-      Value: "NOT_SET"
+      AllowedPattern: '^(latest)|([0-9a-f]{5,40})$'
+      Value: "latest"
       
   # Optional: Cloudwatch dashboard to be created when CloudWatch is enabled
   CloudWatchDashboard:
