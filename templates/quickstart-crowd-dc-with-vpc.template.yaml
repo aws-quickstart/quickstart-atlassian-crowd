@@ -42,6 +42,7 @@ Metadata:
           - AccessCIDR
           - AvailabilityZones
           - InternetFacingLoadBalancer
+          - BastionHostRequired
           - KeyPairName
           - PrivateSubnet1CIDR
           - PrivateSubnet2CIDR
@@ -131,6 +132,8 @@ Metadata:
         default: Version *
       JvmHeapOverride:
         default: JVM Heap Size Override
+      BastionHostRequired:
+          default: Bastion host provisioning
       KeyPairName:
         default: SSH Key Pair Name
       MailEnabled:
@@ -434,9 +437,16 @@ Parameters:
     ConstraintDescription: Must be 'true' or 'false'.
     Description: Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).
     Type: String
+  BastionHostRequired:
+    Default: "false"
+    AllowedValues:
+      - "true"
+      - "false"
+    Description: Set to true if a Bastion is required for the cluster (if true then an SSH Key Pair must be provided)
+    Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: The EC2 Key Pair to allow SSH access to the instances.
+    Description: The EC2 Key Pair to allow SSH access to the instances. (only required if Bastion host provisioning set to true)
     Type: AWS::EC2::KeyPair::KeyName
     Default: ''
   MailEnabled:
@@ -553,6 +563,8 @@ Conditions:
     !Equals [!Ref DBStorageEncrypted, true]
   GovCloudCondition:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
+  UseBastionHost:
+    !Equals [!Ref BastionHostRequired, true]
 
 Resources:
   VPCStack:
@@ -576,6 +588,7 @@ Resources:
         PublicSubnet1CIDR: !Ref 'PublicSubnet1CIDR'
         PublicSubnet2CIDR: !Ref 'PublicSubnet2CIDR'
         VPCCIDR: !Ref 'VPCCIDR'
+        BastionHostRequired: !Ref 'BastionHostRequired'
 
   CrowdDCStack:
     DependsOn: VPCStack
@@ -625,6 +638,7 @@ Resources:
         TomcatMinSpareThreads: !Ref 'TomcatMinSpareThreads'
         TomcatProtocol: !Ref 'TomcatProtocol'
         TomcatRedirectPort: !Ref 'TomcatRedirectPort'
+        BastionHostRequired: !Ref 'BastionHostRequired'
 
 Outputs:
   ServiceURL:
@@ -634,6 +648,7 @@ Outputs:
     Description: The Load Balancer URL
     Value: !GetAtt 'CrowdDCStack.Outputs.LoadBalancerURL'
   BastionIP:
+    Condition: UseBastionHost
     Description: Bastion node IP (use as a jumpbox to connect to the nodes)
     Value: !GetAtt 'VPCStack.Outputs.BastionPubIp'
   SGname:

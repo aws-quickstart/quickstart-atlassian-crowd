@@ -39,6 +39,7 @@ Metadata:
           - CidrBlock
           - KeyPairName
           - SSLCertificateARN
+          - BastionHostRequired
       - Label:
           default: DNS (Optional)
         Parameters:
@@ -119,6 +120,8 @@ Metadata:
         default: Version *
       JvmHeapOverride:
         default: JVM Heap Size Override
+      BastionHostRequired:
+        default: Bastion host provisioning
       KeyPairName:
         default: SSH Key Pair Name
       MailEnabled:
@@ -416,6 +419,13 @@ Parameters:
     Default: ''
     Description: Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g
     Type: String
+  BastionHostRequired:
+    Default: "false"
+    AllowedValues:
+      - "true"
+      - "false"
+    Description: Set to true if a Bastion is required for the cluster (if true then an SSH Key Pair must be provided)
+    Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
     Description: The EC2 Key Pair to allow SSH access to the instances. If you don't provide one, the Atlassian Standard Infrastructure stack's key pair will be used.
@@ -520,6 +530,8 @@ Conditions:
     !Equals [!Ref InternetFacingLoadBalancer, 'true']
   GovCloudCondition:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
+  UseBastionHost:
+    !Equals [!Ref BastionHostRequired, true]
 Mappings:
   AWSInstanceType2Arch:
     c4.large:
@@ -1228,14 +1240,17 @@ Resources:
           FromPort: 22
           ToPort: 22
           CidrIp: !Ref CidrBlock
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp:
-            !Sub
-              - "${BastionIp}/32"
-              - BastionIp:
-                  Fn::ImportValue: !Sub '${ExportPrefix}BastionPrivIp'
+        - !If
+          - UseBastionHost
+          - IpProtocol: tcp
+            FromPort: 22
+            ToPort: 22
+            CidrIp:
+              !Sub
+                - "${BastionIp}/32"
+                - BastionIp:
+                    Fn::ImportValue: !Sub '${ExportPrefix}BastionPrivIp'
+          - Ref: AWS::NoValue
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
