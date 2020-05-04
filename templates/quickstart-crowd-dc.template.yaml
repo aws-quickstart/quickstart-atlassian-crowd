@@ -33,13 +33,16 @@ Metadata:
           - DBStorageEncrypted
           - DBStorageType
       - Label:
+          default: Bastion host utilization
+        Parameters:
+          - BastionHostRequired
+      - Label:
           default: Networking
         Parameters:
           - InternetFacingLoadBalancer
           - CidrBlock
           - KeyPairName
           - SSLCertificateARN
-          - BastionHostRequired
       - Label:
           default: DNS (Optional)
         Parameters:
@@ -121,7 +124,7 @@ Metadata:
       JvmHeapOverride:
         default: JVM Heap Size Override
       BastionHostRequired:
-        default: Bastion host provisioning
+        default: Enable Bastion host usage
       KeyPairName:
         default: SSH Key Pair Name
       MailEnabled:
@@ -424,7 +427,7 @@ Parameters:
     AllowedValues:
       - "true"
       - "false"
-    Description: Set to true if a Bastion is required for the cluster (if true then an SSH Key Pair must be provided)
+    Description: Whether to utilize the Bastion host deployed as part of the Atlassian Standard Infrastructure (ASI). (if true then an SSH Key Pair must be provided)
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
@@ -532,6 +535,8 @@ Conditions:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
   UseBastionHost:
     !Equals [!Ref BastionHostRequired, true]
+  DefaultKeyProvided:
+    !Not [!Equals [Fn::ImportValue: !Sub "${ExportPrefix}DefaultKey", '']]
 Mappings:
   AWSInstanceType2Arch:
     c4.large:
@@ -1030,7 +1035,10 @@ Resources:
       KeyName: !If
         - KeyProvided
         - !Ref KeyPairName
-        - Fn::ImportValue: !Sub "${ExportPrefix}DefaultKey"
+        - !If
+          - DefaultKeyProvided
+          - Fn::ImportValue: !Sub "${ExportPrefix}DefaultKey"
+          - Ref: AWS::NoValue
       IamInstanceProfile: !Ref ClusterNodeInstanceProfile
       ImageId:
         !FindInMap

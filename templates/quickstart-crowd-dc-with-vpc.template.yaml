@@ -37,12 +37,15 @@ Metadata:
           - DBStorageEncrypted
           - DBStorageType
       - Label:
+          default: Bastion host provisioning
+        Parameters:
+          - BastionHostRequired
+      - Label:
           default: Networking
         Parameters:
           - AccessCIDR
           - AvailabilityZones
           - InternetFacingLoadBalancer
-          - BastionHostRequired
           - KeyPairName
           - PrivateSubnet1CIDR
           - PrivateSubnet2CIDR
@@ -133,7 +136,7 @@ Metadata:
       JvmHeapOverride:
         default: JVM Heap Size Override
       BastionHostRequired:
-          default: Bastion host provisioning
+          default: Enable Bastion host deployment
       KeyPairName:
         default: SSH Key Pair Name
       MailEnabled:
@@ -442,12 +445,12 @@ Parameters:
     AllowedValues:
       - "true"
       - "false"
-    Description: Set to true if a Bastion is required for the cluster (if true then an SSH Key Pair must be provided)
+    Description: Whether to provision a Bastion host instance. (if true then an SSH Key Pair must be provided)
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: The EC2 Key Pair to allow SSH access to the instances. (only required if Bastion host provisioning set to true)
-    Type: AWS::EC2::KeyPair::KeyName
+    Description: The EC2 Key Pair to allow SSH access to the instances.
+    Type: String
     Default: ''
   MailEnabled:
     AllowedValues:
