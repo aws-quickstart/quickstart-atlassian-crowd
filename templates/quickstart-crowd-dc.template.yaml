@@ -996,7 +996,7 @@ Resources:
                 fi
 
                 ### Ansible repo pinning ###
-                pinned_commit_id=$(aws --region=${AWS::Region} ssm get-parameters --names "$ssm_pin" | jq --raw-output '.Parameters[0] .Value')
+                pinned_commit_id=$(aws --region=${AWS::Region} ssm get-parameters --names "$ssm_pin" | jq --raw-output '.Parameters[0].Value')
 
                 git clone "${DeploymentAutomationRepository}" -b "${DeploymentAutomationBranch}" /opt/atlassian/dc-deployments-automation/
                 cd /opt/atlassian/dc-deployments-automation/
