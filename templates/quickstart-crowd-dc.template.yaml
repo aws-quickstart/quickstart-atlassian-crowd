@@ -535,8 +535,9 @@ Conditions:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
   UseBastionHost:
     !Equals [!Ref BastionHostRequired, true]
-#  DefaultKeyProvided:
-#    !Not [!Equals [!GetAtt UpstreamKey.keyValue, '']]
+  EnableBastionUsage: !And
+    - !Equals [!Ref BastionHostRequired, true]
+    - !Condition KeyProvided
 
 Mappings:
   AWSInstanceType2Arch:
@@ -920,12 +921,6 @@ Resources:
           Value: "TIMESTAMP: 2020-03-09T00:26:04Z"
           PropagateAtLaunch: true
 
-#  UpstreamKey:
-#    Type: AWS::CloudFormation::CustomResource
-#    Properties:
-#      keyValue:
-#        Fn::ImportValue: !Sub "${ExportPrefix}DefaultKey"
-
   ClusterNodeLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     DependsOn:
@@ -1042,7 +1037,7 @@ Resources:
       KeyName: !If
         - KeyProvided
         - !Ref KeyPairName
-        - Fn::ImportValue: !Sub "${ExportPrefix}DefaultKey"
+        - Ref: AWS::NoValue
       IamInstanceProfile: !Ref ClusterNodeInstanceProfile
       ImageId:
         !FindInMap
@@ -1253,7 +1248,7 @@ Resources:
           ToPort: 22
           CidrIp: !Ref CidrBlock
         - !If
-          - UseBastionHost
+          - EnableBastionUsage
           - IpProtocol: tcp
             FromPort: 22
             ToPort: 22
