@@ -533,9 +533,7 @@ Conditions:
     !Equals [!Ref InternetFacingLoadBalancer, 'true']
   GovCloudCondition:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
-  UseBastionHost:
-    !Equals [!Ref BastionHostRequired, true]
-  EnableBastionUsage: !And
+  UseBastionHost: !And
     - !Equals [!Ref BastionHostRequired, true]
     - !Condition KeyProvided
 
@@ -1248,7 +1246,7 @@ Resources:
           ToPort: 22
           CidrIp: !Ref CidrBlock
         - !If
-          - EnableBastionUsage
+          - UseBastionHost
           - IpProtocol: tcp
             FromPort: 22
             ToPort: 22
