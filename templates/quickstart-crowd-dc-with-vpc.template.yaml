@@ -568,6 +568,11 @@ Conditions:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
   UseBastionHost:
     !Equals [!Ref BastionHostRequired, true]
+  KeyProvided:
+    !Not [!Equals [!Ref KeyPairName, '']]
+  ProvisionBastion: !And
+    - !Equals [!Ref BastionHostRequired, true]
+    - !Condition KeyProvided
 
 Resources:
   VPCStack:
@@ -651,7 +656,7 @@ Outputs:
     Description: The Load Balancer URL
     Value: !GetAtt 'CrowdDCStack.Outputs.LoadBalancerURL'
   BastionIP:
-    Condition: UseBastionHost
+    Condition: ProvisionBastion
     Description: Bastion node IP (use as a jumpbox to connect to the nodes)
     Value: !GetAtt 'VPCStack.Outputs.BastionPubIp'
   SGname:
