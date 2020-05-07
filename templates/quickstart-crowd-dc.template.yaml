@@ -427,7 +427,7 @@ Parameters:
     AllowedValues:
       - "true"
       - "false"
-    Description: Whether to utilize the Bastion host deployed as part of the Atlassian Standard Infrastructure (ASI). (if true then an SSH Key Pair must be provided)
+    Description: Controls whether to grant access to EC2 instances through the ASI's Bastion host, if it exists; if 'true', then you need to provide an SSH Key Pair
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
