@@ -441,7 +441,7 @@ Parameters:
     Description: Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).
     Type: String
   BastionHostRequired:
-    Default: "false"
+    Default: "true"
     AllowedValues:
       - "true"
       - "false"
