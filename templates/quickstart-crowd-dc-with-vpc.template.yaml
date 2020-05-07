@@ -136,7 +136,7 @@ Metadata:
       JvmHeapOverride:
         default: JVM Heap Size Override
       BastionHostRequired:
-          default: Enable Bastion host deployment
+          default: Deploy Bastion host
       KeyPairName:
         default: SSH Key Pair Name
       MailEnabled:
@@ -445,7 +445,7 @@ Parameters:
     AllowedValues:
       - "true"
       - "false"
-    Description: Whether to provision a Bastion host instance. (if true then an SSH Key Pair must be provided)
+    Description: Whether to provision a Bastion host instance; if 'true', then you need to provide an SSH Key Pair
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
