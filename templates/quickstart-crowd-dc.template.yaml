@@ -427,11 +427,11 @@ Parameters:
     AllowedValues:
       - "true"
       - "false"
-    Description: Controls whether to grant access to EC2 instances through the ASI's Bastion host, if it exists; if 'true', then you need to provide an SSH Key Pair
+    Description: Whether to grant access to Crowd's EC2 instances through the ASI's Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: The EC2 Key Pair to allow SSH access to the instances. If you don't provide one, the Atlassian Standard Infrastructure stack's key pair will be used.
+    Description: The EC2 Key Pair to allow SSH access to Crowd's instances via the Bastion host.
     Type: String
     Default: ''
   MailEnabled:
