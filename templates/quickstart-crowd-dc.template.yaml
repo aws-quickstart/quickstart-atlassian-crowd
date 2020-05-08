@@ -431,7 +431,7 @@ Parameters:
     Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: The EC2 Key Pair to allow SSH access to Crowd's instances via the Bastion host.
+    Description: The EC2 Key Pair to allow SSH access to the instances.
     Type: String
     Default: ''
   MailEnabled:
