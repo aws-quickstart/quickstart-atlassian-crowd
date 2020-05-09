@@ -9,5 +9,5 @@ global:
 
 tests:
   crowd:
-    parameter_input: params/default/quickstart-crowd-default-params.json
+    parameter_input: params/no-bastion/quickstart-crowd-default-params.json
     template_file: quickstart-crowd-dc-with-vpc.template.yaml
