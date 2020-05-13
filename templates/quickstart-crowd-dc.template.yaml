@@ -876,7 +876,6 @@ Resources:
             Statement:
               - Action:
                   - 'ssm:PutParameter'
-                  - 'ssm:DeleteParameter'
                 Effect: Allow
                 Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${AWS::StackName}/pinned-ansible-sha"
   ClusterNodeInstanceProfile:
