@@ -33,11 +33,15 @@ Metadata:
           - DBStorageEncrypted
           - DBStorageType
       - Label:
+          default: Bastion host utilization
+        Parameters:
+          - BastionHostRequired
+          - KeyPairName
+      - Label:
           default: Networking
         Parameters:
           - InternetFacingLoadBalancer
           - CidrBlock
-          - KeyPairName
           - SSLCertificateARN
       - Label:
           default: DNS (Optional)
@@ -119,6 +123,8 @@ Metadata:
         default: Version *
       JvmHeapOverride:
         default: JVM Heap Size Override
+      BastionHostRequired:
+        default: Use Bastion host
       KeyPairName:
         default: SSH Key Pair Name
       MailEnabled:
@@ -416,9 +422,16 @@ Parameters:
     Default: ''
     Description: Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g
     Type: String
+  BastionHostRequired:
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
+    Description: Whether to grant access to Crowd's EC2 instances through the ASI's Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.
+    Type: String
   KeyPairName:
     ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: The EC2 Key Pair to allow SSH access to the instances. If you don't provide one, the Atlassian Standard Infrastructure stack's key pair will be used.
+    Description: Public/private EC2 Key Pairs to allow you to securely access the Bastion host
     Type: String
     Default: ''
   MailEnabled:
@@ -520,6 +533,10 @@ Conditions:
     !Equals [!Ref InternetFacingLoadBalancer, 'true']
   GovCloudCondition:
     !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
+  UseBastionHost: !And
+    - !Equals [!Ref BastionHostRequired, true]
+    - !Condition KeyProvided
+
 Mappings:
   AWSInstanceType2Arch:
     c4.large:
@@ -1042,7 +1059,7 @@ Resources:
       KeyName: !If
         - KeyProvided
         - !Ref KeyPairName
-        - Fn::ImportValue: !Sub "${ExportPrefix}DefaultKey"
+        - Ref: AWS::NoValue
       IamInstanceProfile: !Ref ClusterNodeInstanceProfile
       ImageId:
         !FindInMap
@@ -1252,14 +1269,17 @@ Resources:
           FromPort: 22
           ToPort: 22
           CidrIp: !Ref CidrBlock
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp:
-            !Sub
-              - "${BastionIp}/32"
-              - BastionIp:
-                  Fn::ImportValue: !Sub '${ExportPrefix}BastionPrivIp'
+        - !If
+          - UseBastionHost
+          - IpProtocol: tcp
+            FromPort: 22
+            ToPort: 22
+            CidrIp:
+              !Sub
+                - "${BastionIp}/32"
+                - BastionIp:
+                    Fn::ImportValue: !Sub '${ExportPrefix}BastionPrivIp'
+          - Ref: AWS::NoValue
         - IpProtocol: tcp
           FromPort: 80
           ToPort: 80
