@@ -1,1 +1,6 @@
-// placeholder
+
+=== Launch into a new VPC
+include::quickstart-crowd-dc-with-vpc.template.adoc[]
+
+=== Launch into an existing VPC
+include::quickstart-crowd-dc.template.adoc[]
