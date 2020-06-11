@@ -8,9 +8,6 @@
 <title>Example Product Name on the AWS Cloud</title>
 <style>
 
-
-
-
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 /* Uncomment @import statement to use as custom stylesheet */
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
@@ -205,7 +202,6 @@ body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9
 #toc.toc2{width:20em}
 #toc.toc2 #toctitle{
   font-size:1.375em;
-  background-image: url('images/AWS-Logo.svg');
   background-repeat: no-repeat;
   background-size: 160.8px 136.483px;
   background-position: center;
@@ -469,6 +465,282 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 
+/* -------------------------   QS CSS entries ---------------------------- */
+@font-face {
+  font-family: 'Amazon Ember Light';
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-019e0ec3f9b521056e66e31fdcbc8323e5cd1938._V299195751_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_lt-bc9ed0fce860a46f3cb061034280c23400e6e8b6._V299195751_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Light';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Light';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight-Italic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-96be47a559388a2b219577124589435c09a361fe._V299195751_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-b561f11b5c8be92ac17f6b713dd9d4b6e2f00c8d._V299195751_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Light';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Light'),
+    local('AmazonEmberLight-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-96be47a559388a2b219577124589435c09a361fe._V299195751_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_ltit-b561f11b5c8be92ac17f6b713dd9d4b6e2f00c8d._V299195751_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-fd81bacb6a659a8c8c95828226b74594ab985060._V299195749_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rg-0acf3bc8b64d470d8888d84741a19533394654c6._V299195749_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular-Italic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rgit-af980fe9c64fc17ece72cba4e3e7fdf54babeea6._V299195748_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_rgit-4fae4842b3446774d86579b9b024858a848644e8._V299195748_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Regular';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Regular'),
+    local('AmazonEmberRegular-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium'),
+    url('https://m.media-amazon.com/images/G/01/amazonservices/fonts/amazonember_md_base-webfont._V525237381_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/amazonservices/fonts/amazonember_md_base-webfont._V525237386_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium-Italic'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_mdit-webfont._V522331917_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_mdit-webfont._V522331917_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Medium';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Medium'),
+    local('AmazonEmberMedium-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy'),
+    url('https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446113_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/acs/fonts/amazonember_he-webfont._V278446115_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy-Italic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Heavy';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Heavy'),
+    local('AmazonEmberHeavy-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_heit-webfont._V522331917_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/agdm/fonts/amazonember/amazonember_heit-webfont._V522331917_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thin-webfont._V282715032_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thin-webfont._V282715033_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin-Bold'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-46b91bda68161c14e554a779643ef4957431987b._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bd-b605252f87b8b3df5ae206596dac0938fc5888bc._V2_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  font-style : italic;
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin-Italic'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thinit-webfont._V282715033_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/mobile-apps/devportal2/content/alexa/prize/20160810/fonts/AmazonEmber/amazonember-thinit-webfont._V282715032_.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Amazon Ember Thin';
+  font-style : italic;
+  font-weight: 700;
+  src        :
+    local('Amazon Ember Thin'),
+    local('AmazonEmberThin-BoldItalic'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-80ff7aba37dd1ff5a6b90233a19e3a780a96dc2f._V2_.woff2') format('woff2'),
+    url('https://m.media-amazon.com/images/G/01/AUIClients/AmazonUIBaseCSS-amazonember_bdit-57598ce426a612be5a1d15eee08252668fca5e7a._V2_.woff') format('woff');
+}
+
+
+.tip {
+  border-top: 30px solid rgba(92, 184, 92, 0.8);
+  background: #E6F9E6;
+}
+
+.note {
+  border-top: 30px solid #6AB0DE;
+  background: #E7F2FA;
+}
+
+.warning {
+  border-top: 30px solid #F0B37E;
+  background: #FFF2DB;
+}
+
+.caution {
+  border-top: 30px solid rgba(217, 83, 79, 0.8);
+  background: #FAE2E2;
+}
+
+.important {
+  border-top: 30px solid rgba(217, 83, 79, 0.8);
+  background: #FAE2E2;
+}
+
+body {
+  font-family: "Amazon Ember Regular", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+}
+
+/* added */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin        : 0.85rem 0 1.7rem 0;
+  text-rendering: optimizeLegibility;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+#toc {
+  overflow-x: hidden !important;
+}
+
+#toc>ul li {
+  padding    : 0.3rem 0.6rem;
+  margin-top : 0;
+  line-height: 1;
+}
+
+#toc>ul li a {
+  line-height: 1.6;
+}
+
+#toc a {
+  /* TOC details */
+  font-family  : "Amazon Ember Light", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  margin-left  : -1rem;
+  margin-right : -1rem;
+  padding-left : 1rem;
+  padding-right: 1rem;
+  background   : transparent;
+  box-sizing   : border-box;
+  cursor       : pointer;
+  font-weight  : 300 !important;
+}
+
+#toc.toc2 #toctitle{
+  background-image: url('images/AWS-Logo.svg');
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -498,11 +770,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_test_the_deployment">Test the deployment</a></li>
 </ul>
 </li>
-<li><a href="#_best_practices_for_using_example_product_name_on_aws">Best practices for using Example Product Name on AWS</a></li>
-<li><a href="#_security">Security</a></li>
-<li><a href="#_other_useful_information">Other useful information</a></li>
-<li><a href="#_faq">FAQ</a></li>
-<li><a href="#_troubleshooting">Troubleshooting</a></li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
 <li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
 <li><a href="#_github_repository">GitHub Repository</a>
@@ -518,12 +785,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <h2 id="_example_product_name_on_the_aws_cloud" class="discrete text-center"><em>Example Product Name</em> on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
+<h3 id="_draft_document_unofficial_guidance" class="discrete text-center">DRAFT DOCUMENT / UNOFFICIAL GUIDANCE</h3>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph text-center">
 <p><strong>May, 2020</strong><br>
 <em>John Doe and Jane Doe - Example Company Name, Ltd.</em><br>
 <em>Jim Smith - AWS Global Partner SA, AWS + Joe Jones - Technical Product Manager, AWS</em></p>
 </div>
-<div class="admonitionblock tip text-left">
+</div>
+</div>
+<div class="paragraph">
+<p><em><strong>The above information is configured within <code>partner_editable/_settings.adoc</code></strong></em></p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
@@ -549,7 +824,14 @@ report bugs, or submit feature ideas for this Quick Start.
 instructions for deploying <em>Example Product Name</em> on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/target_and_usage</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
 <p>This Quick Start is for users who &lt;target audience and usage scenario&gt;</p>
+</div>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -571,7 +853,14 @@ collaborated with AWS on the content of the Quick Start.
 <h2 id="_example_product_name_on_aws"><em>Example Product Name</em> on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/product_description.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
 <p>&lt;Describe how the software works on AWS.&gt;</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -608,6 +897,11 @@ After you deploy the Quick Start, we recommend that you enable the <a href="http
 <h2 id="_software_licenses">Software Licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/licenses.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
 <p>These two paragraphs provide an example of the details you can provide. Provide links as appropriate.</p>
 </div>
 <div class="paragraph">
@@ -624,9 +918,16 @@ After you deploy the Quick Start, we recommend that you enable the <a href="http
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/architecture.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p>Deploying this Quick Start for a new virtual private cloud (VPC) with
 <strong>default parameters</strong> builds the following <em>Example Product Name</em> environment in the
@@ -678,6 +979,8 @@ configuration.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_planning_the_deployment">Planning the deployment</h2>
 <div class="sectionbody">
@@ -693,7 +996,14 @@ deploy, and operate your infrastructure and applications on the AWS
 Cloud.</p>
 </div>
 <div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/specialized_knowledge.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
 <p>This Quick Start assumes familiarity with &lt;knowledge expectations&gt;.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -715,6 +1025,8 @@ Cloud.</p>
 <div class="paragraph">
 <p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/">service quota increases</a> for the following resources. You might need to do this if an existing deployment uses these resources, and you might exceed the default quotas with this deployment. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see the <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">AWS documentation</a>.</p>
 </div>
+<div class="exampleblock">
+<div class="content">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -760,11 +1072,18 @@ Cloud.</p>
 </tbody>
 </table>
 </div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_supported_regions">Supported Regions</h4>
 <div class="paragraph">
 <p>The following regions are currently supported by this Quick Start Reference Architecture.</p>
 </div>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/regions.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -774,6 +1093,8 @@ Cloud.</p>
 <p><em>us-east-2 (Ohio)</em> (EXAMPLE)</p>
 </li>
 </ul>
+</div>
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -790,6 +1111,13 @@ Certain regions are available on an opt-in basis. Please refer to the AWS Docume
 </div>
 <div class="sect3">
 <h4 id="_ec2_key_pairs">EC2 Key Pairs</h4>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><em>This section is conditional on EC2 instances being used in the Cloudformation Templates</em></p>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, follow the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">instructions in the AWS documentation</a>.</p>
 </div>
@@ -805,21 +1133,26 @@ Certain regions are available on an opt-in basis. Please refer to the AWS Docume
 <div class="paragraph">
 <p>The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_your_aws_account">Prepare your AWS account</h4>
 <div class="paragraph">
-<p><em>Describe any setup required in the AWS account prior to template launch</em></p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/regions.adoc</code></strong></em></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_your_example_company_name_ltd_account">Prepare your Example Company Name, Ltd. account</h4>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
-<p><em>Describe any setup required in the partner portal/account prior to template launch</em></p>
+<p>==== Prepare your AWS account
+<em>Describe any setup required in the AWS account prior to template launch</em></p>
+</div>
+<div class="paragraph">
+<p>==== Prepare your Example Company Name, Ltd. account
+<em>Describe any setup required in the partner portal/account prior to template launch</em></p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_deployment_options">Deployment options</h4>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p>This Quick Start provides two deployment options:</p>
 </div>
@@ -835,6 +1168,8 @@ Certain regions are available on an opt-in basis. Please refer to the AWS Docume
 </div>
 <div class="paragraph">
 <p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Example Product Name settings, as discussed later in this guide.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -877,6 +1212,11 @@ You are responsible for the cost of the AWS services used while running this Qui
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/_qs_deploy_links.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 100%;">
@@ -890,6 +1230,8 @@ You are responsible for the cost of the AWS services used while running this Qui
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 <div class="paragraph">
 <p><strong>Important:</strong> If you’re deploying Example Product Name into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances, and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">NAT gateways</a> in their route tables, to allow the instances to download packages and software without exposing them to the internet.</p>
 </div>
@@ -1769,36 +2111,39 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <div class="paragraph">
 <p>&lt;Add instructions for testing the deployment.&gt;</p>
 </div>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/additional_info.adoc</code></strong></em></p>
 </div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>== Best practices for using Example Product Name on AWS</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_best_practices_for_using_example_product_name_on_aws">Best practices for using Example Product Name on AWS</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p><em>Add any best practices for using the software.</em></p>
 </div>
+<div class="paragraph">
+<p>== Security</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_security">Security</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p><em>Add any security-related information.</em></p>
 </div>
+<div class="paragraph">
+<p>== Other useful information</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_other_useful_information">Other useful information</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p><em>Add any other details that will help the customer use the software on AWS.</em></p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_faq">FAQ</h2>
-<div class="sectionbody">
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/faq.adoc</code></strong></em></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>== FAQ</p>
+</div>
 <div class="paragraph">
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
@@ -1817,13 +2162,14 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <div class="paragraph">
 <p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html">AWS documentation</a>.</p>
 </div>
+<div class="paragraph">
+<p>== Troubleshooting</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_troubleshooting">Troubleshooting</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>&lt;Steps for troubleshooting the deployment go here.&gt;</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1874,7 +2220,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-08 23:51:05 UTC
+Last updated 2020-06-11 11:20:53 UTC
 </div>
 </div>
 </body>
