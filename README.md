@@ -1,6 +1,6 @@
 # quickstart-atlassian-crowd
 ## Crowd Software Data Center on the AWS Cloud
-`Deployment Guide:` ![https://aws-quickstart.github.io/quickstart-atlassian-crowd](https://aws-quickstart.github.io/quickstart-atlassian-crowd/)
+`Deployment Guide:` https://aws-quickstart.github.io/quickstart-atlassian-crowd/
 
 
 Use this Quick Start to deploy Crowd Data Center on the AWS Cloud.
