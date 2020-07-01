@@ -36,4 +36,4 @@ manually.
 
 This Quick Start's CloudFormation templates were developed by Atlassian, in collaboration with AWS. To report an issue or request a feature, you can [contact Atlassian directly](https://support.atlassian.com/contact/#/).
 
-For additional Atlassian documentation on how to manage Quick Start deployments, see [Getting started with Crowd Data Center on AWS](https://confluence.atlassian.com/x/9uOJOw).
+For additional Atlassian documentation on how to manage Quick Start deployments, see [Running Crowd in an AWS cluster](https://confluence.atlassian.com/x/9uOJOw).
