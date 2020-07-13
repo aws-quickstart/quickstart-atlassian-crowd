@@ -523,7 +523,7 @@ Parameters:
       - us-gov-west-1
       - us-gov-east-1
     Description: The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is
-      hosted. By default this is set to us-east-1 and should not be updated unless specifying your own bucket. When bringing your own bucket you must specify the region in which your custom bucket resides.
+      hosted. By default this is set to us-east-1 and should not be updated unless specifying your own bucket. When bringing your own bucket you must specify the region in which your custom bucket resides. 
     Type: String
   QSS3KeyPrefix:
     Default: 'quickstart-atlassian-crowd/'
@@ -1177,6 +1177,7 @@ Resources:
         ExportPrefix: !Ref ExportPrefix
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
+        QSS3BucketRegion: !Ref QSS3BucketRegion
   DBCname:
     Condition: UseHostedZone
     Type: AWS::Route53::RecordSet

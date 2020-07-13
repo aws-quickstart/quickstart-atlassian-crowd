@@ -620,6 +620,9 @@ Resources:
         PublicSubnet2CIDR: !Ref 'PublicSubnet2CIDR'
         VPCCIDR: !Ref 'VPCCIDR'
         BastionHostRequired: !Ref 'BastionHostRequired'
+        QSS3BucketName: !Ref QSS3BucketName
+        QSS3KeyPrefix: !Ref QSS3KeyPrefix
+        QSS3BucketRegion: !Ref QSS3BucketRegion
 
   CrowdDCStack:
     DependsOn: VPCStack
@@ -660,6 +663,7 @@ Resources:
         MailEnabled: !Ref 'MailEnabled'
         QSS3BucketName: !Ref 'QSS3BucketName'
         QSS3KeyPrefix: !Ref 'QSS3KeyPrefix'
+        QSS3BucketRegion: !Ref 'QSS3BucketRegion'
         SSLCertificateARN: !Ref 'SSLCertificateARN'
         TomcatAcceptCount: !Ref 'TomcatAcceptCount'
         TomcatConnectionTimeout: !Ref 'TomcatConnectionTimeout'
