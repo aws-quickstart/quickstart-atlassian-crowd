@@ -700,3 +700,15 @@ Outputs:
   EFSCname:
     Description: The cname of the EFS
     Value: !GetAtt 'CrowdDCStack.Outputs.EFSCname'
+  ASITemplateUrl:
+    Description:  The URL used to source the ASI Template
+    Value: !Sub
+      - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}submodules/quickstart-atlassian-services/templates/quickstart-vpc-for-atlassian-services.yaml
+      - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
+        S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
+  CrowdDcTemplateUrl:
+    Description: The URL used to source the Crowd Template
+    Value: !Sub
+      - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/quickstart-crowd-dc.template.yaml
+      - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
+        S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
