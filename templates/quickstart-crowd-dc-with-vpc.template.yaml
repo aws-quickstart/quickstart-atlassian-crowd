@@ -6,6 +6,8 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Atlassian Crowd Data Center with VPC
 
 Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch into a new VPC"
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:

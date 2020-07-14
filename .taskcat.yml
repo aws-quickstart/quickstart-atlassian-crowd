@@ -2,24 +2,23 @@ project:
   name: quickstart-atlassian-crowd
   owner: quickstart-eng@amazon.com
   package_lambda: false
+  s3_regional_buckets: true
   regions:
   - us-east-1
-  s3_bucket: ''
 tests:
   crowd:
     parameters:
       AccessCIDR: 10.0.0.0/16
       AvailabilityZones: $[taskcat_genaz_2]
       CustomDnsName: qscrowdci.awsqs.com
-      DBMasterUserPassword: f925dO1ry_
+      DBMasterUserPassword: replaced-by-taskcat-override-file
       DBMultiAZ: 'false'
-      DBPassword: f925dO1ry_
+      DBPassword: replaced-by-taskcat-override-file
       DBStorage: '100'
       DBStorageType: Provisioned IOPS
       KeyPairName: replaced-by-taskcat-override-file
       QSS3BucketName: $[taskcat_autobucket]
       QSS3KeyPrefix: quickstart-atlassian-crowd/
     regions:
-    - us-east-1
-    s3_bucket: ''
+    - us-west-1
     template: templates/quickstart-crowd-dc-with-vpc.template.yaml
