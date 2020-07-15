@@ -1,0 +1,36 @@
+==== Clone the Quick Start on a custom S3 bucket (recommended)
+
+The fastest way to use the {partner-product-name-short} Quick Start is to launch it directly from its Amazon S3 bucket. However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.
+
+As such, or production environments, we recommend that you launch the {partner-product-name-short} Quick Start templates from a custom S3 bucket. Then, launch them directly from there. Launching from your own cloned Quick Start lets you control when to apply our latest changes to your environment.
+
+. Clone a local copy of the Quick Start templates (including all of its submodules). From the command line, run:
++
+----
+git clone --recurse-submodules https://github.com/aws-quickstart/quickstart-atlassian-crowd.git
+----
+. *(Optional)* The Quick Start templates repository uses the directory structure required by the Quick Start interface. If needed (for example, to minimize storage costs), you can remove all other files except the following:
++
+----
+quickstart-atlassian-crowd
+├── submodules
+├── quickstart-atlassian-services
+│   └── templates
+│       └── quickstart-vpc-for-atlassian-services.yaml
+└── templates
+    ├── quickstart-crowd-master-with-vpc.template.yaml
+    └── quickstart-crowd-master.template.yaml
+----
+. Install and set up the https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html[AWS Command Line Interface (CLI)]. This tool enables you to create an S3 bucket and upload content to it.
+. Create an S3 bucket in your region:
++
+----
+aws s3 mb s3://<BUCKET_NAME> --region <AWS_REGION>
+----
+. Choose which Quick Start template you’ll be using and open it:
+** `quickstart-crowd-master-with-vpc.template.yaml`: use this for deploying Crowd into a new ASI (end-to-end deployment).
++
+** `quickstart-crowd.template.yaml`: use this for deploying Crowd into an existing ASI.
+. In the template you’ve chosen, the `QSS3BucketName` default value is set to `aws-quickstart`. Replace this default with the name of the bucket you created earlier (`<BUCKET_NAME>`).
+
+Once you’ve uploaded everything, you’re ready to deploy your production stack from your S3 bucket. Go to *CloudFormation* > *Create Stack*. When specifying a template, paste in the Object URL of the Quick Start template you’ll be using.
