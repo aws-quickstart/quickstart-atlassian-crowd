@@ -525,7 +525,6 @@ Parameters:
     Description: The AWS Region where the Quick Start S3 bucket is hosted.
       By default, this is set to us-east-1; do not update it unless you're using a custom Quick Start S3 bucket.
     Type: String
-    Description: The AWS Region where the Quick Start S3 bucket is hosted.
   QSS3KeyPrefix:
     Default: 'quickstart-atlassian-crowd/'
     AllowedPattern: ^[0-9a-zA-Z-/]*$
