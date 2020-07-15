@@ -1476,14 +1476,14 @@ Outputs:
     Description: CloudWatch monitoring dashboard URL
     Value: !GetAtt CloudWatchDashboard.Outputs.Dashboard
     Condition: EnableCloudWatch
-  DBTemplateUrl:
-    Description:  The URL used to source the DB Template
+  DBTemplateURL:
+    Description:  The URL used to source the database template
     Value: !Sub
       - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}submodules/quickstart-atlassian-services/templates/quickstart-database-for-atlassian-services.yaml
       - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
-  CloudWatchDashboardUrl:
-    Description:  The URL used to source the CloudWatch Template
+  CloudWatchDashboardTemplateURL:
+    Description:  The URL used to source the CloudWatch template
     Value: !Sub
       - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}submodules/quickstart-atlassian-services/templates/quickstart-cloudwatch-dashboard.yaml
       - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
