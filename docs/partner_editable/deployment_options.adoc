@@ -2,7 +2,23 @@
 
 This Quick Start provides two deployment options:
 
-* *Deploy {partner-product-name} into a new VPC (end-to-end deployment)*. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys {partner-product-name} into this new VPC.
-* *Deploy {partner-product-name} into an existing VPC*. This option provisions {partner-product-name} in your existing AWS infrastructure.
+* *Deploy {partner-product-name} into a new ASI (end-to-end deployment)*. Choose this option if you’re a new user. This option builds the https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/[Atlassian Standard Infrastructure (ASI)], which is a VPC that consists of the subnets, NAT gateways, security groups, and other infrastructure components required by all Atlassian applications. It then deploys {partner-product-name} into this new VPC.
+
+* *Deploy {partner-product-name} into an existing ASI*. This option provisions {partner-product-name} in an existing ASI, and also offers more customizable parameters. Choose this option if you’ve already deployed the ASI separately by using the https://fwd.aws/xYyYy[ASI Quick Start], or by deploying another Atlassian product from a Quick Start (https://fwd.aws/Wz3Qb[Jira Software/Service Desk Data Center], https://aws.amazon.com/quickstart/architecture/confluence/[Confluence Data Center], https://fwd.aws/BBeJW[Bitbucket Data Center], or https://aws.amazon.com/quickstart/architecture/crowd[Crowd Data Center]).
 
 The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and {partner-product-name} settings, as discussed later in this guide.
+
+=== Launching from a cloned Quick Start (recommended for production)
+
+The fastest way to use the {partner-product-name-short} Quick Start is to launch it directly from its Amazon S3 bucket. However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.
+
+As such, or production environments, we recommend that you launch the {partner-product-name-short} Quick Start templates from a custom S3 bucket. Then, launch them directly from there. Launching from your own cloned Quick Start lets you control when to apply our latest changes to your environment.
+
+include::./_clone_quickstart.adoc[]
+
+Once you’ve uploaded everything, you’re ready to deploy your production stack from your S3 bucket. Go to *CloudFormation* > *Create Stack*. When specifying a template, paste in the Object URL of the Quick Start template you’ll be using. Choose *Next* to start configuring your deployment.
+
+On the *Specify stack* details page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details about each setting, refer to the section matching your deployment type:
+
+- <<launch-into-a-new-vpc>> (if you're deploying an ASI with {partner-product-name})
+- <<launch-into-an-existing-vpc>> (if you're deploying {partner-product-name} into a new ASI)
