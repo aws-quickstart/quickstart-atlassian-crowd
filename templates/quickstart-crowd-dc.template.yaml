@@ -565,6 +565,8 @@ Conditions:
   UseBastionHost: !And
     - !Equals [!Ref BastionHostRequired, true]
     - !Condition KeyProvided
+  GovCloudCondition:
+    !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
 
 Mappings:
   AWSInstanceType2Arch:
