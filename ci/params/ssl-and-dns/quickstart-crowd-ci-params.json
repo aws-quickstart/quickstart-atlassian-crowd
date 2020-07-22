@@ -52,6 +52,10 @@
         "ParameterValue": "$[taskcat_autobucket]"
     },
     {
+        "ParameterKey":"QSS3BucketRegion",
+        "ParameterValue":"us-east-1"
+    },
+    {
         "ParameterKey": "QSS3KeyPrefix",
         "ParameterValue": "quickstart-atlassian-crowd/"
     }

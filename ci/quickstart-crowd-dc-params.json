@@ -29,15 +29,19 @@
     },
     {
         "ParameterKey":"QSS3BucketName",
-        "ParameterValue":"$[taskcat_autobucket]"
+        "ParameterValue": "$[taskcat_autobucket]"
+    },
+    {
+        "ParameterKey":"QSS3BucketRegion",
+        "ParameterValue": "us-east-1"
     },
     {
         "ParameterKey":"QSS3KeyPrefix",
-        "ParameterValue":"quickstart-atlassian-crowd/"
+        "ParameterValue": "quickstart-atlassian-crowd/"
     },
     {
-        "ParameterKey":"AccessCIDR",
-        "ParameterValue":"10.0.0.0/16"
+        "ParameterKey": "AccessCIDR",
+        "ParameterValue": "10.0.0.0/16"
     },
     {
         "ParameterKey": "KeyPairName",
