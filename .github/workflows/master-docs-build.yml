@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - master
-    - develop
 jobs:
   build-adocs:
     runs-on: ubuntu-18.04
@@ -18,9 +17,9 @@ jobs:
            chmod +x configure_git_env.sh
            ./configure_git_env.sh
     - name: Setup python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
-        python-version: 3.7.7
+        python-version: 3.x
     - name: Generate dynamic content.
       run: ./docs/boilerplate/.utils/generate_dynamic_content.sh
     - name: Run local actions
@@ -30,5 +29,9 @@ jobs:
         program: "./docs/boilerplate/.utils/build_docs.sh"
     - name: Stage and Push changes to gh-pages branch.
       run: ./docs/boilerplate/.utils/commit_and_push_to_ghpages.sh
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    - name: Configure gh-pages source and trigger build if necessary.
+      run: ./docs/boilerplate/.utils/config_and_trigger_gh-pages.sh
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
