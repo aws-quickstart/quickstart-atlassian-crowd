@@ -1,3 +1,4 @@
+
 :template_autoscaling:
 :template_aws_autoscaling_autoscalinggroup:
 :template_aws_autoscaling_launchconfiguration:

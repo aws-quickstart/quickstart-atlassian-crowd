@@ -1,5 +1,5 @@
 // Replace the content in <>
-// Briefly describe the software. Use consistent and clear branding. 
+// Briefly describe the software. Use consistent and clear branding.
 // Include the benefits of using the software on AWS, and provide details on usage scenarios.
 
-<Describe how the software works on AWS.>
+Crowd is {partner-company-name}’s own centralized identity management platform. It allows an organization to manage users from multiple directories (Active Directory, LDAP, OpenLDAP or Microsoft Azure AD) and control application authentication permissions in one single location.

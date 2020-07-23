@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Example Product Name on the AWS Cloud</title>
+<title>Crowd Data Center on the AWS Cloud</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -768,13 +768,18 @@ table p {
 <body class="book toc2 toc-left">
 <div id="header">
 <div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
-<li><a href="#_example_product_name_on_aws"><em>Example Product Name</em> on AWS</a></li>
+<li><a href="#_crowd_data_center_on_aws">Crowd Data Center on AWS</a></li>
 <li><a href="#_cost">Cost</a></li>
-<li><a href="#_software_licenses">Software Licenses</a></li>
-<li><a href="#_architecture">Architecture</a></li>
+<li><a href="#_software_licenses">Software licenses</a></li>
+<li><a href="#_architecture">Architecture</a>
+<ul class="sectlevel2">
+<li><a href="#_optional_components">Optional Components</a></li>
+<li><a href="#_auto_scaling_groups_in_this_quick_start">Auto Scaling Groups in this Quick Start</a></li>
+</ul>
+</li>
 <li><a href="#_planning_the_deployment">Planning the deployment</a>
 <ul class="sectlevel2">
 <li><a href="#_specialized_knowledge">Specialized knowledge</a></li>
@@ -782,18 +787,19 @@ table p {
 <li><a href="#_technical_requirements">Technical requirements</a></li>
 </ul>
 </li>
-<li><a href="#_deployment_steps">Deployment Steps</a>
+<li><a href="#_deployment_steps">Deployment steps</a>
 <ul class="sectlevel2">
-<li><a href="#_sign_in_to_your_aws_account">Sign in to your AWS account</a></li>
-<li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
-<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
+<li><a href="#_launching_from_a_cloned_quick_start_recommended_for_production">Launching from a cloned Quick Start (recommended for production)</a></li>
 <li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
-<li><a href="#_test_the_deployment">Test the deployment</a></li>
+<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
 </ul>
 </li>
+<li><a href="#_configuring_crowd_data_center">Configuring Crowd Data Center</a></li>
+<li><a href="#_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</a></li>
+<li><a href="#_troubleshooting">Troubleshooting</a></li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
 <li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
-<li><a href="#_github_repository">GitHub Repository</a>
+<li><a href="#_github_repository">GitHub repository</a>
 <ul class="sectlevel3">
 <li><a href="#_notices">Notices</a></li>
 </ul>
@@ -804,36 +810,33 @@ table p {
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_example_product_name_on_the_aws_cloud" class="discrete text-center"><em>Example Product Name</em> on the AWS Cloud</h2>
+<h2 id="_crowd_data_center_on_the_aws_cloud" class="discrete text-center">Crowd Data Center on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
-<h3 id="_draft_document_unofficial_guidance" class="discrete text-center">DRAFT DOCUMENT / UNOFFICIAL GUIDANCE</h3>
-<div class="exampleblock">
+<div class="imageblock text-center">
 <div class="content">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-documentation-base/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
+</div>
+</div>
 <div class="paragraph text-center">
-<p><strong>May, 2020</strong><br>
-<em>John Doe and Jane Doe - Example Company Name, Ltd.</em><br>
-<em>Jim Smith - AWS Global Partner SA, AWS + Joe Jones - Technical Product Manager, AWS</em></p>
+<p><strong>July, 2020</strong><br>
+<em>Don Domingo, Dylan Rathbone</em><br>
+<em>Tony Vattathil - Principal SA, AWS</em></p>
 </div>
-</div>
-</div>
-<div class="paragraph">
-<p><em><strong>The above information is configured within <code>partner_editable/_settings.adoc</code></strong></em></p>
-</div>
-<div class="admonitionblock tip">
+<div class="admonitionblock tip text-left">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base">GitHub repository</a> for source files and to post feedback,
+Visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
 report bugs, or submit feature ideas for this Quick Start.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph text-left">
-<p>This Quick Start was created by <em>Example Company Name, Ltd.</em> in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
+<p>This Quick Start was created by Atlassian in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
 </div>
 </div>
 </div>
@@ -841,18 +844,7 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start reference deployment guide provides step-by-step
-instructions for deploying <em>Example Product Name</em> on the AWS Cloud.</p>
-</div>
-<div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/target_and_usage</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>This Quick Start is for users who &lt;target audience and usage scenario&gt;</p>
-</div>
-</div>
+<p>This Quick Start is for users who want to deploy Crowd Data Center in a supported configuration in the AWS Cloud, following AWS best practices.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -871,17 +863,10 @@ collaborated with AWS on the content of the Quick Start.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_product_name_on_aws"><em>Example Product Name</em> on AWS</h2>
+<h2 id="_crowd_data_center_on_aws">Crowd Data Center on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/product_description.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>&lt;Describe how the software works on AWS.&gt;</p>
-</div>
-</div>
+<p>Crowd is Atlassian’s own centralized identity management platform. It allows an organization to manage users from multiple directories (Active Directory, LDAP, OpenLDAP or Microsoft Azure AD) and control application authentication permissions in one single location.</p>
 </div>
 </div>
 </div>
@@ -890,15 +875,14 @@ collaborated with AWS on the content of the Quick Start.
 <div class="sectionbody">
 <div class="paragraph">
 <p>You are responsible for the cost of the AWS services used while running
-this Quick Start reference deployment. There is no additional cost for
+this Quick Start. There is no additional cost for
 using the Quick Start.</p>
 </div>
 <div class="paragraph">
 <p>The AWS CloudFormation template for this Quick Start includes
 configuration parameters that you can customize. Some of the settings,
 such as the instance type, affect the cost of deployment. For cost estimates,
-see the pricing pages for each AWS service you will use. Prices are subject to change.
-To get an estimate, you can use the</p>
+see the pricing pages for each AWS service you will use. Prices are subject to change.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -907,7 +891,7 @@ To get an estimate, you can use the</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-After you deploy the Quick Start, we recommend that you enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html">AWS Cost and Usage Report</a>. This report delivers billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and finalizes the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html">AWS documentation</a>.
+After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and finalizes the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
 </td>
 </tr>
 </table>
@@ -915,29 +899,10 @@ After you deploy the Quick Start, we recommend that you enable the <a href="http
 </div>
 </div>
 <div class="sect1">
-<h2 id="_software_licenses">Software Licenses</h2>
+<h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/licenses.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>These two paragraphs provide an example of the details you can provide. Provide links as appropriate.</p>
-</div>
-<div class="paragraph">
-<p>Example content below:</p>
-</div>
-<div class="paragraph">
-<p><em>&lt;license information&gt;This Quick Start requires a license for Example Product Name. To use the Quick Start in your production environment, sign up for a license at &lt;link&gt;. When you launch the Quick Start, place the license key in an S3 bucket and specify its location.</em></p>
-</div>
-<div class="paragraph">
-<p><em>If you don’t have a license, the Quick Start deploys with a trial license. The trial license gives you &lt;n&gt; days of free usage in a non-production environment. After this time, you can upgrade to a production license by following the instructions at &lt;link&gt;.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;AMI information&gt;The Quick Start requires a subscription to the Amazon Machine Image (AMI) for Example Product Name, which is available from <a href="https://aws.amazon.com/marketplace/">AWS Marketplace</a>. Additional pricing, terms, and conditions may apply. For instructions, see <a href="#step-2.-subscribe-to-the-software-ami">step 2</a> in the deployment section.</em></p>
-</div>
-</div>
+<p>This Quick Start deploys cluster-ready infrastructure for Crowd Data Center. You&#8217;ll need a Crowd Data Center license for that. For information on obtaining one, see the <a href="https://www.atlassian.com/software/confluence/pricing?tab=self-hosted">Atlassian pricing page</a>.</p>
 </div>
 </div>
 </div>
@@ -945,59 +910,62 @@ After you deploy the Quick Start, we recommend that you enable the <a href="http
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/architecture.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>Deploying this Quick Start for a new virtual private cloud (VPC) with
-<strong>default parameters</strong> builds the following <em>Example Product Name</em> environment in the
-AWS Cloud.</p>
+<p>Deploying this Quick Start for a new <a href="https://aws.amazon.com/quickstart/architecture/Atlassian-standard-infrastructure/">Atlassian Standard Infrastructure (ASI)</a> with <strong>default parameters</strong> builds the following <em>Crowd Data Center</em> environment in the AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
 <a class="image" href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/images/linux-bastion-hosts-on-aws-architecture.png"><img src="images/architecture_diagram.png" alt="Architecture" width="648" height="439"></a>
 </div>
-<div class="title">Figure 1. Quick Start architecture for <em>Example Product Name</em> on AWS</div>
+<div class="title">Figure 1. Quick Start architecture for <em>Crowd Data Center</em> on AWS</div>
 </div>
 <div class="paragraph">
-<p>As shown in Figure 1, the Quick Start sets up the following:</p>
+<p>This Quick Start includes two AWS CloudFormation templates: the first one builds the Atlassian Standard Infrastructure (ASI), which is a virtual private cloud (VPC) that contains the components required by all Atlassian Data Center applications, and then provisions Crowd Data Center into this ASI. The second template provisions Crowd Data Center in an existing ASI.</p>
+</div>
+<div class="paragraph">
+<p>The resulting infrastructure from this Quick Start includes the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A highly available architecture that spans two Availability Zones.*</p>
+<p><strong>Amazon RDS for PostgreSQL</strong>: Amazon RDS for PostgreSQL in a Multi-AZ configuration allows failover in the event the master node fails.</p>
 </li>
 <li>
-<p>A VPC configured with public and private subnets, according to AWS
-best practices, to provide you with your own virtual network on AWS.*</p>
+<p><strong>Amazon EFS</strong>: Crowd Data Center uses a shared file system to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes. The Quick Start architecture implements the shared file system by using the highly available Amazon Elastic File System (Amazon EFS) service.</p>
+</li>
+<li>
+<p><strong>Crowd Auto Scaling group</strong>: Crowd Data Center is installed on Amazon Elastic Compute Cloud (Amazon EC2) instances in an Auto Scaling group. The Quick Start uses Ansible playbooks to configure Crowd Data Center on each instance. See the <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md">Atlassian Data Center Installation Automation (repo)</a> for more details.</p>
+</li>
+<li>
+<p><strong>Application Load Balancer</strong>: This works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
 </li>
 </ul>
 </div>
+<div class="sect2">
+<h3 id="_optional_components">Optional Components</h3>
 <div class="paragraph">
-<p>In the public subnets:</p>
+<p>This infrastructure also includes the following optional components:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Managed network address translation (NAT) gateways to allow outbound
-internet access for resources in the private subnets.*</p>
+<p><strong>Bastion host</strong>: This host enables secure access to your Crowd nodes without exposing it to the internet (for more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a Bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager Sessions Manager</a>.</p>
 </li>
 <li>
-<p>A Linux bastion host in an Auto Scaling group to allow inbound Secure
-Shell (SSH) access to EC2 instances in public and private subnets.*</p>
+<p><strong>Amazon CloudWatch</strong>: This provides basic monitoring for all application and database nodes in your deployment. By default, CloudWatch will also collect and store logs from each monitored node. You can choose not to provision Amazon CloudWatch if you plan to use a different monitoring platform.</p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_auto_scaling_groups_in_this_quick_start">Auto Scaling Groups in this Quick Start</h3>
 <div class="paragraph">
-<p>In the private subnets:
-* &lt;describe any additional components&gt;.</p>
+<p>This Quick Start uses <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html">Auto Scaling groups</a>, but only to statically control the number of its nodes. We don&#8217;t recommend that you use Auto Scaling to dynamically scale the size of your cluster. Adding an application node to the cluster usually takes more than 20 minutes, which isn&#8217;t fast enough to address sudden load spikes.</p>
 </div>
 <div class="paragraph">
-<p>*The template that deploys the Quick Start into an existing VPC skips
-the components marked by asterisks and prompts you for your existing VPC
-configuration.</p>
+<p>If you can identify any periods of high and low load, you can schedule the application node cluster to scale accordingly. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html">Scheduled Scaling for Amazon EC2 Auto Scaling</a>.</p>
 </div>
+<div class="paragraph">
+<p>To study trends in your organization&#8217;s load, you&#8217;ll need to monitor the performance of your deployment.</p>
 </div>
 </div>
 </div>
@@ -1010,27 +978,20 @@ configuration.</p>
 <div class="paragraph">
 <p>This deployment guide requires a moderate level of familiarity with
 AWS services. If you’re new to AWS, visit the
-<a href="https://aws.amazon.com/getting-started/">Getting Started Resource Center</a>
+<a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started Resource Center</a>
 and the <a href="https://aws.amazon.com/training/">AWS Training and Certification
 website</a>. These sites provide materials for learning how to design,
 deploy, and operate your infrastructure and applications on the AWS
 Cloud.</p>
 </div>
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/specialized_knowledge.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>This Quick Start assumes familiarity with &lt;knowledge expectations&gt;.</p>
-</div>
-</div>
+<p>This Quick Start assumes familiarity with managing Atlassian Crowd. Refer to the <a href="https://confluence.atlassian.com/x/ZID7">Crowd Administration Guide</a> for more information.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_aws_account">AWS account</h3>
 <div class="paragraph">
-<p>If you don’t already have an AWS account, create one at <a href="https://aws.amazon.com/">https://aws.amazon.com</a> by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using the phone keypad.</p>
+<p>If you don’t already have an AWS account, create one at <a href="https://aws.amazon.com/" target="_blank" rel="noopener">https://aws.amazon.com</a> by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using the phone keypad.</p>
 </div>
 <div class="paragraph">
 <p>Your AWS account is automatically signed up for all AWS services. You are charged only for the services you use.</p>
@@ -1042,12 +1003,10 @@ Cloud.</p>
 <p>Before you launch the Quick Start, your account must be configured as specified below. Otherwise, deployment might fail.</p>
 </div>
 <div class="sect3">
-<h4 id="_resource_limits">Resource Limits</h4>
+<h4 id="_resource_limits">Resource limits</h4>
 <div class="paragraph">
-<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/">service quota increases</a> for the following resources. You might need to do this if an existing deployment uses these resources, and you might exceed the default quotas with this deployment. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see the <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html">AWS documentation</a>.</p>
+<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources, and this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see the <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">AWS documentation</a>.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1059,63 +1018,128 @@ Cloud.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This deployment uses</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VPCs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Elastic IP addresses</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) security groups</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IAM roles</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPC (<a href="https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/">ASI</a>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Auto Scaling groups</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 (2 if a Bastion Host is provisioned)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application Load Balancers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Network Load Balancers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elastic IP addresses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>variable based on user configuration</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;type&gt; instances</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) security groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>variable based on user configuration</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>variable based on user configuration</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 instances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>variable based on user configuration</em></p></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div>
-</div>
 <div class="sect3">
-<h4 id="_supported_regions">Supported Regions</h4>
+<h4 id="_supported_regions">Supported regions</h4>
 <div class="paragraph">
-<p>The following regions are currently supported by this Quick Start Reference Architecture.</p>
+<p>The following regions are currently supported by this Quick Start.</p>
 </div>
-<div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/regions.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p><em>us-east-1 (N. Virginia)</em> (EXAMPLE)</p>
+<p>Americas</p>
+<div class="ulist">
+<ul>
+<li>
+<p><em>us-east-1	(Northern Virginia)</em></p>
 </li>
 <li>
-<p><em>us-east-2 (Ohio)</em> (EXAMPLE)</p>
+<p><em>us-east-2 (Ohio)</em></p>
+</li>
+<li>
+<p><em>us-west-1 (Northern California)</em></p>
+</li>
+<li>
+<p><em>us-west-2 (Oregon)</em></p>
+</li>
+<li>
+<p><em>ca-central-1 (Montreal)</em></p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Europe/Middle East/Africa</p>
+<div class="ulist">
+<ul>
+<li>
+<p><em>eu-west-1	(Ireland)</em></p>
+</li>
+<li>
+<p><em>eu-central-1 (Frankfurt)</em></p>
+</li>
+<li>
+<p><em>eu-west-2 (London)</em></p>
+</li>
+<li>
+<p><em>eu-west-3 (Paris)</em></p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Asia Pacific</p>
+<div class="ulist">
+<ul>
+<li>
+<p><em>ap-southeast-1 (Singapore)</em></p>
+</li>
+<li>
+<p><em>ap-northeast-1 (Tokyo)</em></p>
+</li>
+<li>
+<p><em>ap-southeast-2 (Sydney)</em></p>
+</li>
+<li>
+<p><em>ap-northeast-2 (Seoul)</em></p>
+</li>
+<li>
+<p><em>ap-south-1 (Mumbai)</em></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This list was last updated on June 20, 2019.</p>
+</div>
+<div class="paragraph">
+<p>The services offered in each region change from time to time. If your preferred region isn&#8217;t on this list, check the <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/">Regional Product Services</a> table to see if it already supports EFS.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">AWS GovCloud is not for production</div>
+<div class="paragraph">
+<p>Our Quick Starts are also available on <a href="https://aws.amazon.com/govcloud-us/">AWS GovCloud</a> regions, but only for testing purposes. We do not support any deployments on GovCloud regions resulting from this Quick Start.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1124,160 +1148,132 @@ Cloud.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Certain regions are available on an opt-in basis. Please refer to the AWS Documentaiton on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html">Managing Regions</a> for more information.
+Certain regions are available on an opt-in basis. Refer to the AWS Documentation on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing Regions</a> for more information.
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ec2_key_pairs">EC2 Key Pairs</h4>
-<div class="exampleblock">
-<div class="content">
+<h4 id="_ec2_key_pairs">EC2 key pairs</h4>
 <div class="paragraph">
-<p><em>This section is conditional on EC2 instances being used in the Cloudformation Templates</em></p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, follow the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">instructions in the AWS documentation</a>.</p>
+<p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, follow the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">instructions in the AWS documentation</a>.</p>
 </div>
 <div class="paragraph">
 <p>For testing or proof-of-concept purposes, we recommend creating a new key pair instead of using one that’s already being used by a production instance.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_iam_permissions">IAM Permissions</h4>
+<h4 id="_iam_permissions">IAM permissions</h4>
 <div class="paragraph">
-<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html">IAM permissions</a> for the resources and actions the templates deploy.</p>
+<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">IAM permissions</a> for the resources and actions the templates deploy.</p>
 </div>
 <div class="paragraph">
 <p>The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.</p>
 </div>
-<div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/regions.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>==== Prepare your AWS account
-<em>Describe any setup required in the AWS account prior to template launch</em></p>
-</div>
-<div class="paragraph">
-<p>==== Prepare your Example Company Name, Ltd. account
-<em>Describe any setup required in the partner portal/account prior to template launch</em></p>
-</div>
-</div>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_deployment_options">Deployment options</h4>
-<div class="exampleblock">
-<div class="content">
 <div class="paragraph">
 <p>This Quick Start provides two deployment options:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy Example Product Name into a new VPC (end-to-end deployment)</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys Example Product Name into this new VPC.</p>
+<p><strong>Deploy Crowd Data Center into a new ASI (end-to-end deployment)</strong>. Choose this option if you’re a new user. This option builds the <a href="https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/">Atlassian Standard Infrastructure (ASI)</a>, which is a VPC that consists of the subnets, NAT gateways, security groups, and other infrastructure components required by all Atlassian applications. It then deploys Crowd Data Center into this new VPC.</p>
 </li>
 <li>
-<p><strong>Deploy Example Product Name into an existing VPC</strong>. This option provisions Example Product Name in your existing AWS infrastructure.</p>
+<p><strong>Deploy Crowd Data Center into an existing ASI</strong>. This option provisions Crowd Data Center in an existing ASI, and also offers more customizable parameters. Choose this option if you’ve already deployed the ASI separately by using the <a href="https://fwd.aws/xYyYy">ASI Quick Start</a>, or by deploying another Atlassian product from a Quick Start (<a href="https://fwd.aws/Wz3Qb">Jira Software/Service Desk Data Center</a>, <a href="https://aws.amazon.com/quickstart/architecture/confluence/">Confluence Data Center</a>, <a href="https://fwd.aws/BBeJW">Bitbucket Data Center</a>, or <a href="https://aws.amazon.com/quickstart/architecture/crowd">Crowd Data Center</a>).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Example Product Name settings, as discussed later in this guide.</p>
-</div>
-</div>
+<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Crowd Data Center settings, as discussed later in this guide.</p>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_deployment_steps">Deployment Steps</h2>
+<h2 id="_deployment_steps">Deployment steps</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_sign_in_to_your_aws_account">Sign in to your AWS account</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#planning-the-deployment">Planning the deployment</a> earlier in this guide.</p>
-</li>
-<li>
-<p>Make sure that your AWS account is configured correctly, as discussed in the <a href="#technical-requirements">Technical requirements</a> section.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You are responsible for the cost of the AWS services used while running this Quick Start reference deployment. There is no additional cost for using this Quick Start. For full details, see the pricing pages for each AWS service used by this Quick Start. Prices are subject to change.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see <a href="#_Automated_Deployment">deployment options</a> earlier in this guide.</p>
-</li>
-</ol>
+<h3 id="_launching_from_a_cloned_quick_start_recommended_for_production">Launching from a cloned Quick Start (recommended for production)</h3>
+<div class="paragraph">
+<p>The fastest way to use the Crowd Quick Start is to launch it directly from its Amazon S3 bucket. However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.</p>
 </div>
 <div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/_qs_deploy_links.adoc</code></strong></em></p>
+<p>As such, or production environments, we recommend that you launch the Crowd Quick Start templates from a custom S3 bucket. Then, launch them directly from there. Launching from your own cloned Quick Start lets you control when to apply our latest changes to your environment.</p>
 </div>
-<div class="exampleblock">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Clone a local copy of the Quick Start templates (including all of its submodules). From the command line, run:</p>
+<div class="listingblock">
 <div class="content">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 100%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Example Product Name into a new VPC on AWS</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Example Product Name into an existing VPC on AWS</a></p></td>
-</tr>
-</tbody>
-</table>
+<pre>git clone --recurse-submodules https://github.com/aws-quickstart/quickstart-atlassian-crowd.git</pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>Important:</strong> If you’re deploying Example Product Name into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances, and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">NAT gateways</a> in their route tables, to allow the instances to download packages and software without exposing them to the internet.</p>
-</div>
-<div class="paragraph">
-<p>Also, make sure that the domain name option in the DHCP options is configured as explained in the <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html">Amazon VPC documentation</a>. You provide your VPC settings when you launch the Quick Start.</p>
-</div>
-<div class="paragraph">
-<p>Each deployment takes about 30 minutes / 1 hour to complete.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="2">
+</li>
 <li>
-<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for Example Product Name will be built. The template is launched in the us-east-1 Region by default.</p>
+<p><strong>(Optional)</strong> The Quick Start templates repository uses the directory structure required by the Quick Start interface. If needed (for example, to minimize storage costs), you can remove all other files except the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre>quickstart-atlassian-crowd
+├── submodules
+├── quickstart-atlassian-services
+│   └── templates
+│       └── quickstart-vpc-for-atlassian-services.yaml
+└── templates
+    ├── quickstart-crowd-master-with-vpc.template.yaml
+    └── quickstart-crowd-master.template.yaml</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install and set up the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">AWS Command Line Interface (CLI)</a>. This tool enables you to create an S3 bucket and upload content to it.</p>
+</li>
+<li>
+<p>Create an S3 bucket in your region:</p>
+<div class="listingblock">
+<div class="content">
+<pre>aws s3 mb s3://&lt;BUCKET_NAME&gt; --region &lt;AWS_REGION&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Choose which Quick Start template you’ll be using and open it:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>quickstart-crowd-master-with-vpc.template.yaml</code>: use this for deploying Crowd into a new ASI (end-to-end deployment).</p>
+</li>
+<li>
+<p><code>quickstart-crowd.template.yaml</code>: use this for deploying Crowd into an existing ASI.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>In the template you’ve chosen, the <code>QSS3BucketName</code> default value is set to <code>aws-quickstart</code>. Replace this default with the name of the bucket you created earlier (<code>&lt;BUCKET_NAME&gt;</code>).</p>
 </li>
 </ol>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="3">
+<div class="paragraph">
+<p>Once you’ve uploaded everything, you’re ready to deploy your production stack from your S3 bucket. Go to <strong>CloudFormation</strong> &gt; <strong>Create Stack</strong>. When specifying a template, paste in the Object URL of the Quick Start template you’ll be using. Choose <strong>Next</strong> to start configuring your deployment.</p>
+</div>
+<div class="paragraph">
+<p>On the <strong>Specify stack</strong> details page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details about each setting, refer to the section matching your deployment type:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
+<p><a href="#launch-into-a-new-vpc">[launch-into-a-new-vpc]</a> (if you&#8217;re deploying an ASI with Crowd Data Center)</p>
 </li>
 <li>
-<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary.</p>
+<p><a href="#launch-into-an-existing-vpc">[launch-into-an-existing-vpc]</a> (if you&#8217;re deploying Crowd Data Center into a new ASI)</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="paragraph">
 <p>In the following tables, parameters are listed by category and described separately for the deployment options. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
@@ -1290,14 +1286,14 @@ You are responsible for the cost of the AWS services used while running this Qui
 </td>
 <td class="content">
 We recommend keeping the default settings for the three parameters labled 'Quick Start S3 bucket name', 'Quick Start S3 bucket
-Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick Start templates for your own deployment projects. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For additional details, see the <a href="https://aws-quickstart.github.io/option1.html">AWS Quick Start Contributor’s Guide</a>.
+Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick Start templates for your own deployment projects. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For additional details, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
+<h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Crowd setup</caption>
 <colgroup>
@@ -1382,19 +1378,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the instance
 (<code>DeploymentAutomationPlaybook</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws_crowd_dc_node.yml</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the Crowd node on first start.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
-(<code>DeploymentAutomationCustomParams</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialise the Crowd node on first start.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
 (<code>DeploymentAutomationKeyName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
+(<code>DeploymentAutomationCustomParams</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
 </tr>
 </tbody>
 </table>
@@ -1464,7 +1460,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Bastion host utilization</caption>
+<caption class="title">Table 4. Bastion host provisioning</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1479,15 +1475,15 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Bastion host
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy Bastion host
 (<code>BastionHostRequired</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to grant access to Crowd&#8217;s EC2 instances through the ASI&#8217;s Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Bastion host instance. If 'true', then you need to provide an EC2 Key Pair (otherwise, you won&#8217;t be able to use the Bastion host to access Crowd instances).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
 (<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 Key Pairs to allow you to securely access the Bastion host</p></td>
 </tr>
 </tbody>
@@ -1508,22 +1504,58 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trusted IP range
+(<code>AccessCIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
+(<code>AvailabilityZones</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here; if more are specified only the first 2 will be used.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Make instance internet facing
 (<code>InternetFacingLoadBalancer</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Permitted IP range
-(<code>CidrBlock</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 private IP address block
+(<code>PrivateSubnet1CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 private IP address block
+(<code>PrivateSubnet2CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 2 located in Availability Zone 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 public IP address block
+(<code>PublicSubnet1CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 public IP address block
+(<code>PublicSubnet2CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address block for the VPC
+(<code>VPCCIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
 </tr>
 </tbody>
 </table>
@@ -1545,13 +1577,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing DNS name
 (<code>CustomDnsName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 Hosted Zone
 (<code>HostedZone</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames</p></td>
 </tr>
 </tbody>
@@ -1574,19 +1606,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Context Path
 (<code>TomcatContextPath</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalina options
 (<code>CatalinaOpts</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional jvm options to tune Catalina</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JVM Heap Size Override
 (<code>JvmHeapOverride</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g</p></td>
 </tr>
 <tr>
@@ -1667,6 +1699,12 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+(<code>QSS3BucketRegion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket is hosted. By default, this is set to us-east-1; do not update it unless you&#8217;re using a custom Quick Start S3 bucket.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-atlassian-crowd/</code></p></td>
@@ -1676,13 +1714,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">ASI identifier
 (<code>ExportPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ATL-</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Each Atlassian Standard Infrastructure (ASI) uses a unique identifier. If you have multiple ASIs within the same AWS region, use this field to specify where to deploy Crowd.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment&#8217;s Atlassian Standard Infrastructure. Use different identifiers if you&#8217;re deploying multiple Atlassian Standard Infrastructures in the same AWS region.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
+<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. Crowd setup</caption>
 <colgroup>
@@ -1767,19 +1805,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the instance
 (<code>DeploymentAutomationPlaybook</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws_crowd_dc_node.yml</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialise the Crowd node on first start.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
-(<code>DeploymentAutomationKeyName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the Crowd node on first start.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
 (<code>DeploymentAutomationCustomParams</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
+(<code>DeploymentAutomationKeyName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
 </tr>
 </tbody>
 </table>
@@ -1849,7 +1887,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Bastion host provisioning</caption>
+<caption class="title">Table 12. Bastion host utilization</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1864,15 +1902,15 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy Bastion host
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use Bastion host
 (<code>BastionHostRequired</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Bastion host instance. If 'true', then you need to provide an EC2 Key Pair (otherwise, you won&#8217;t be able to use the Bastion host to access Crowd instances).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to grant access to Crowd&#8217;s EC2 instances through the ASI&#8217;s Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
 (<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 Key Pairs to allow you to securely access the Bastion host</p></td>
 </tr>
 </tbody>
@@ -1893,58 +1931,22 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Trusted IP range
-(<code>AccessCIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
-(<code>AvailabilityZones</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here; if more are specified only the first 2 will be used.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Make instance internet facing
 (<code>InternetFacingLoadBalancer</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 private IP address block
-(<code>PrivateSubnet1CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 private IP address block
-(<code>PrivateSubnet2CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 2 located in Availability Zone 2.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 public IP address block
-(<code>PublicSubnet1CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 public IP address block
-(<code>PublicSubnet2CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Permitted IP range
+(<code>CidrBlock</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IP address block for the VPC
-(<code>VPCCIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
 </tr>
 </tbody>
 </table>
@@ -1966,13 +1968,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing DNS name
 (<code>CustomDnsName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 Hosted Zone
 (<code>HostedZone</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames</p></td>
 </tr>
 </tbody>
@@ -1995,19 +1997,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Context Path
 (<code>TomcatContextPath</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalina options
 (<code>CatalinaOpts</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional jvm options to tune Catalina</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JVM Heap Size Override
 (<code>JvmHeapOverride</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">``</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g</p></td>
 </tr>
 <tr>
@@ -2088,6 +2090,12 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+(<code>QSS3BucketRegion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket is hosted. By default, this is set to us-east-1; do not update it unless you&#8217;re using a custom Quick Start S3 bucket.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-atlassian-crowd/</code></p></td>
@@ -2097,14 +2105,14 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">ASI identifier
 (<code>ExportPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ATL-</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment&#8217;s Atlassian Standard Infrastructure. Use different identifiers if you&#8217;re deploying multiple Atlassian Standard Infrastructures in the same AWS region.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each Atlassian Standard Infrastructure (ASI) uses a unique identifier. If you have multiple ASIs within the same AWS region, use this field to specify where to deploy Crowd.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="olist arabic">
 <ol class="arabic" start="5">
 <li>
-<p>On the options page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html">set advanced options</a>. When you’re done, choose <strong>Next</strong>.</p>
+<p>On the options page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re done, choose <strong>Next</strong>.</p>
 </li>
 <li>
 <p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
@@ -2113,10 +2121,10 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <p>Choose <strong>Create stack</strong> to deploy the stack.</p>
 </li>
 <li>
-<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Example Product Name cluster is ready.</p>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Crowd Data Center deployment is ready.</p>
 </li>
 <li>
-<p>Use the URLs displayed in the <strong>Outputs</strong> tab for the stack, as shown in Figure 2, to view the resources that were created.</p>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in Figure 2, to view the resources that were created.</p>
 </li>
 </ol>
 </div>
@@ -2124,55 +2132,171 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <div class="content">
 <img src="images/cfn_outputs.png" alt="cfn_outputs" width="648" height="439">
 </div>
-<div class="title">Figure 2. Example Product Name outputs after successful deployment</div>
+<div class="title">Figure 2. Crowd Data Center outputs after successful deployment</div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_test_the_deployment">Test the deployment</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_crowd_data_center">Configuring Crowd Data Center</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>&lt;Add instructions for testing the deployment.&gt;</p>
+<p>When you launch the Quick Start, it deploys a single Crowd node (Auto Scaling group of <code>min=1</code> and <code>max=1</code>). The following procedure will focus on setting up a brand new Crowd Data Center deployment.</p>
 </div>
-<div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/additional_info.adoc</code></strong></em></p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Choose the URL displayed in the Outputs tab of the AWS CloudFormation stack to go to the Crowd setup screen.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectivity-troubleshooting-guide-720405335.html">HTTP Error 503</a> response when you access the URL, it means that Crowd Data Center is still loading. This is expected, and you should wait 2-3 minutes before trying again.
+</td>
+</tr>
+</table>
 </div>
-<div class="exampleblock">
+</li>
+<li>
+<p>On the License page, enter a valid Crowd Data Center license key. If you don’t have a valid license, click on the <a href="https://my.atlassian.com/products/index">My Atlassian</a> link and sign up for an evaluation Data Center license (you’ll be required to log in to your Atlassian account).</p>
+<div class="imageblock">
 <div class="content">
-<div class="paragraph">
-<p>== Best practices for using Example Product Name on AWS</p>
-</div>
-<div class="paragraph">
-<p><em>Add any best practices for using the software.</em></p>
-</div>
-<div class="paragraph">
-<p>== Security</p>
-</div>
-<div class="paragraph">
-<p><em>Add any security-related information.</em></p>
-</div>
-<div class="paragraph">
-<p>== Other useful information</p>
-</div>
-<div class="paragraph">
-<p><em>Add any other details that will help the customer use the software on AWS.</em></p>
+<img src="images/qs-crowd-license.png" alt="qs crowd license">
 </div>
 </div>
-</div>
-<div class="paragraph">
-<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/faq.adoc</code></strong></em></p>
-</div>
-<div class="exampleblock">
+</li>
+<li>
+<p>On the Crowd installation screen, select New installation to continue setting up a new Crowd Data Center deployment.</p>
+<div class="imageblock">
 <div class="content">
-<div class="paragraph">
-<p>== FAQ</p>
+<img src="images/qs-crowd-new-install.png" alt="qs crowd new install">
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+From this screen, you can also select <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure will focus on configuring a new Crowd Data Center installation.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>The <strong>Database configuration</strong> page will already contain all the required settings to connect to the database. You won’t be able to edit these settings from this screen. Click <strong>Continue</strong> to proceed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-dbconfig.png" alt="qs crowd dbconfig">
+</div>
+</div>
+</li>
+<li>
+<p>On the <strong>Options</strong> page, you can edit the name of this Crowd deployment and its session timeout. We recommend that you leave the Base URL unchanged; this setting is imported directly from your AWS deployment.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-options.png" alt="qs crowd options">
+</div>
+</div>
+</li>
+<li>
+<p>On the <strong>Internal directory</strong> screen, configure how Crowd should store user, role, and group information. For more information, see <a href="https://confluence.atlassian.com/x/X4AbAQ">Configuring an Internal Directory</a>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-internal-directory.png" alt="qs internal directory">
+</div>
+</div>
+</li>
+<li>
+<p>Use the <strong>Default administrator</strong> screen to create your first Crowd Administrator account. For more information about this account, see <a href="https://confluence.atlassian.com/x/GwEQCQ">Crowd Administrator</a>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-first-admin.png" alt="qs crowd first admin">
+</div>
+</div>
+</li>
+<li>
+<p>Enable any integrated apps on the Integrated applications screen. You can enable these apps after setup if you wish.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-intergratedapps.png" alt="qs crowd intergratedapps">
+</div>
+</div>
+</li>
+<li>
+<p>On the login screen, use the credentials you created earlier for in the <strong>Default Administrator</strong> screen.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-login.png" alt="qs crowd login">
+</div>
+</div>
+</li>
+<li>
+<p>Choose <strong>Clustering</strong> from the administration console sidebar. You should see one node displayed here. At this point, you can now start adding more nodes to your cluster (if you wish).</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-clustering.png" alt="qs crowd clustering">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to the AWS Management Console, use the Region selector in the navigation bar to choose the AWS Region for your deployment, and open the AWS CloudFormation console at <a href="https://console.aws.amazon.com/cloudformation/" class="bare">https://console.aws.amazon.com/cloudformation/</a>.</p>
+</li>
+<li>
+<p>Choose the Crowd Data Center stack. From the <strong>Actions</strong> list, choose <strong>Update Stack</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Select Template</strong> page, leave <strong>Use current template</strong> selected, and then choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Specify Details</strong> page, in the <strong>Crowd Setup</strong> section of <strong>Parameters</strong>, enter the desired number of cluster nodes in <strong>Minimum number of cluster nodes</strong> and <strong>Maximum number of cluster nodes</strong>, then click through to update the stack. This will set a static number of nodes in your cluster.</p>
+</li>
+<li>
+<p>After the stack finishes updating, verify the number of nodes in your Crowd Data Center cluster. Choose <strong>Clustering</strong> again from the administration console sidebar. The following example shows a cluster scaled up to three instances.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/qs-crowd-clustering-multi.png" alt="qs crowd clustering multi">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting">Troubleshooting</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
 <div class="paragraph">
 <p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>No</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (For Windows, look at the log files in %ProgramFiles%\Amazon\EC2ConfigService and C:\cfn\log.)</p>
 </div>
-<div class="paragraph">
-<p><strong>Important:</strong> When you set <strong>Rollback on failure</strong> to <strong>No</strong>, you continue to incur AWS charges for this stack. Please make sure to delete the stack when you finish troubleshooting.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When you set <strong>Rollback on failure</strong> to <strong>No</strong>, you continue to incur AWS charges for this stack. Please make sure to delete the stack when you finish troubleshooting.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>For additional information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html">Troubleshooting AWS CloudFormation</a> on the AWS website.</p>
@@ -2183,49 +2307,35 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <div class="paragraph">
 <p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html">AWS documentation</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Troubleshooting</p>
-</div>
-<div class="paragraph">
-<p>&lt;Steps for troubleshooting the deployment go here.&gt;</p>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-documentation-base">GitHub repository</a> for this Quick Start. If you’d like to submit code, please review the <a href="https://aws-quickstart.github.io/">Quick Start Contributor’s Guide</a>.</p>
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. If you’d like to submit code, please review the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_quick_start_reference_deployments">Quick Start reference deployments</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>AWS Quick Start home page<br>
-<a href="https://aws.amazon.com/quickstart/" class="bare">https://aws.amazon.com/quickstart/</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>See the <a href="https://aws.amazon.com/quickstart/">AWS Quick Start home page</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_github_repository">GitHub Repository</h2>
+<h2 id="_github_repository">GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base">GitHub repository</a> to download
+<p>You can visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> to download
 the templates and scripts for this Quick Start, to post your comments,
 and to share your customizations with others.</p>
 </div>
 <hr>
 <div class="paragraph">
-<p>© 2020, Amazon Web Services, Inc. or its affiliates, and Example Company Name, Ltd.. All rights reserved.</p>
+<p>© 2020, Amazon Web Services, Inc. or its affiliates, and Atlassian. All rights reserved.</p>
 </div>
 <div class="sect3">
 <h4 id="_notices">Notices</h4>
@@ -2241,7 +2351,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-07-01 17:06:24 UTC
+Last updated 2020-07-23 17:54:38 UTC
 </div>
 </div>
 </body>
