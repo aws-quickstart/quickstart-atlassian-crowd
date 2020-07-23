@@ -13,5 +13,3 @@ jobs:
 
       - name: cfn-lint
         uses: scottbrenner/cfn-lint-action@master
-        with:
-          args: "templates/*.yaml"
