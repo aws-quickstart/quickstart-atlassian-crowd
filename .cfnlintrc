@@ -3,3 +3,4 @@ templates:
 ignore_checks:
   - W4002
   - E3012
+  - E1001
