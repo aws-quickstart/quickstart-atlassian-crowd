@@ -1,2 +1,5 @@
 templates:
   - templates/*
+ ignore_checks:
+ - W4002
+ - E3012
