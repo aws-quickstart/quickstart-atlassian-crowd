@@ -3,7 +3,5 @@ templates:
   
 # Used by cfn-lint GitHub Action
 ignore_checks:
-#  - W4002
-#  - E3012
   # E1001 Top level template section tests is not valid
   - E1001
