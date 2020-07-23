@@ -15,4 +15,3 @@ jobs:
         uses: scottbrenner/cfn-lint-action@master
         with:
           args: "templates/*.yaml"
-          extra_args: --blacklist-path .github/cfn_nag_rules_to_suppress.yml
