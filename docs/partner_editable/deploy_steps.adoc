@@ -2,7 +2,7 @@
 
 The fastest way to use the {partner-product-name-short} Quick Start is to launch it directly from its Amazon S3 bucket. However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.
 
-As such, or production environments, we recommend that you launch the {partner-product-name-short} Quick Start templates from a custom S3 bucket. Then, launch them directly from there. Launching from your own cloned Quick Start lets you control when to apply our latest changes to your environment.
+As such, or production environments, we recommend that you clone the {partner-product-name-short} Quick Start templates to a custom S3 bucket. Then, launch the templates directly from there. This lets you control when to apply our latest changes to your environment.
 
 include::./_clone_quickstart.adoc[]
 

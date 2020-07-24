@@ -12,6 +12,7 @@ include::./_config_application.adoc[]
 .	On the *Specify Details* page, in the *{partner-product-name-short} Setup* section of *Parameters*, enter the desired number of cluster nodes in *Minimum number of cluster nodes* and *Maximum number of cluster nodes*, then click through to update the stack. This will set a static number of nodes in your cluster.
 . After the stack finishes updating, verify the number of nodes in your {partner-product-name} cluster. Choose *Clustering* again from the administration console sidebar. The following example shows a cluster scaled up to three instances.
 +
+.Clustering (multiple nodes)
 image::../images/qs-crowd-clustering-multi.png[]
 
 // == Best practices for using {partner-product-name} on AWS
