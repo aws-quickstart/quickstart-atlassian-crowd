@@ -26,3 +26,8 @@ aws s3 mb s3://<BUCKET_NAME> --region <AWS_REGION>
 +
 ** `quickstart-crowd.template.yaml`: use this for deploying Crowd into an existing ASI.
 . In the template you’ve chosen, the `QSS3BucketName` default value is set to `aws-quickstart`. Replace this default with the name of the bucket you created earlier (`<BUCKET_NAME>`).
+. Return to the parent directory of your _local_ clone of the Quick Start templates. From there, upload all the files in your local clone to your S3 bucket:
++
+----
+aws s3 cp quickstart-atlassian-crowd s3://<BUCKET_NAME> --recursive --acl public-read
+----
