@@ -565,8 +565,6 @@ Conditions:
   UseBastionHost: !And
     - !Equals [!Ref BastionHostRequired, true]
     - !Condition KeyProvided
-  GovCloudCondition:
-    !Equals [!Ref 'AWS::Region', 'us-gov-west-1']
 
 Mappings:
   AWSInstanceType2Arch:
@@ -925,9 +923,7 @@ Resources:
               - Action:
                   - 'ssm:PutParameter'
                 Effect: Allow
-                Resource: !Sub
-                  - arn:${ArnPartition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${AWS::StackName}/pinned-ansible-sha
-                  - ArnPartition: !If ["GovCloudCondition", "aws-us-gov", "aws"]
+                Resource: !Sub "arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${AWS::StackName}/pinned-ansible-sha"
   ClusterNodeInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
