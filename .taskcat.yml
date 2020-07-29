@@ -25,7 +25,7 @@ tests:
       CustomDnsName: qscrowdci.awsqs.com
       DBMasterUserPassword: 'Ae6ii5fcckj4ddi0t!'
       DBMultiAZ: 'false'
-      DBPassword: replaced-by-taskcat-override-file
+      DBPassword: 'Ae6ii5fcckj4ddi0t!'
       DBStorage: '100'
       DBStorageType: Provisioned IOPS
       KeyPairName: replaced-by-taskcat-override-file
