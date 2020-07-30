@@ -4,21 +4,22 @@ project:
   package_lambda: false
   s3_regional_buckets: true
   regions:
-  - us-east-1
+    - us-east-1
 tests:
   crowd:
     parameters:
       AccessCIDR: 10.0.0.0/16
       AvailabilityZones: $[taskcat_genaz_2]
       CustomDnsName: qscrowdci.awsqs.com
-      DBMasterUserPassword: replaced-by-taskcat-override-file
+      DBMasterUserPassword: f925dO1ry_
       DBMultiAZ: 'false'
-      DBPassword: replaced-by-taskcat-override-file
+      DBPassword: f925dO1ry_
       DBStorage: '100'
       DBStorageType: Provisioned IOPS
       KeyPairName: replaced-by-taskcat-override-file
       QSS3BucketName: $[taskcat_autobucket]
       QSS3KeyPrefix: quickstart-atlassian-crowd/
+      QSS3BucketRegion: us-east-1
     regions:
-    - us-west-1
+      - us-east-1
     template: templates/quickstart-crowd-dc-with-vpc.template.yaml
