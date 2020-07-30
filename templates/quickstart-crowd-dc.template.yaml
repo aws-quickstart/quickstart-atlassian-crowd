@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
-Description: Atlassian Crowd Data Center QS(0037)
+Description: Atlassian Crowd Data Center (qs-1r0baofad)
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch into an existing VPC"
