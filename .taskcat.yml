@@ -31,4 +31,5 @@ tests:
       KeyPairName: replaced-by-taskcat-override-file
       QSS3BucketName: $[taskcat_autobucket]
       QSS3KeyPrefix: quickstart-atlassian-crowd/
+      QSS3BucketRegion: $[taskcat_current_region]
     template: templates/quickstart-crowd-dc-with-vpc.template.yaml
