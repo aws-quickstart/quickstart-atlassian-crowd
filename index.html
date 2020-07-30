@@ -790,12 +790,15 @@ table p {
 <li><a href="#_deployment_steps">Deployment steps</a>
 <ul class="sectlevel2">
 <li><a href="#_launching_from_a_cloned_quick_start_recommended_for_production">Launching from a cloned Quick Start (recommended for production)</a></li>
-<li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
 <li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
+<li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
 </ul>
 </li>
-<li><a href="#_configuring_crowd_data_center">Configuring Crowd Data Center</a></li>
+<li><a href="#_configuring_crowd_data_center">Configuring Crowd Data Center</a>
+<ul class="sectlevel2">
 <li><a href="#_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</a></li>
+</ul>
+</li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
 <li><a href="#_send_us_feedback">Send us feedback</a></li>
 <li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
@@ -914,7 +917,7 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<a class="image" href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/images/linux-bastion-hosts-on-aws-architecture.png"><img src="images/architecture_diagram.png" alt="Architecture" width="648" height="439"></a>
+<img src="images/architecture_diagram.png" alt="Architecture" width="640">
 </div>
 <div class="title">Figure 1. Quick Start architecture for <em>Crowd Data Center</em> on AWS</div>
 </div>
@@ -1203,7 +1206,7 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <p>The fastest way to use the Crowd Quick Start is to launch it directly from its Amazon S3 bucket. However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.</p>
 </div>
 <div class="paragraph">
-<p>As such, or production environments, we recommend that you launch the Crowd Quick Start templates from a custom S3 bucket. Then, launch them directly from there. Launching from your own cloned Quick Start lets you control when to apply our latest changes to your environment.</p>
+<p>As such, on production environments, we recommend that you clone the Crowd Quick Start templates to a custom S3 bucket. Then, launch the templates directly from there. This lets you control when to apply our latest changes to your environment.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1257,14 +1260,32 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <li>
 <p>In the template you’ve chosen, the <code>QSS3BucketName</code> default value is set to <code>aws-quickstart</code>. Replace this default with the name of the bucket you created earlier (<code>&lt;BUCKET_NAME&gt;</code>).</p>
 </li>
+<li>
+<p>Return to the parent directory of your <em>local</em> clone of the Quick Start templates. From there, upload all the files in your local clone to your S3 bucket:</p>
+<div class="listingblock">
+<div class="content">
+<pre>aws s3 cp quickstart-atlassian-crowd s3://&lt;BUCKET_NAME&gt; --recursive --acl public-read</pre>
+</div>
+</div>
+</li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Once you’ve uploaded everything, you’re ready to deploy your production stack from your S3 bucket. Go to <strong>CloudFormation</strong> &gt; <strong>Create Stack</strong>. When specifying a template, paste in the Object URL of the Quick Start template you’ll be using. Choose <strong>Next</strong> to start configuring your deployment.</p>
+<p>Once you’ve uploaded everything, you’re ready to deploy your production stack from your S3 bucket.</p>
 </div>
-<div class="paragraph">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign in to your AWS account on the <a href="https://console.aws.amazon.com/console/home">AWS Console</a>.</p>
+</li>
+<li>
+<p>Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where {product-partner-name} will be built. The template is launched in the <code>us-east-1</code> Region by default.</p>
+</li>
+<li>
+<p>Go to <strong>CloudFormation</strong> &gt; <strong>Create Stack</strong>. When specifying a template, paste in the Object URL of the Quick Start template you’ll be using. Choose <strong>Next</strong> to start configuring your deployment.</p>
+</li>
+<li>
 <p>On the <strong>Specify stack</strong> details page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details about each setting, refer to the section matching your deployment type:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1274,6 +1295,9 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <p><a href="#launch-into-an-existing-vpc">[launch-into-an-existing-vpc]</a> (if you&#8217;re deploying Crowd Data Center into a new ASI)</p>
 </li>
 </ul>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>In the following tables, parameters are listed by category and described separately for the deployment options. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
@@ -1293,7 +1317,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </div>
 </div>
 <div class="sect2">
-<h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
+<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Crowd setup</caption>
 <colgroup>
@@ -1378,19 +1402,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the instance
 (<code>DeploymentAutomationPlaybook</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws_crowd_dc_node.yml</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialise the Crowd node on first start.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
-(<code>DeploymentAutomationKeyName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the Crowd node on first start.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
 (<code>DeploymentAutomationCustomParams</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
+(<code>DeploymentAutomationKeyName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
 </tr>
 </tbody>
 </table>
@@ -1460,7 +1484,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Bastion host provisioning</caption>
+<caption class="title">Table 4. Bastion host utilization</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1475,10 +1499,10 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy Bastion host
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use Bastion host
 (<code>BastionHostRequired</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Bastion host instance. If 'true', then you need to provide an EC2 Key Pair (otherwise, you won&#8217;t be able to use the Bastion host to access Crowd instances).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to grant access to Crowd&#8217;s EC2 instances through the ASI&#8217;s Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
@@ -1504,58 +1528,22 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Trusted IP range
-(<code>AccessCIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
-(<code>AvailabilityZones</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here; if more are specified only the first 2 will be used.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Make instance internet facing
 (<code>InternetFacingLoadBalancer</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 private IP address block
-(<code>PrivateSubnet1CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 private IP address block
-(<code>PrivateSubnet2CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 2 located in Availability Zone 2.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 public IP address block
-(<code>PublicSubnet1CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 public IP address block
-(<code>PublicSubnet2CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Permitted IP range
+(<code>CidrBlock</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IP address block for the VPC
-(<code>VPCCIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
 </tr>
 </tbody>
 </table>
@@ -1714,13 +1702,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">ASI identifier
 (<code>ExportPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ATL-</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment&#8217;s Atlassian Standard Infrastructure. Use different identifiers if you&#8217;re deploying multiple Atlassian Standard Infrastructures in the same AWS region.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each Atlassian Standard Infrastructure (ASI) uses a unique identifier. If you have multiple ASIs within the same AWS region, use this field to specify where to deploy Crowd.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
+<h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 9. Crowd setup</caption>
 <colgroup>
@@ -1805,19 +1793,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the instance
 (<code>DeploymentAutomationPlaybook</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws_crowd_dc_node.yml</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the Crowd node on first start.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
-(<code>DeploymentAutomationCustomParams</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialise the Crowd node on first start.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
 (<code>DeploymentAutomationKeyName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
+(<code>DeploymentAutomationCustomParams</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
 </tr>
 </tbody>
 </table>
@@ -1887,7 +1875,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Bastion host utilization</caption>
+<caption class="title">Table 12. Bastion host provisioning</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1902,10 +1890,10 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Bastion host
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy Bastion host
 (<code>BastionHostRequired</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to grant access to Crowd&#8217;s EC2 instances through the ASI&#8217;s Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Bastion host instance. If 'true', then you need to provide an EC2 Key Pair (otherwise, you won&#8217;t be able to use the Bastion host to access Crowd instances).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
@@ -1931,22 +1919,58 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trusted IP range
+(<code>AccessCIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
+(<code>AvailabilityZones</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here; if more are specified only the first 2 will be used.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Make instance internet facing
 (<code>InternetFacingLoadBalancer</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Permitted IP range
-(<code>CidrBlock</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 private IP address block
+(<code>PrivateSubnet1CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 private IP address block
+(<code>PrivateSubnet2CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 2 located in Availability Zone 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 public IP address block
+(<code>PublicSubnet1CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 public IP address block
+(<code>PublicSubnet2CIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address block for the VPC
+(<code>VPCCIDR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
 </tr>
 </tbody>
 </table>
@@ -2105,7 +2129,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">ASI identifier
 (<code>ExportPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ATL-</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Each Atlassian Standard Infrastructure (ASI) uses a unique identifier. If you have multiple ASIs within the same AWS region, use this field to specify where to deploy Crowd.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment&#8217;s Atlassian Standard Infrastructure. Use different identifiers if you&#8217;re deploying multiple Atlassian Standard Infrastructures in the same AWS region.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2141,7 +2165,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <h2 id="_configuring_crowd_data_center">Configuring Crowd Data Center</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When you launch the Quick Start, it deploys a single Crowd node (Auto Scaling group of <code>min=1</code> and <code>max=1</code>). The following procedure will focus on setting up a brand new Crowd Data Center deployment.</p>
+<p>The following procedure will focus on setting up your brand new Crowd Data Center deployment.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2164,16 +2188,18 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 <p>On the License page, enter a valid Crowd Data Center license key. If you don’t have a valid license, click on the <a href="https://my.atlassian.com/products/index">My Atlassian</a> link and sign up for an evaluation Data Center license (you’ll be required to log in to your Atlassian account).</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/qs-crowd-license.png" alt="qs crowd license">
+<img src="images/qs-crowd-license.png" alt="License" width="640">
 </div>
+<div class="title">Figure 3. Crowd licensing</div>
 </div>
 </li>
 <li>
 <p>On the Crowd installation screen, select New installation to continue setting up a new Crowd Data Center deployment.</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/qs-crowd-new-install.png" alt="qs crowd new install">
+<img src="images/qs-crowd-new-install.png" alt="New install" width="640">
 </div>
+<div class="title">Figure 4. New Crowd installation</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2194,6 +2220,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-dbconfig.png" alt="qs crowd dbconfig">
 </div>
+<div class="title">Figure 5. Crowd database configuration</div>
 </div>
 </li>
 <li>
@@ -2202,6 +2229,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-options.png" alt="qs crowd options">
 </div>
+<div class="title">Figure 6. Crowd options</div>
 </div>
 </li>
 <li>
@@ -2210,6 +2238,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-internal-directory.png" alt="qs internal directory">
 </div>
+<div class="title">Figure 7. Crowd internal directory</div>
 </div>
 </li>
 <li>
@@ -2218,6 +2247,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-first-admin.png" alt="qs crowd first admin">
 </div>
+<div class="title">Figure 8. Crowd default administrator</div>
 </div>
 </li>
 <li>
@@ -2226,6 +2256,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-intergratedapps.png" alt="qs crowd intergratedapps">
 </div>
+<div class="title">Figure 9. Crowd integrated apps</div>
 </div>
 </li>
 <li>
@@ -2234,6 +2265,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-login.png" alt="qs crowd login">
 </div>
+<div class="title">Figure 10. Crowd login</div>
 </div>
 </li>
 <li>
@@ -2242,15 +2274,16 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-clustering.png" alt="qs crowd clustering">
 </div>
+<div class="title">Figure 11. Clustering (single node)</div>
 </div>
 </li>
 </ol>
 </div>
+<div class="sect2">
+<h3 id="_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</h3>
+<div class="paragraph">
+<p>By default, your Quick Start deployment will start with a single Crowd node (Auto Scaling group of <code>min=1</code> and <code>max=1</code>). Once you&#8217;re ready to add nodes to your cluster, perform the following steps:</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</h2>
-<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2271,9 +2304,11 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-clustering-multi.png" alt="qs crowd clustering multi">
 </div>
+<div class="title">Figure 12. Clustering (multiple nodes)</div>
 </div>
 </li>
 </ol>
+</div>
 </div>
 </div>
 </div>
@@ -2351,7 +2386,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-07-23 17:54:38 UTC
+Last updated 2020-07-30 08:01:27 UTC
 </div>
 </div>
 </body>
