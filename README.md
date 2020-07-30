@@ -11,14 +11,20 @@ This Quick Start uses the [Atlassian Standard Infrastructure (ASI)](https://fwd.
 
 ![Quick Start architecture for Crowd on AWS](/docs/images/architecture_diagram.png)
 
-For architectural details, best practices, step-by-step instructions, and customization options, see the 
+For architectural details, best practices, step-by-step instructions, and customization options, see the
 [deployment guide](https://aws-quickstart.github.io/quickstart-atlassian-crowd/).
+
+### Using the Quick Start in production environments
+
+The fastest way to deploy Crowd Data Center with this Quick Start is directly through its [AWS Quick Start interface](https://aws.amazon.com/quickstart/architecture/crowd). However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.
+
+As such, on production environments, we recommend that you clone the {partner-product-name-short} Quick Start templates to a custom S3 bucket. Then, launch the templates directly from there. This lets you control when to apply our latest changes to your environment. See [Launching from a cloned Quick Start](https://aws-quickstart.github.io/quickstart-atlassian-crowd/#_launching_from_a_cloned_quick_start_recommended_for_production) for instructions. 
 
 ### Network prerequisites
 
 You need to create the required AWS networking infrastructure
 (VPC, subnets) by using the [ASI Quick Start](https://fwd.aws/xYyYy), or by deploying Crowd with a new ASI.
-For details, see the [deployment guide](https://aws-quickstart.github.io/quickstart-atlassian-crowd/). 
+For details, see the [deployment guide](https://aws-quickstart.github.io/quickstart-atlassian-crowd/).
 
 ## Development notes
 
