@@ -5,3 +5,7 @@
 
 // ==== Prepare your {partner-company-name} account
 // _Describe any setup required in the partner portal/account prior to template launch_
+
+
+
+# Add something
