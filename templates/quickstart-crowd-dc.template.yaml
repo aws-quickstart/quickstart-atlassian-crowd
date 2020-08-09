@@ -27,6 +27,7 @@ Metadata:
           default: Database
         Parameters:
           - DBInstanceClass
+          - DBEngineVersion
           - DBIops
           - DBMasterUserPassword
           - DBMultiAZ
@@ -90,6 +91,8 @@ Metadata:
         default: Cluster node instance volume size
       CustomDnsName:
         default: Existing DNS name
+      DBEngineVersion:
+        default: The database engine version to use
       DBInstanceClass:
         default: Database instance class
       DBIops:
@@ -288,6 +291,14 @@ Parameters:
   CustomDnsName:
     Default: ""
     Description: 'Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.'
+    Type: String
+  DBEngineVersion:
+    Default: 10
+    AllowedValues:
+      - 9
+      - 10
+      - 11
+    Description: "The database engine version to use; we'll install a suitable minor version for your chosen engine. Make sure that the Crowd version you're installing supports the database engine selected."
     Type: String
   DBInstanceClass:
     Default: db.m5.large
@@ -950,10 +961,10 @@ Resources:
           PropagateAtLaunch: true
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 980e3e052e096a84b455cdcec08e3a5d40043add"
+          Value: "COMMIT: 456fcd239aec9f2df7cfb104197436ed933cc970"
           PropagateAtLaunch: true
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-07-30T01:35:33Z"
+          Value: "TIMESTAMP: 2020-08-09T21:56:29Z"
           PropagateAtLaunch: true
 
   ClusterNodeLaunchConfig:
@@ -1122,9 +1133,9 @@ Resources:
           Value: !Ref AWS::StackId
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 980e3e052e096a84b455cdcec08e3a5d40043add"
+          Value: "COMMIT: 456fcd239aec9f2df7cfb104197436ed933cc970"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-07-30T01:35:33Z"
+          Value: "TIMESTAMP: 2020-08-09T21:56:29Z"
   EFSMountAz1:
     Type: AWS::EFS::MountTarget
     Properties:
@@ -1166,20 +1177,21 @@ Resources:
           S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
       Parameters:
         DatabaseImplementation: "PostgreSQL"
-        DBSecurityGroup: !Ref SecurityGroup
+        DBEngineVersion: !Ref DBEngineVersion
+        DBAllocatedStorage: !Ref DBStorage
         DBAutoMinorVersionUpgrade: "true"
         DBBackupRetentionPeriod: "1"
         DBInstanceClass: !Ref DBInstanceClass
         DBIops: !Ref DBIops
         DBMasterUserPassword: !Ref DBMasterUserPassword
         DBMultiAZ: !Ref DBMultiAZ
-        DBAllocatedStorage: !Ref DBStorage
+        DBSecurityGroup: !Ref SecurityGroup
         DBStorageEncrypted: !Ref DBStorageEncrypted
         DBStorageType: !Ref DBStorageType
         ExportPrefix: !Ref ExportPrefix
         QSS3BucketName: !Ref QSS3BucketName
-        QSS3KeyPrefix: !Ref QSS3KeyPrefix
         QSS3BucketRegion: !Ref QSS3BucketRegion
+        QSS3KeyPrefix: !Ref QSS3KeyPrefix
   DBCname:
     Condition: UseHostedZone
     Type: AWS::Route53::RecordSet
@@ -1211,9 +1223,9 @@ Resources:
           Value: !Ref AWS::StackName
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 980e3e052e096a84b455cdcec08e3a5d40043add"
+          Value: "COMMIT: 456fcd239aec9f2df7cfb104197436ed933cc970"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-07-30T01:35:33Z"
+          Value: "TIMESTAMP: 2020-08-09T21:56:29Z"
 
   LoadBalancerHTTPListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
@@ -1275,9 +1287,9 @@ Resources:
           Value: !Ref AWS::StackName
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 980e3e052e096a84b455cdcec08e3a5d40043add"
+          Value: "COMMIT: 456fcd239aec9f2df7cfb104197436ed933cc970"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-07-30T01:35:33Z"
+          Value: "TIMESTAMP: 2020-08-09T21:56:29Z"
     DependsOn:
       - LoadBalancer
   LoadBalancerCname:
@@ -1356,9 +1368,9 @@ Resources:
           Value: !Join [' ', [!Ref "AWS::StackName", 'sg']]
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 980e3e052e096a84b455cdcec08e3a5d40043add"
+          Value: "COMMIT: 456fcd239aec9f2df7cfb104197436ed933cc970"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-07-30T01:35:33Z"
+          Value: "TIMESTAMP: 2020-08-09T21:56:29Z"
       VpcId:
         Fn::ImportValue: !Sub "${ExportPrefix}VPCID"
   SecurityGroupIngress:
@@ -1390,9 +1402,9 @@ Resources:
           Value: !Sub ["${StackName} Encryption Key", {StackName: !Ref 'AWS::StackName'}]
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 980e3e052e096a84b455cdcec08e3a5d40043add"
+          Value: "COMMIT: 456fcd239aec9f2df7cfb104197436ed933cc970"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-07-30T01:35:33Z"
+          Value: "TIMESTAMP: 2020-08-09T21:56:29Z"
   EncryptionKeyAlias:
     Condition: UseDatabaseEncryption
     Type: AWS::KMS::Alias

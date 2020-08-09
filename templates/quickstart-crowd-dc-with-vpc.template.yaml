@@ -102,6 +102,8 @@ Metadata:
         default: Cluster node instance volume size
       CustomDnsName:
         default: Existing DNS name
+      DBEngineVersion:
+        default: The database engine version to use
       DBInstanceClass:
         default: Database instance class
       DBIops:
@@ -306,6 +308,14 @@ Parameters:
   CustomDnsName:
     Default: ""
     Description: 'Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.'
+    Type: String
+  DBEngineVersion:
+    Default: 10
+    AllowedValues:
+      - 9
+      - 10
+      - 11
+    Description: "The database engine version to use; we'll install a suitable minor version for your chosen engine. Make sure that the Crowd version you're installing supports the database engine selected."
     Type: String
   DBInstanceClass:
     Default: db.m5.large
@@ -643,6 +653,7 @@ Resources:
         ClusterNodeMin: !Ref 'ClusterNodeMin'
         ClusterNodeVolumeSize: !Ref 'ClusterNodeVolumeSize'
         CustomDnsName: !Ref 'CustomDnsName'
+        DBEngineVersion: !Ref 'DBEngineVersion'
         DBInstanceClass: !Ref 'DBInstanceClass'
         DBIops: !Ref 'DBIops'
         DBMasterUserPassword: !Ref 'DBMasterUserPassword'
