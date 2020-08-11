@@ -24,7 +24,8 @@
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default Value|Description|Database instance class
-(`DBInstanceClass`)|`db.m5.large`|RDS instance type.|RDS Provisioned IOPS
+(`DBInstanceClass`)|`db.m5.large`|RDS instance type.|The database engine version to use
+(`DBEngineVersion`)|`10`|The database engine version to use; we'll install a suitable minor version for your chosen engine. Make sure that the Crowd version you're installing supports the database engine selected.|RDS Provisioned IOPS
 (`DBIops`)|`1000`|Must be in the range of 1000 - 30000 and a multiple of 1000. This value is only used with Provisioned IOPS. Note: The ratio of IOPS per allocated-storage must be between 3.00 and 10.00.|Master (admin) password *
 (`DBMasterUserPassword`)|`**__Requires Input__**`|Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &|Enable RDS Multi-AZ deployment
 (`DBMultiAZ`)|`true`|Whether to provision a multi-AZ RDS instance.|Application user database password *

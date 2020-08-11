@@ -922,24 +922,21 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="title">Figure 1. Quick Start architecture for <em>Crowd Data Center</em> on AWS</div>
 </div>
 <div class="paragraph">
-<p>This Quick Start includes two AWS CloudFormation templates: the first one builds the Atlassian Standard Infrastructure (ASI), which is a virtual private cloud (VPC) that contains the components required by all Atlassian Data Center applications, and then provisions Crowd Data Center into this ASI. The second template provisions Crowd Data Center in an existing ASI.</p>
-</div>
-<div class="paragraph">
-<p>The resulting infrastructure from this Quick Start includes the following:</p>
+<p>As shown in this figure, the Quick Start sets up the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Amazon RDS for PostgreSQL</strong>: Amazon RDS for PostgreSQL in a Multi-AZ configuration allows failover in the event the master node fails.</p>
+<p>Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.</p>
 </li>
 <li>
-<p><strong>Amazon EFS</strong>: Crowd Data Center uses a shared file system to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes. The Quick Start architecture implements the shared file system by using the highly available Amazon Elastic File System (Amazon EFS) service.</p>
+<p>Amazon Elastic File System (Amazon EFS) to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes.</p>
 </li>
 <li>
-<p><strong>Crowd Auto Scaling group</strong>: Crowd Data Center is installed on Amazon Elastic Compute Cloud (Amazon EC2) instances in an Auto Scaling group. The Quick Start uses Ansible playbooks to configure Crowd Data Center on each instance. See the <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md">Atlassian Data Center Installation Automation (repo)</a> for more details.</p>
+<p>A Crowd Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).</p>
 </li>
 <li>
-<p><strong>Application Load Balancer</strong>: This works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
+<p>An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
 </li>
 </ul>
 </div>
@@ -951,10 +948,10 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Bastion host</strong>: This host enables secure access to your Crowd nodes without exposing it to the internet (for more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a Bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager Sessions Manager</a>.</p>
+<p>A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a Bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager Sessions Manager</a>.</p>
 </li>
 <li>
-<p><strong>Amazon CloudWatch</strong>: This provides basic monitoring for all application and database nodes in your deployment. By default, CloudWatch will also collect and store logs from each monitored node. You can choose not to provision Amazon CloudWatch if you plan to use a different monitoring platform.</p>
+<p>Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node.</p>
 </li>
 </ul>
 </div>
@@ -1178,7 +1175,10 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="sect3">
 <h4 id="_deployment_options">Deployment options</h4>
 <div class="paragraph">
-<p>This Quick Start provides two deployment options:</p>
+<p>This Quick Start includes two AWS CloudFormation templates: the first one builds the Atlassian Standard Infrastructure (ASI), which is a virtual private cloud (VPC) that contains the components required by all Atlassian Data Center applications, and then provisions Crowd Data Center into this ASI. The second template provisions Crowd Data Center in an existing ASI.</p>
+</div>
+<div class="paragraph">
+<p>Using these templates, the Quick Start provides two deployment options:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1245,7 +1245,7 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 </div>
 </li>
 <li>
-<p>Choose which Quick Start template you’ll be using and open it:</p>
+<p>Choose which Quick Start template you plan to use:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1438,6 +1438,12 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 (<code>DBInstanceClass</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>db.m5.large</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RDS instance type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The database engine version to use
+(<code>DBEngineVersion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The database engine version to use; we&#8217;ll install a suitable minor version for your chosen engine. Make sure that the Crowd version you&#8217;re installing supports the database engine selected.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RDS Provisioned IOPS
@@ -2319,7 +2325,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>No</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (For Windows, look at the log files in %ProgramFiles%\Amazon\EC2ConfigService and C:\cfn\log.)</p>
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (Review the log files in <code>/var/log/atl.log</code> and <code>/var/log/cfn-init.log</code>.)</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -2328,7 +2334,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-When you set <strong>Rollback on failure</strong> to <strong>No</strong>, you continue to incur AWS charges for this stack. Please make sure to delete the stack when you finish troubleshooting.
+When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Please ensure you delete the stack when you finish troubleshooting.
 </td>
 </tr>
 </table>
@@ -2386,7 +2392,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 02:17:09 UTC
+Last updated 2020-08-11 06:44:59 UTC
 </div>
 </div>
 </body>
