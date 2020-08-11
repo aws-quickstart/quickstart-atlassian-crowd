@@ -7,17 +7,17 @@ image::../images/architecture_diagram.png[Architecture,width=640]
 
 As shown in this figure, the Quick Start sets up the following:
 
-* *Amazon RDS for PostgreSQL*: Amazon RDS for PostgreSQL in a Multi-AZ configuration allows failover in the event the master node fails.
-* *Amazon EFS*: {partner-product-name} uses a shared file system to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all {partner-product-name-short} nodes. The Quick Start architecture implements the shared file system by using the highly available Amazon Elastic File System (Amazon EFS) service.
-* *{partner-product-name-short} Auto Scaling group*: {partner-product-name} is installed on Amazon Elastic Compute Cloud (Amazon EC2) instances in an Auto Scaling group. The Quick Start uses Ansible playbooks to configure {partner-product-name} on each instance. See the https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md[Atlassian Data Center Installation Automation (repo)] for more details.
-* *Application Load Balancer*: This works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.
+* Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.
+* Amazon Elastic File System (Amazon EFS) to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes. 
+* A {partner-product-name-short} Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).
+* An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.
 
 === Optional Components
 
 This infrastructure also includes the following optional components:
 
-* *Bastion host*: This host enables secure access to your {partner-product-name-short} nodes without exposing it to the internet (for more information, see https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts[Bastion Hosts]). You can choose not to provision a Bastion host if you prefer to access {partner-product-name-short} nodes through the https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html[AWS Systems Manager Sessions Manager].
-* *Amazon CloudWatch*: This provides basic monitoring for all application and database nodes in your deployment. By default, CloudWatch will also collect and store logs from each monitored node. You can choose not to provision Amazon CloudWatch if you plan to use a different monitoring platform.
+* A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts[Bastion Hosts]). You can choose not to provision a Bastion host if you prefer to access {partner-product-name-short} nodes through the https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html[AWS Systems Manager Sessions Manager].
+* Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node.
 
 === Auto Scaling Groups in this Quick Start
 
