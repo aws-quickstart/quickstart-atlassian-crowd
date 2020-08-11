@@ -5,9 +5,7 @@ Deploying this Quick Start for a new https://aws.amazon.com/quickstart/architect
 .Quick Start architecture for _{partner-product-name}_ on AWS
 image::../images/architecture_diagram.png[Architecture,width=640]
 
-This Quick Start includes two AWS CloudFormation templates: the first one builds the {vpc-name} (ASI), which is a virtual private cloud (VPC) that contains the components required by all {partner-company-name} Data Center applications, and then provisions {partner-product-name} into this ASI. The second template provisions {partner-product-name} in an existing ASI.
-
-The resulting infrastructure from this Quick Start includes the following:
+As shown in this figure, the Quick Start sets up the following:
 
 * *Amazon RDS for PostgreSQL*: Amazon RDS for PostgreSQL in a Multi-AZ configuration allows failover in the event the master node fails.
 * *Amazon EFS*: {partner-product-name} uses a shared file system to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all {partner-product-name-short} nodes. The Quick Start architecture implements the shared file system by using the highly available Amazon Elastic File System (Amazon EFS) service.
