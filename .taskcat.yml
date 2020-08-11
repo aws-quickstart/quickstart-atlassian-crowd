@@ -31,4 +31,5 @@ tests:
       QSS3BucketName: $[taskcat_autobucket]
       QSS3KeyPrefix: quickstart-atlassian-crowd/
       QSS3BucketRegion: $[taskcat_current_region]
+      ExportPrefix: $[taskcat_genuuid]
     template: templates/quickstart-crowd-dc-with-vpc.template.yaml
