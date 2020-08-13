@@ -2,13 +2,13 @@
 .Crowd setup
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Version *
+|Parameter label (name) |Default value|Description|Version *
 (`CrowdVersion`)|`4.0.0`|The version of Crowd Software to install. Find valid versions on the Crowd Release Notes page (https://confluence.atlassian.com/x/tgkD).
 |===
 .Cluster nodes
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Enable CloudWatch integration
+|Parameter label (name) |Default value|Description|Enable CloudWatch integration
 (`CloudWatchIntegration`)|`Metrics and Logs`|Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this altogether.|Cluster node instance type
 (`ClusterNodeInstanceType`)|`c5.xlarge`|Instance type for the cluster application nodes.|Maximum number of cluster nodes
 (`ClusterNodeMax`)|`1`|Maximum number of nodes in the cluster.|Minimum number of cluster nodes
@@ -17,19 +17,19 @@
 (`DeploymentAutomationRepository`)|`https://bitbucket.org/atlassian/dc-deployments-automation.git`|The deployment automation repository to use for per-node initialization. Leave this as default unless you have customizations.|Deployment Automation Branch
 (`DeploymentAutomationBranch`)|`master`|The deployment automation repository branch to pull from.|The Ansible playbook to invoke to initialize the instance
 (`DeploymentAutomationPlaybook`)|`aws_crowd_dc_node.yml`|The Ansible playbook to invoke to initialize the Crowd node on first start.|Custom command-line parameters for Ansible
-(`DeploymentAutomationCustomParams`)|`**__Requires Input__**`|Additional command-line options for the `ansible-playbook` command. See https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md for more information about overriding parameters. (Optional)|SSH keyname to use with the repository
-(`DeploymentAutomationKeyName`)|`**__Requires Input__**`|Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)
+(`DeploymentAutomationCustomParams`)|`**__Requires input__**`|Additional command-line options for the `ansible-playbook` command. See https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md for more information about overriding parameters. (Optional)|SSH keyname to use with the repository
+(`DeploymentAutomationKeyName`)|`**__Requires input__**`|Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)
 |===
 .Database
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Database instance class
+|Parameter label (name) |Default value|Description|Database instance class
 (`DBInstanceClass`)|`db.m5.large`|RDS instance type.|The database engine version to use
 (`DBEngineVersion`)|`10`|The database engine version to use; we'll install a suitable minor version for your chosen engine. Make sure that the Crowd version you're installing supports the database engine selected.|RDS Provisioned IOPS
 (`DBIops`)|`1000`|Must be in the range of 1000 - 30000 and a multiple of 1000. This value is only used with Provisioned IOPS. Note: The ratio of IOPS per allocated-storage must be between 3.00 and 10.00.|Master (admin) password *
-(`DBMasterUserPassword`)|`**__Requires Input__**`|Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &|Enable RDS Multi-AZ deployment
+(`DBMasterUserPassword`)|`**__Requires input__**`|Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &|Enable RDS Multi-AZ deployment
 (`DBMultiAZ`)|`true`|Whether to provision a multi-AZ RDS instance.|Application user database password *
-(`DBPassword`)|`**__Requires Input__**`|Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }|Database storage
+(`DBPassword`)|`**__Requires input__**`|Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }|Database storage
 (`DBStorage`)|`200`|Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144.|Database encryption
 (`DBStorageEncrypted`)|`false`|Whether or not to encrypt the database|Database storage type
 (`DBStorageType`)|`General Purpose (SSD)`|Database storage type.
@@ -37,32 +37,32 @@
 .Bastion host utilization
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Use Bastion host
+|Parameter label (name) |Default value|Description|Use Bastion host
 (`BastionHostRequired`)|`true`|Whether to grant access to Crowd's EC2 instances through the ASI's Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.|SSH Key Pair Name
-(`KeyPairName`)|`**__Requires Input__**`|Public/private EC2 Key Pairs to allow you to securely access the Bastion host
+(`KeyPairName`)|`**__Requires input__**`|Public/private EC2 Key Pairs to allow you to securely access the Bastion host
 |===
 .Networking
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Make instance internet facing
+|Parameter label (name) |Default value|Description|Make instance internet facing
 (`InternetFacingLoadBalancer`)|`true`|Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).|Permitted IP range
-(`CidrBlock`)|`**__Requires Input__**`|CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.|SSL Certificate ARN
-(`SSLCertificateARN`)|`**__Requires Input__**`|Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you'll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it's successfully created.
+(`CidrBlock`)|`**__Requires input__**`|CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.|SSL Certificate ARN
+(`SSLCertificateARN`)|`**__Requires input__**`|Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you'll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it's successfully created.
 |===
 .DNS (Optional)
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Existing DNS name
-(`CustomDnsName`)|`**__Requires Input__**`|Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.|Route 53 Hosted Zone
-(`HostedZone`)|`**__Requires Input__**`|The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames
+|Parameter label (name) |Default value|Description|Existing DNS name
+(`CustomDnsName`)|`**__Requires input__**`|Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.|Route 53 Hosted Zone
+(`HostedZone`)|`**__Requires input__**`|The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames
 |===
 .Application Tuning (Optional)
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Tomcat Context Path
-(`TomcatContextPath`)|`**__Requires Input__**`|The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"|Catalina options
-(`CatalinaOpts`)|`**__Requires Input__**`|Pass in any additional jvm options to tune Catalina|JVM Heap Size Override
-(`JvmHeapOverride`)|`**__Requires Input__**`|Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g|Enable App to Process Email
+|Parameter label (name) |Default value|Description|Tomcat Context Path
+(`TomcatContextPath`)|`**__Requires input__**`|The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"|Catalina options
+(`CatalinaOpts`)|`**__Requires input__**`|Pass in any additional jvm options to tune Catalina|JVM Heap Size Override
+(`JvmHeapOverride`)|`**__Requires input__**`|Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g|Enable App to Process Email
 (`MailEnabled`)|`true`|Enable mail processing and sending|Tomcat Accept Count
 (`TomcatAcceptCount`)|`10`|The maximum queue length for incoming connection requests when all possible request processing threads are in use|Tomcat Connection Timeout
 (`TomcatConnectionTimeout`)|`20000`|The number of milliseconds this Connector will wait, after accepting a connection, for the request URI line to be presented|Tomcat Default Connector Port
@@ -76,7 +76,7 @@
 .AWS Quick Start Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default Value|Description|Quick Start S3 Bucket Name
+|Parameter label (name) |Default value|Description|Quick Start S3 Bucket Name
 (`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|Quick Start S3 bucket region
 (`QSS3BucketRegion`)|`us-east-1`|The AWS Region where the Quick Start S3 bucket is hosted. By default, this is set to us-east-1; do not update it unless you're using a custom Quick Start S3 bucket.|Quick Start S3 Key Prefix
 (`QSS3KeyPrefix`)|`quickstart-atlassian-crowd/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).|ASI identifier

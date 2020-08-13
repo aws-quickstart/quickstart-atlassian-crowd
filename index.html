@@ -776,7 +776,6 @@ table p {
 <li><a href="#_software_licenses">Software licenses</a></li>
 <li><a href="#_architecture">Architecture</a>
 <ul class="sectlevel2">
-<li><a href="#_optional_components">Optional Components</a></li>
 <li><a href="#_auto_scaling_groups_in_this_quick_start">Auto Scaling Groups in this Quick Start</a></li>
 </ul>
 </li>
@@ -885,7 +884,7 @@ using the Quick Start.</p>
 <p>The AWS CloudFormation template for this Quick Start includes
 configuration parameters that you can customize. Some of the settings,
 such as the instance type, affect the cost of deployment. For cost estimates,
-see the pricing pages for each AWS service you will use. Prices are subject to change.</p>
+see the pricing pages for each AWS service you use. Prices are subject to change.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -894,7 +893,7 @@ see the pricing pages for each AWS service you will use. Prices are subject to c
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and finalizes the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
+After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and aggregates the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
 </td>
 </tr>
 </table>
@@ -927,34 +926,44 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="ulist">
 <ul>
 <li>
-<p>Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.</p>
+<p>A highly available architecture that spans two Availability Zones</p>
+</li>
+<li>
+<p>In the public subnets:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A NAT gateway</p>
+</li>
+<li>
+<p>A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a Bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager Sessions Manager</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
+</li>
+<li>
+<p>In the private subnets:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A Crowd Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).</p>
 </li>
 <li>
 <p>Amazon Elastic File System (Amazon EFS) to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes.</p>
 </li>
 <li>
-<p>A Crowd Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).</p>
-</li>
-<li>
-<p>An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
+<p>Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.</p>
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="_optional_components">Optional Components</h3>
-<div class="paragraph">
-<p>This infrastructure also includes the following optional components:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a Bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager Sessions Manager</a>.</p>
 </li>
 <li>
-<p>Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node.</p>
+<p>Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node. Amazon CloudWatch is also an optional component.</p>
 </li>
 </ul>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_auto_scaling_groups_in_this_quick_start">Auto Scaling Groups in this Quick Start</h3>
@@ -1000,7 +1009,7 @@ Cloud.</p>
 <div class="sect2">
 <h3 id="_technical_requirements">Technical requirements</h3>
 <div class="paragraph">
-<p>Before you launch the Quick Start, your account must be configured as specified below. Otherwise, deployment might fail.</p>
+<p>Before you launch the Quick Start, your account must be configured as specified in the following table. Otherwise, deployment might fail.</p>
 </div>
 <div class="sect3">
 <h4 id="_resource_limits">Resource limits</h4>
@@ -1309,8 +1318,8 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-We recommend keeping the default settings for the three parameters labled 'Quick Start S3 bucket name', 'Quick Start S3 bucket
-Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick Start templates for your own deployment projects. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For additional details, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
+Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled <code>Quick Start S3 bucket name</code>, <code>Quick Start S3 bucket
+Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
 </td>
 </tr>
 </table>
@@ -1328,7 +1337,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1351,7 +1360,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1407,13 +1416,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
 (<code>DeploymentAutomationCustomParams</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
 (<code>DeploymentAutomationKeyName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
 </tr>
 </tbody>
@@ -1428,7 +1437,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1454,7 +1463,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Master (admin) password *
 (<code>DBMasterUserPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &amp;</p></td>
 </tr>
 <tr>
@@ -1466,7 +1475,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application user database password *
 (<code>DBPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }</p></td>
 </tr>
 <tr>
@@ -1499,7 +1508,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1513,7 +1522,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
 (<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 Key Pairs to allow you to securely access the Bastion host</p></td>
 </tr>
 </tbody>
@@ -1528,7 +1537,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1542,13 +1551,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Permitted IP range
 (<code>CidrBlock</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
 </tr>
 </tbody>
@@ -1563,7 +1572,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1571,13 +1580,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing DNS name
 (<code>CustomDnsName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 Hosted Zone
 (<code>HostedZone</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames</p></td>
 </tr>
 </tbody>
@@ -1592,7 +1601,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1600,19 +1609,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Context Path
 (<code>TomcatContextPath</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalina options
 (<code>CatalinaOpts</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional jvm options to tune Catalina</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JVM Heap Size Override
 (<code>JvmHeapOverride</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g</p></td>
 </tr>
 <tr>
@@ -1681,7 +1690,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1725,7 +1734,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1748,7 +1757,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1804,13 +1813,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
 (<code>DeploymentAutomationKeyName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
 (<code>DeploymentAutomationCustomParams</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
 </tr>
 </tbody>
@@ -1825,7 +1834,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1845,7 +1854,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Master (admin) password *
 (<code>DBMasterUserPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &amp;</p></td>
 </tr>
 <tr>
@@ -1857,7 +1866,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application user database password *
 (<code>DBPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }</p></td>
 </tr>
 <tr>
@@ -1890,7 +1899,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1904,7 +1913,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
 (<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 Key Pairs to allow you to securely access the Bastion host</p></td>
 </tr>
 </tbody>
@@ -1919,7 +1928,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1927,13 +1936,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Trusted IP range
 (<code>AccessCIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
 (<code>AvailabilityZones</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here; if more are specified only the first 2 will be used.</p></td>
 </tr>
 <tr>
@@ -1969,7 +1978,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
 </tr>
 <tr>
@@ -1990,7 +1999,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1998,13 +2007,13 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing DNS name
 (<code>CustomDnsName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 Hosted Zone
 (<code>HostedZone</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames</p></td>
 </tr>
 </tbody>
@@ -2019,7 +2028,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -2027,19 +2036,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Context Path
 (<code>TomcatContextPath</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalina options
 (<code>CatalinaOpts</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional jvm options to tune Catalina</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JVM Heap Size Override
 (<code>JvmHeapOverride</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g</p></td>
 </tr>
 <tr>
@@ -2108,7 +2117,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -2154,7 +2163,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Crowd Data Center deployment is ready.</p>
 </li>
 <li>
-<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in Figure 2, to view the resources that were created.</p>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in figure 2, to view the created resources.</p>
 </li>
 </ol>
 </div>
@@ -2376,15 +2385,15 @@ and to share your customizations with others.</p>
 </div>
 <hr>
 <div class="paragraph">
-<p>© 2020, Amazon Web Services, Inc. or its affiliates, and Atlassian. All rights reserved.</p>
+<p>© 2020, Amazon Web Services Inc., or its affiliates, and Atlassian. All rights reserved.</p>
 </div>
 <div class="sect3">
 <h4 id="_notices">Notices</h4>
 <div class="paragraph">
-<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether express or implied. This document does not create any warranties, representations, contractual commitments, conditions or assurances from AWS, its affiliates, suppliers or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
+<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
 </div>
 <div class="paragraph">
-<p>The software included with this paper is licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the "license" file accompanying this file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied. See the License for specific language governing permissions and limitations.</p>
 </div>
 </div>
 </div>
@@ -2392,7 +2401,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 06:44:59 UTC
+Last updated 2020-08-13 01:52:41 UTC
 </div>
 </div>
 </body>

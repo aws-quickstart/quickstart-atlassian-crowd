@@ -7,17 +7,16 @@ image::../images/architecture_diagram.png[Architecture,width=640]
 
 As shown in this figure, the Quick Start sets up the following:
 
-* Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.
-* Amazon Elastic File System (Amazon EFS) to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes. 
-* A {partner-product-name-short} Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).
+* A highly available architecture that spans two Availability Zones
+* In the public subnets:
+** A NAT gateway
+** A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts[Bastion Hosts]). You can choose not to provision a Bastion host if you prefer to access {partner-product-name-short} nodes through the https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html[AWS Systems Manager Sessions Manager].
 * An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.
-
-=== Optional Components
-
-This infrastructure also includes the following optional components:
-
-* A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts[Bastion Hosts]). You can choose not to provision a Bastion host if you prefer to access {partner-product-name-short} nodes through the https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html[AWS Systems Manager Sessions Manager].
-* Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node.
+* In the private subnets:
+** A {partner-product-name-short} Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).
+** Amazon Elastic File System (Amazon EFS) to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes.
+** Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.
+* Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node. Amazon CloudWatch is also an optional component.
 
 === Auto Scaling Groups in this Quick Start
 
