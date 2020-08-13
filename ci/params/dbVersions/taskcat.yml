@@ -1,0 +1,38 @@
+---
+global:
+  qsname: quickstart-atlassian-crowd
+  owner: quickstart-eng@amazon.com
+  marketplace-ami: false
+  reporting: true
+  regions:
+    - ap-northeast-1
+    - ap-northeast-2
+    - ap-south-1
+    - ap-southeast-1
+    - ap-southeast-2
+    - eu-central-1
+    - eu-west-1
+    - sa-east-1
+    - us-east-1
+    - us-east-2
+    - us-west-1
+    - us-west-2
+
+tests:
+  CROWD-postgres-9:
+    template_file: quickstart-crowd-dc.template.yaml
+    parameter_input: params/dbVersions/quickstart-crowd-postgres-9.json
+    regions:
+     - us-east-1
+
+  CROWD-postgres-10:
+    template_file: quickstart-crowd-dc.template.yaml
+    parameter_input: params/dbVersions/quickstart-crowd-postgres-10.json
+    regions:
+     - us-east-1
+  
+  CROWD-postgres-11:
+    template_file: quickstart-crowd-dc.template.yaml
+    parameter_input: params/dbVersions/quickstart-crowd-postgres-11.json
+    regions:
+     - us-east-1

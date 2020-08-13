@@ -103,11 +103,11 @@ Metadata:
       CustomDnsName:
         default: Existing DNS name
       DBEngineVersion:
-        default: The database engine version to use
+        default: Database engine version 
       DBInstanceClass:
         default: Database instance class
       DBIops:
-        default: RDS Provisioned IOPS
+        default: Amazon RDS Provisioned IOPS
       DBMasterUserPassword:
         default: Master (admin) password *
       DBMultiAZ:
@@ -121,31 +121,31 @@ Metadata:
       DBStorageType:
         default: Database storage type
       DeploymentAutomationRepository:
-        default: Deployment Automation Git Repository URL
+        default: Deployment automation Git repository URL
       DeploymentAutomationBranch:
-        default: Deployment Automation Branch
+        default: Deployment automation branch
       DeploymentAutomationPlaybook:
-        default: The Ansible playbook to invoke to initialize the instance
+        default: Ansible playbook to invoke to initialize the instance
       DeploymentAutomationKeyName:
-        default: SSH keyname to use with the repository
+        default: SSH key name to use with repository
       DeploymentAutomationCustomParams:
         default: Custom command-line parameters for Ansible
       ExportPrefix:
         default: ASI identifier
       HostedZone:
-        default: Route 53 Hosted Zone
+        default: Route 53 hosted zone
       InternetFacingLoadBalancer:
         default: Make instance internet facing
       CrowdVersion:
         default: Version *
       JvmHeapOverride:
-        default: JVM Heap Size Override
+        default: JVM heap size override
       BastionHostRequired:
-          default: Deploy Bastion host
+          default: Deploy bastion host
       KeyPairName:
-        default: SSH Key Pair Name
+        default: SSH key pair name
       MailEnabled:
-        default: Enable App to Process Email
+        default: Enable app to process email
       PrivateSubnet1CIDR:
         default: AZ1 private IP address block
       PrivateSubnet2CIDR:
@@ -155,46 +155,46 @@ Metadata:
       PublicSubnet2CIDR:
         default: AZ2 public IP address block
       SSLCertificateARN:
-        default: SSL Certificate ARN
+        default: SSL certificate ARN
       TomcatAcceptCount:
-        default: Tomcat Accept Count
+        default: Tomcat accept count
       TomcatConnectionTimeout:
-        default: Tomcat Connection Timeout
+        default: Tomcat connection timeout
       TomcatContextPath:
-        default: Tomcat Context Path
+        default: Tomcat context path
       TomcatDefaultConnectorPort:
-        default: Tomcat Default Connector Port
+        default: Tomcat default connector port
       TomcatEnableLookups:
-        default: Tomcat Enable DNS Lookups
+        default: Tomcat enable DNS lookups
       TomcatMaxThreads:
-        default: Tomcat Maximum Threads
+        default: Tomcat maximum threads
       TomcatMinSpareThreads:
-        default: Tomcat Minimum Spare Threads
+        default: Tomcat minimum spare threads
       TomcatProtocol:
-        default: Tomcat Protocol
+        default: Tomcat protocol
       TomcatRedirectPort:
-        default: Tomcat Redirect Port
+        default: Tomcat redirect port
 
       QSS3BucketName:
-        default: Quick Start S3 Bucket Name
+        default: Quick Start S3 bucket name
       QSS3BucketRegion:
-        default: Quick Start S3 bucket region
+        default: Quick Start S3 bucket Region
       QSS3KeyPrefix:
-        default: Quick Start S3 Key Prefix
+        default: Quick Start S3 key prefix
 
       VPCCIDR:
-        default: IP address block for the VPC
+        default: IP address block for VPC
 
 Parameters:
   # Crowd DC template parameters
   CatalinaOpts:
     Default: ''
-    Description: Pass in any additional jvm options to tune Catalina
+    Description: Pass in additional JVM options to tune Catalina
     Type: String
   CloudWatchIntegration:
     Default: "Metrics and Logs"
     Type: String
-    Description: "Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this altogether."
+    Description: "Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this setting."
     AllowedValues: ["Off", "Metrics Only", "Metrics and Logs"]
     ConstraintDescription: "Must be 'Off', 'Metrics Only', or 'Metrics and Logs'"
   ClusterNodeInstanceType:
@@ -289,12 +289,12 @@ Parameters:
       - z1d.2xlarge
       - z1d.3xlarge
       - z1d.6xlarge
-      - z1d.12xlarge
+      - z1d.12xlarge.
     ConstraintDescription: Must be an EC2 instance type from the selection list
     Description: Instance type for the cluster application nodes.
     Type: String
   ClusterNodeMax:
-    Description: Maximum number of nodes in the cluster.
+    Description: Maximum number of nodes in cluster.
     Default: 1
     Type: Number
   ClusterNodeMin:
@@ -303,11 +303,11 @@ Parameters:
     Type: Number
   ClusterNodeVolumeSize:
     Default: 50
-    Description: Size of cluster node root volume in Gb (note - size based upon Application indexes x 4)
+    Description: Size of cluster node root volume in GB (size based on application indexes x 4).
     Type: Number
   CustomDnsName:
     Default: ""
-    Description: 'Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.'
+    Description: 'Use custom existing DNS name for your Crowd Data Center instance. Name takes precedence over hosted zone. You must own the domain and configure it to point to the load balancer.'
     Type: String
   DBEngineVersion:
     Default: 10
@@ -315,7 +315,7 @@ Parameters:
       - 9
       - 10
       - 11
-    Description: "The database engine version to use; we'll install a suitable minor version for your chosen engine. Make sure that the Crowd version you're installing supports the database engine selected."
+    Description: "The database engine version to use. A suitable minor version is installed for your chosen engine. Make sure that the installed Crowd version supports the database engine selected."
     Type: String
   DBInstanceClass:
     Default: db.m5.large
@@ -352,28 +352,28 @@ Parameters:
       - db.t2.large
       - db.t2.xlarge
       - db.t2.2xlarge
-    ConstraintDescription: Must be a valid RDS instance class, from the selection list
-    Description: RDS instance type.
+    ConstraintDescription: Must be a valid Amazon RDS instance class from the selection list.
+    Description: RDS instance type
     Type: String
   DBIops:
-    Default: 1000
-    ConstraintDescription: 'Must be in the range 1000 - 30000'
-    Description: 'Must be in the range of 1000 - 30000 and a multiple of 1000. This value is only used with Provisioned IOPS. Note: The ratio of IOPS per allocated-storage must be between 3.00 and 10.00.'
-    MaxValue: 30000
-    MinValue: 1000
+    Default: '1000'
+    ConstraintDescription: 'Must be in the range 1000 - 30000.'
+    Description: 'Must be in the range of 1000 - 30000 and a multiple of 1000. This value is used only with Provisioned IOPS. The ratio of IOPS per allocated storage must be between 3.00 and 10.00.'
+    MaxValue: '30000'
+    MinValue: '1000'
     Type: Number
   DBMasterUserPassword:
     AllowedPattern: >-
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])(?!.*[@/"']).*$
     ConstraintDescription: >-
-      Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &
-    Description: "Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &"
+      Must be at least eight characters and include one uppercase, one lowercase, one number, and one of the following symbols: ! # $ { * : [ = , ] - _ + % &
+    Description: "Password for the master ('postgres') account. Must be at least eight characters and include one uppercase, one lowercase, one number, and one of the following symbols: ! # $ { * : [ = , ] - _ + % &"
     NoEcho: True
     MaxLength: 128
     MinLength: 8
     Type: String
   DBMultiAZ:
-    Description: Whether to provision a multi-AZ RDS instance.
+    Description: Whether to provision a Multi-AZ Amazon RDS instance.
     Default: "true"
     AllowedValues:
       - "true"
@@ -384,22 +384,22 @@ Parameters:
     AllowedPattern: >-
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
     ConstraintDescription: >-
-      Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }
-    Description: "Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }"
+      Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }
+    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }"
     MinLength: 8
     MaxLength: 128
     NoEcho: true
     Type: String
   DBStorage:
     Default: 200
-    Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144.
+    Description: Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 GB.
     Type: Number
   DBStorageEncrypted:
     Default: "false"
     AllowedValues:
       - "true"
       - "false"
-    Description: Whether or not to encrypt the database
+    Description: Whether or not to encrypt the database.
     Type: String
   DBStorageType:
     Default: General Purpose (SSD)
@@ -407,12 +407,12 @@ Parameters:
       - General Purpose (SSD)
       - Provisioned IOPS
     ConstraintDescription: Must be 'General Purpose (SSD)' or 'Provisioned IOPS'.
-    Description: Database storage type.
+    Description: Database storage type
     Type: String
   DeploymentAutomationRepository:
     Default: "https://bitbucket.org/atlassian/dc-deployments-automation.git"
     Type: String
-    Description: The deployment automation repository to use for per-node initialization. Leave this as default unless you have customizations.
+    Description: The deployment automation repository to use for per-node initialization. Leave the default setting unless you have customizations.
   DeploymentAutomationBranch:
     Default: "master"
     Type: String
@@ -424,20 +424,20 @@ Parameters:
   DeploymentAutomationCustomParams:
     Default: ""
     Type: String
-    Description: Additional command-line options for the `ansible-playbook` command. See https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md for more information about overriding parameters. (Optional)
+    Description: (Optional) Additional command-line options for the `ansible-playbook` command. See https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md for more information about overriding parameters. 
   DeploymentAutomationKeyName:
     Default: ""
     Type: String
-    Description: Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)
+    Description: (Optional) Key pair name to use with this repository. The key should be imported into the AWS Systems Manager parameter store. 
   ExportPrefix:
     Default: 'ATL-'
     Description:
-      Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment's Atlassian Standard Infrastructure. Use different identifiers if you're deploying multiple Atlassian Standard Infrastructures in the same AWS region.
+      Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment's Atlassian Standard Infrastructure (ASI). Use different identifiers if deploying multiple ASTs in the same AWS Region.
     Type: String
   HostedZone:
     Default: ''
-    ConstraintDescription: Must be the name of an existing Route53 Hosted Zone.
-    Description: The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames
+    ConstraintDescription: Name of an existing Amazon Route 53 hosted zone.
+    Description: The domain name of the Amazon Route 53 private hosted zone in which to create CNAMEs.
     Type: String
   CrowdVersion:
     Default: 4.0.0
@@ -447,7 +447,7 @@ Parameters:
     Type: String
   JvmHeapOverride:
     Default: ''
-    Description: Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g
+    Description: Override the default amount of memory to allocate to the JVM for your instance type. Set size in MB or GB (e.g. 1024 MB or 1 GB).
     Type: String
   InternetFacingLoadBalancer:
     Default: "true"
@@ -460,11 +460,11 @@ Parameters:
     AllowedValues:
       - "true"
       - "false"
-    Description: Whether to provision a Bastion host instance. If 'true', then you need to provide an EC2 Key Pair (otherwise, you won't be able to use the Bastion host to access Crowd instances).
+    Description: Whether to provision a bastion host instance. If 'true', provide an Amazon EC2 key pair (otherwise, you won't be able to use the bastion host to access Crowd instances).
     Type: String
   KeyPairName:
-    ConstraintDescription: Must be the name of an existing EC2 Key Pair.
-    Description: Public/private EC2 Key Pairs to allow you to securely access the Bastion host
+    ConstraintDescription: Must be the name of an existing Amazon EC2 key pair.
+    Description: Public/private EC2 key pairs to securely access the bastion host.
     Type: String
     Default: ''
   MailEnabled:
@@ -473,63 +473,63 @@ Parameters:
       - "false"
     ConstraintDescription: Must be 'true' or 'false'.
     Default: "true"
-    Description: Enable mail processing and sending
+    Description: Enable mail processing and sending.
     Type: String
   SSLCertificateARN:
     Default: ''
-    Description: "Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you'll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it's successfully created."
+    Description: "Amazon Resource Name (ARN) of your SSL certificate. This value automatically enables HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that was generated outside of Amazon, first import it to AWS Certificate Manager (ACM). After a successful import, you'll receive the ARN. If you want to create a certificate with ACM, you will receive the ARN after it's successfully created."
     MinLength: 0
     MaxLength: 90
     Type: String
   TomcatAcceptCount:
     Default: 10
-    Description: The maximum queue length for incoming connection requests when all possible request processing threads are in use
+    Description: The maximum queue length for incoming connection requests when all possible request processing threads are in use.
     Type: Number
   TomcatConnectionTimeout:
     Default: 20000
-    Description: The number of milliseconds this Connector will wait, after accepting a connection, for the request URI line to be presented
+    Description: The number of milliseconds this connector will wait, after accepting a connection, for the request URI line to be presented.
     Type: Number
   TomcatContextPath:
     Default: ''
     AllowedPattern: '^(\/[A-z_\-0-9\.]+)?$'
-    Description: The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"
+    Description: The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading '/'.
     Type: String
   TomcatDefaultConnectorPort:
     Default: 8080
-    Description: The port on which to serve the application
+    Description: The port on which to serve the application.
     Type: Number
   TomcatEnableLookups:
     Default: "false"
     AllowedValues:
       - "true"
       - "false"
-    Description: Set to true if you want calls to request.getRemoteHost() to perform DNS lookups in order to return the actual host name of the remote client
+    Description: Set to true if you want calls to request.getRemoteHost() to perform DNS lookups to return the host name of the remote client.
     Type: String
   TomcatMaxThreads:
     Default: 200
-    Description: The maximum number of request processing threads to be created by this Connector, which therefore determines the maximum number of simultaneous requests that can be handled
+    Description: The maximum number of request processing threads to be created by this connector, which therefore determines the maximum number of simultaneous requests that can be handled.
     Type: Number
   TomcatMinSpareThreads:
     Default: 10
-    Description: The minimum number of threads always kept running
+    Description: The minimum number of threads always running.
     Type: Number
   TomcatProtocol:
     Default: 'HTTP/1.1'
-    Description: Sets the protocol to handle incoming traffic
+    Description: Sets the protocol to handle incoming traffic.
     Type: String
   TomcatRedirectPort:
     Default: 8443
-    Description: The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to a SSL URI
+    Description: The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to a SSL URI.
     Type: Number
 
   # VPC parameters
   AccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
-    Description: CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.
+    Description: CIDR block allowed to access the Atlassian product. Do not set the value to a trusted IP range. If you want to give public access use '0.0.0.0/0'.
     Type: String
   AvailabilityZones:
-    Description: 'List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here;
-      if more are specified only the first 2 will be used.'
+    Description: 'List of Availability Zones (AZ) to use for the subnets in the VPC. You must specify two AZs.
+      If more are specified, only the first two AZs are used.'
     Type: List<AWS::EC2::AvailabilityZone::Name>
   PrivateSubnet1CIDR:
     Default: 10.0.0.0/19
@@ -544,12 +544,12 @@ Parameters:
   PublicSubnet1CIDR:
     Default: 10.0.128.0/20
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
-    Description: CIDR Block for the public DMZ subnet 1 located in Availability Zone 1
+    Description: CIDR block for the public DMZ subnet 1 located in Availability Zone 1.
     Type: String
   PublicSubnet2CIDR:
     Default: 10.0.144.0/20
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
-    Description: CIDR Block for the public DMZ subnet 2 located in Availability Zone 2
+    Description: CIDR block for the public DMZ subnet 2 located in Availability Zone 2.
     Type: String
   QSS3BucketName:
     Default: 'aws-quickstart'
@@ -597,7 +597,7 @@ Parameters:
   VPCCIDR:
     Default: 10.0.0.0/16
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
-    Description: CIDR Block for the VPC
+    Description: CIDR block for the VPC.
     Type: String
 
 Conditions:
@@ -691,36 +691,36 @@ Resources:
 
 Outputs:
   ServiceURL:
-    Description: The URL to access this Atlassian service
+    Description: The URL to access this Atlassian service.
     Value: !GetAtt 'CrowdDCStack.Outputs.ServiceURL'
   LoadBalancerURL:
-    Description: The Load Balancer URL
+    Description: The Load Balancer URL.
     Value: !GetAtt 'CrowdDCStack.Outputs.LoadBalancerURL'
   BastionIP:
     Condition: ProvisionBastion
-    Description: Bastion node IP (use as a jumpbox to connect to the nodes)
+    Description: Bastion node IP (use as a jumpbox to connect to the nodes).
     Value: !GetAtt 'VPCStack.Outputs.BastionPubIp'
   SGname:
-    Description: The name of the SecurityGroup
+    Description: The name of the SecurityGroup.
     Value: !GetAtt 'CrowdDCStack.Outputs.SGname'
   DBEndpointAddress:
-    Description: The Database Connection String
+    Description: The database connection string.
     Value: !GetAtt 'CrowdDCStack.Outputs.DBEndpointAddress'
   DBEncryptionKey:
     Condition: UseDatabaseEncryption
-    Description: The alias of the encryption key created for RDS
+    Description: The alias of the encryption key created for Amazon RDS.
     Value: !GetAtt 'CrowdDCStack.Outputs.DBEncryptionKey'
   EFSCname:
-    Description: The cname of the EFS
+    Description: The CNAME of the Amazon Elastic File System (Amazon EFS).
     Value: !GetAtt 'CrowdDCStack.Outputs.EFSCname'
   ASITemplateURL:
-    Description:  The URL used to source the ASI template
+    Description:  The URL used to source the ASI template.
     Value: !Sub
       - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}submodules/quickstart-atlassian-services/templates/quickstart-vpc-for-atlassian-services.yaml
       - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref QSS3BucketRegion]
   CrowdDcTemplateURL:
-    Description: The URL used to source the Crowd template
+    Description: The URL used to source the Crowd template.
     Value: !Sub
       - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/quickstart-crowd-dc.template.yaml
       - S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
