@@ -1246,7 +1246,7 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <p>Install and set up the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">AWS Command Line Interface (CLI)</a>. This tool enables you to create an S3 bucket and upload content to it.</p>
 </li>
 <li>
-<p>Create an S3 bucket in your region:</p>
+<p>Create an S3 bucket in your Region:</p>
 <div class="listingblock">
 <div class="content">
 <pre>aws s3 mb s3://&lt;BUCKET_NAME&gt; --region &lt;AWS_REGION&gt;</pre>
@@ -1258,16 +1258,16 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="ulist">
 <ul>
 <li>
-<p><code>quickstart-crowd-master-with-vpc.template.yaml</code>: use this for deploying Crowd into a new ASI (end-to-end deployment).</p>
+<p><code>quickstart-crowd-master-with-vpc.template.yaml</code>: Use this for deploying Crowd into a new ASI (end-to-end deployment).</p>
 </li>
 <li>
-<p><code>quickstart-crowd.template.yaml</code>: use this for deploying Crowd into an existing ASI.</p>
+<p><code>quickstart-crowd.template.yaml</code>: Use this for deploying Crowd into an existing ASI.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>In the template you’ve chosen, the <code>QSS3BucketName</code> default value is set to <code>aws-quickstart</code>. Replace this default with the name of the bucket you created earlier (<code>&lt;BUCKET_NAME&gt;</code>).</p>
+<p>In the template you chose, the <code>QSS3BucketName</code> default value is set to <code>aws-quickstart</code>. Replace this value with the name of the bucket you created earlier (<code>&lt;BUCKET_NAME&gt;</code>).</p>
 </li>
 <li>
 <p>Return to the parent directory of your <em>local</em> clone of the Quick Start templates. From there, upload all the files in your local clone to your S3 bucket:</p>
@@ -2193,14 +2193,14 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectivity-troubleshooting-guide-720405335.html">HTTP Error 503</a> response when you access the URL, it means that Crowd Data Center is still loading. This is expected, and you should wait 2-3 minutes before trying again.
+If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectivity-troubleshooting-guide-720405335.html">HTTP Error 503</a> response when you access the URL, it means that Crowd Data Center is still loading. This is expected, and you should wait 2–3 minutes before trying again.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>On the License page, enter a valid Crowd Data Center license key. If you don’t have a valid license, click on the <a href="https://my.atlassian.com/products/index">My Atlassian</a> link and sign up for an evaluation Data Center license (you’ll be required to log in to your Atlassian account).</p>
+<p>On the <strong>License</strong> page, enter a valid Crowd Data Center license key. If you don’t have a valid license, see <a href="https://my.atlassian.com/products/index">My Atlassian</a>, and sign up for an evaluation Data Center license (you must log in to your Atlassian account).</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-license.png" alt="License" width="640">
@@ -2209,7 +2209,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 </div>
 </li>
 <li>
-<p>On the Crowd installation screen, select New installation to continue setting up a new Crowd Data Center deployment.</p>
+<p>On the Crowd installation screen, choose <strong>New installation</strong> to continue setting up a new Crowd Data Center deployment.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-new-install.png" alt="New install" width="640">
@@ -2223,14 +2223,14 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-From this screen, you can also select <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure will focus on configuring a new Crowd Data Center installation.
+From this screen, you can also choose <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure  focuses on configuring a new Crowd Data Center deployment.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>The <strong>Database configuration</strong> page will already contain all the required settings to connect to the database. You won’t be able to edit these settings from this screen. Click <strong>Continue</strong> to proceed.</p>
+<p>The <strong>Database configuration</strong> page already contains all the required settings to connect to the database. You will not be able to edit these settings from this screen. Choose <strong>Continue</strong> to proceed.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-dbconfig.png" alt="qs crowd dbconfig">
@@ -2239,7 +2239,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>On the <strong>Options</strong> page, you can edit the name of this Crowd deployment and its session timeout. We recommend that you leave the Base URL unchanged; this setting is imported directly from your AWS deployment.</p>
+<p>On the <strong>Options</strong> page, you can edit the name of this Crowd deployment and set the session&#8217;s timeout. We recommend that you leave the base URL unchanged because this setting is imported automatically.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-options.png" alt="qs crowd options">
@@ -2257,7 +2257,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>Use the <strong>Default administrator</strong> screen to create your first Crowd Administrator account. For more information about this account, see <a href="https://confluence.atlassian.com/x/GwEQCQ">Crowd Administrator</a>.</p>
+<p>Use the <strong>Default administrator</strong> screen to create a Crowd administrator account. For more information, see <a href="https://confluence.atlassian.com/x/GwEQCQ">Crowd Administrator</a>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-first-admin.png" alt="qs crowd first admin">
@@ -2266,7 +2266,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>Enable any integrated apps on the Integrated applications screen. You can enable these apps after setup if you wish.</p>
+<p>Enable any integrated apps on the <strong>Integrated applications</strong> screen. You can also wait until after the setup process to enable these apps.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-intergratedapps.png" alt="qs crowd intergratedapps">
@@ -2275,7 +2275,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>On the login screen, use the credentials you created earlier for in the <strong>Default Administrator</strong> screen.</p>
+<p>On the login screen, use the credentials you created earlier for the <strong>Default administrator</strong> screen.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-login.png" alt="qs crowd login">
@@ -2284,13 +2284,11 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>Choose <strong>Clustering</strong> from the administration console sidebar. You should see one node displayed here. At this point, you can now start adding more nodes to your cluster (if you wish).</p>
-<div class="imageblock">
-<div class="content">
-<img src="images/qs-crowd-clustering.png" alt="qs crowd clustering">
-</div>
-<div class="title">Figure 11. Clustering (single node)</div>
-</div>
+<p>Choose <strong>Clustering</strong> from the <strong>Administration console</strong> sidebar, which should have one node displayed. You can now add nodes to your cluster as needed.</p>
+</li>
+<li>
+<p>Clustering (single node)
+image::../images/qs-crowd-clustering.png[]</p>
 </li>
 </ol>
 </div>
@@ -2319,7 +2317,7 @@ From this screen, you can also select <strong>Import data from an XML backup</st
 <div class="content">
 <img src="images/qs-crowd-clustering-multi.png" alt="qs crowd clustering multi">
 </div>
-<div class="title">Figure 12. Clustering (multiple nodes)</div>
+<div class="title">Figure 11. Clustering (multiple nodes)</div>
 </div>
 </li>
 </ol>
@@ -2401,7 +2399,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-15 03:57:58 UTC
+Last updated 2020-08-19 02:00:29 UTC
 </div>
 </div>
 </body>
