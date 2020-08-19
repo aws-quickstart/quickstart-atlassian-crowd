@@ -16,16 +16,16 @@ quickstart-atlassian-crowd
     └── quickstart-crowd-master.template.yaml
 ----
 . Install and set up the https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html[AWS Command Line Interface (CLI)]. This tool enables you to create an S3 bucket and upload content to it.
-. Create an S3 bucket in your region:
+. Create an S3 bucket in your Region:
 +
 ----
 aws s3 mb s3://<BUCKET_NAME> --region <AWS_REGION>
 ----
 . Choose which Quick Start template you plan to use:
-** `quickstart-crowd-master-with-vpc.template.yaml`: use this for deploying Crowd into a new ASI (end-to-end deployment).
+** `quickstart-crowd-master-with-vpc.template.yaml`: Use this for deploying Crowd into a new ASI (end-to-end deployment).
 +
-** `quickstart-crowd.template.yaml`: use this for deploying Crowd into an existing ASI.
-. In the template you’ve chosen, the `QSS3BucketName` default value is set to `aws-quickstart`. Replace this default with the name of the bucket you created earlier (`<BUCKET_NAME>`).
+** `quickstart-crowd.template.yaml`: Use this for deploying Crowd into an existing ASI.
+. In the template you chose, the `QSS3BucketName` default value is set to `aws-quickstart`. Replace this value with the name of the bucket you created earlier (`<BUCKET_NAME>`).
 . Return to the parent directory of your _local_ clone of the Quick Start templates. From there, upload all the files in your local clone to your S3 bucket:
 +
 ----
