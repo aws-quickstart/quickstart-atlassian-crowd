@@ -6,7 +6,7 @@ include::./_config_application.adoc[]
 
 === Adding nodes to the {partner-product-name} cluster
 
-By default, your Quick Start deployment will start with a single {partner-product-name-short} node (Auto Scaling group of `min=1` and `max=1`). Once you're ready to add nodes to your cluster, perform the following steps:
+By default, your Quick Start deployment will start with a single {partner-product-name-short} node (Auto Scaling group of `min=1` and `max=1`). After you're ready to add nodes to your cluster, perform the following steps:
 
 .	Sign in to the AWS Management Console, use the Region selector in the navigation bar to choose the AWS Region for your deployment, and open the AWS CloudFormation console at https://console.aws.amazon.com/cloudformation/.
 .	Choose the {partner-product-name} stack. From the *Actions* list, choose *Update Stack*.
