@@ -3,12 +3,12 @@
 :partner-product-name-short: Crowd
 :partner-company-name: Atlassian
 :vpc-name: Atlassian Standard Infrastructure
-:doc-month: July
+:doc-month: September
 :doc-year: 2020
 :partner-contributors: Don Domingo, Dylan Rathbone
-:quickstart-contributors: Tony Vattathil - Principal SA, AWS
-:deployment_time: 30 minutes / 1 hour
-:default_deployment_region: us-east-1
+:quickstart-contributors: Tony Vattathil - Principal Solutions Architect, AWS
+:deployment_time: 30-60 minutes
+:default_deployment_region: us-east-2
 // Uncomment these two attributes if you are leveraging
 // - an AWS Marketplace listing.
 // Additional content will be auto-generated based on these attributes.

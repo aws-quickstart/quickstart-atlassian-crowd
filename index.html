@@ -792,7 +792,7 @@ a img {
 <li><a href="#_software_licenses">Software licenses</a></li>
 <li><a href="#_architecture">Architecture</a>
 <ul class="sectlevel2">
-<li><a href="#_auto_scaling_groups_in_this_quick_start">Auto Scaling Groups in this Quick Start</a></li>
+<li><a href="#_auto_scaling_groups_in_this_quick_start">Auto Scaling groups in this Quick Start</a></li>
 </ul>
 </li>
 <li><a href="#_planning_the_deployment">Planning the deployment</a>
@@ -809,9 +809,9 @@ a img {
 <li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
 </ul>
 </li>
-<li><a href="#_configuring_crowd_data_center">Configuring Crowd Data Center</a>
+<li><a href="#_configuring_crowd">Configuring Crowd</a>
 <ul class="sectlevel2">
-<li><a href="#_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</a></li>
+<li><a href="#_adding_nodes_to_the_crowd_cluster">Adding nodes to the Crowd cluster</a></li>
 </ul>
 </li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
@@ -836,9 +836,9 @@ a img {
 </div>
 </div>
 <div class="paragraph text-center">
-<p><strong>July, 2020</strong><br>
+<p><strong>September, 2020</strong><br>
 <em>Don Domingo, Dylan Rathbone</em><br>
-<em>Tony Vattathil - Principal SA, AWS</em></p>
+<em>Tony Vattathil - Principal Solutions Architect, AWS</em></p>
 </div>
 <div class="admonitionblock tip text-left">
 <table>
@@ -864,6 +864,9 @@ report bugs, or submit feature ideas for this Quick Start.
 <div class="paragraph">
 <p>This Quick Start is for users who want to deploy Crowd Data Center in a supported configuration in the AWS Cloud, following AWS best practices.</p>
 </div>
+<div class="paragraph">
+<p>This Quick Start uses the <a href="https://fwd.aws/xYyYy">Atlassian Standard Infrastructure</a> (ASI) as a foundation. You can choose to build a new ASI for your deployment or deploy Crowd into your existing ASI. You can also deploy Jira, Confluence, and Bitbucket Data Center within the same ASI.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -884,7 +887,7 @@ collaborated with AWS on the content of the Quick Start.
 <h2 id="_crowd_data_center_on_aws">Crowd Data Center on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Crowd is Atlassian’s own centralized identity management platform. It allows an organization to manage users from multiple directories (Active Directory, LDAP, OpenLDAP or Microsoft Azure AD) and control application authentication permissions in one single location.</p>
+<p>Crowd is Atlassian’s centralized identity management platform. It allows organizations to manage users from multiple directories (Microsoft Active Directory, Lightweight Directory Access Protocol (LDAP), OpenLDAP, or Microsoft Azure Active Directory) and control application authentication permissions in a single location. Crowd is a self-managed solution that gives you high availability, performance at scale, and disaster recovery for uninterrupted access to Crowd for all your teams.</p>
 </div>
 </div>
 </div>
@@ -920,7 +923,7 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start deploys cluster-ready infrastructure for Crowd Data Center. You&#8217;ll need a Crowd Data Center license for that. For information on obtaining one, see the <a href="https://www.atlassian.com/software/confluence/pricing?tab=self-hosted">Atlassian pricing page</a>.</p>
+<p>This Quick Start deploys a cluster-ready infrastructure for Crowd. A Crowd license is required. See the <a href="https://www.atlassian.com/software/confluence/pricing?tab=self-hosted">Atlassian pricing page</a> for licensing information.</p>
 </div>
 </div>
 </div>
@@ -928,69 +931,69 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start for a new <a href="https://aws.amazon.com/quickstart/architecture/Atlassian-standard-infrastructure/">Atlassian Standard Infrastructure (ASI)</a> with <strong>default parameters</strong> builds the following <em>Crowd Data Center</em> environment in the AWS Cloud.</p>
+<p>Deploying this Quick Start for a new <a href="https://aws.amazon.com/quickstart/architecture/Atlassian-standard-infrastructure/">Atlassian Standard Infrastructure (ASI)</a> with default parameters builds the following Crowd environment in the AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<img src="images/architecture_diagram.png" alt="Architecture" width="640">
+<img src="images/crowd-architecture_diagram.png" alt="Architecture" width="640">
 </div>
-<div class="title">Figure 1. Quick Start architecture for <em>Crowd Data Center</em> on AWS</div>
+<div class="title">Figure 1. Quick Start architecture for Crowd on AWS</div>
 </div>
 <div class="paragraph">
-<p>As shown in this figure, the Quick Start sets up the following:</p>
+<p>As shown in figure 1, the Quick Start sets up the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A highly available architecture that spans two Availability Zones</p>
+<p>A highly available architecture that spans two Availability Zones.</p>
 </li>
 <li>
 <p>In the public subnets:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A NAT gateway</p>
+<p>A network address translation (NAT) gateway to allow outbound internet access for resources in the private subnets.</p>
 </li>
 <li>
-<p>A bastion host that enables secure access to Crowd Data Center without exposing it to the internet (for more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a Bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager Sessions Manager</a>.</p>
+<p>A bastion host that enables secure access to Crowd without exposing it to the internet. For more information, see <a href="https://docs.aws.amazon.com/quickstart/latest/linux-bastion/architecture.html#bastion-hosts">Bastion Hosts</a>). You can choose not to provision a bastion host if you prefer to access Crowd nodes through the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html">AWS Systems Manager</a>.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
 </li>
 <li>
 <p>In the private subnets:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A Crowd Auto Scaling group, installed on Amazon Elastic Compute Cloud (Amazon EC2) instances. The instances are based on Amazon Linux and use an Atlassian-provided Amazon Machine Image (AMI).</p>
+<p>Amazon Elastic File System (Amazon EFS) to store artifacts such as attachments, avatars, icons, import and export files, and plug-ins in a common location that can be accessed by all Crowd nodes.</p>
 </li>
 <li>
-<p>Amazon Elastic File System (Amazon EFS) to store artifacts like attachments, avatars, icons, import/export files, and plugins in a common location that is accessible to all Crowd nodes.</p>
-</li>
-<li>
-<p>Amazon RDS for PostgreSQL in a Multi-AZ configuration, which mitigates failover in the event the master node fails.</p>
+<p>Amazon Relational Database Service (Amazon RDS) for PostgreSQL in a high availability (Multi-AZ) configuration, which mitigates failover if the master node fails.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch also collects and stores logs from each monitored node. Amazon CloudWatch is also an optional component.</p>
+<p>Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling groups for scaling the bastion hosts in the public subnets and the Crowd nodes in the private subnets. The instances are based on Amazon Linux, a Linux server operating system from AWS, and use an Atlassian-provided Amazon Machine Image (AMI).</p>
+</li>
+<li>
+<p>An Application Load Balancer, which works both as a load balancer and a Secure Sockets Layer (SSL) termination reverse proxy.</p>
+</li>
+<li>
+<p>Amazon CloudWatch for basic monitoring of all application and database nodes in your deployment. By default, CloudWatch collects and stores logs from each monitored node. Amazon CloudWatch is an optional component.</p>
 </li>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_auto_scaling_groups_in_this_quick_start">Auto Scaling Groups in this Quick Start</h3>
+<h3 id="_auto_scaling_groups_in_this_quick_start">Auto Scaling groups in this Quick Start</h3>
 <div class="paragraph">
-<p>This Quick Start uses <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html">Auto Scaling groups</a>, but only to statically control the number of its nodes. We don&#8217;t recommend that you use Auto Scaling to dynamically scale the size of your cluster. Adding an application node to the cluster usually takes more than 20 minutes, which isn&#8217;t fast enough to address sudden load spikes.</p>
+<p>This Quick Start uses <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html">Auto Scaling groups</a> to statically control the number of its nodes. Don&#8217;t use Auto Scaling to dynamically scale the size of your cluster. Adding an application node to the cluster usually takes more than 20 minutes, which isn&#8217;t fast enough to address sudden load spikes.</p>
 </div>
 <div class="paragraph">
-<p>If you can identify any periods of high and low load, you can schedule the application node cluster to scale accordingly. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html">Scheduled Scaling for Amazon EC2 Auto Scaling</a>.</p>
+<p>If you can identify periods of high and low loads, you can schedule the application node cluster to scale accordingly. For more information, see <a href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html">Scheduled Scaling for Amazon EC2 Auto Scaling</a>.</p>
 </div>
 <div class="paragraph">
-<p>To study trends in your organization&#8217;s load, you&#8217;ll need to monitor the performance of your deployment.</p>
+<p>To study trends in your organization&#8217;s load, be sure to monitor the performance of your deployment.</p>
 </div>
 </div>
 </div>
@@ -1197,7 +1200,7 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="sect3">
 <h4 id="_deployment_options">Deployment options</h4>
 <div class="paragraph">
-<p>This Quick Start includes two AWS CloudFormation templates: the first one builds the Atlassian Standard Infrastructure (ASI), which is a virtual private cloud (VPC) that contains the components required by all Atlassian Data Center applications, and then provisions Crowd Data Center into this ASI. The second template provisions Crowd Data Center in an existing ASI.</p>
+<p>This Quick Start includes two AWS CloudFormation templates. The first template builds the Atlassian Standard Infrastructure (ASI), which is a virtual private cloud (VPC) that contains the components required by all Atlassian applications, and then provisions Crowd into this ASI. The second template provisions Crowd in an existing ASI.</p>
 </div>
 <div class="paragraph">
 <p>Using these templates, the Quick Start provides two deployment options:</p>
@@ -1205,15 +1208,15 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy Crowd Data Center into a new ASI (end-to-end deployment)</strong>. Choose this option if you’re a new user. This option builds the <a href="https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/">Atlassian Standard Infrastructure (ASI)</a>, which is a VPC that consists of the subnets, NAT gateways, security groups, and other infrastructure components required by all Atlassian applications. It then deploys Crowd Data Center into this new VPC.</p>
+<p><strong>Deploy Crowd into a new ASI (end-to-end deployment)</strong>. Choose this option if you’re a new user. This option builds the <a href="https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/">Atlassian Standard Infrastructure (ASI)</a>, which is a VPC that consists of the subnets, NAT gateways, security groups, and other infrastructure components required by all Atlassian applications. It then deploys Crowd into this new VPC.</p>
 </li>
 <li>
-<p><strong>Deploy Crowd Data Center into an existing ASI</strong>. This option provisions Crowd Data Center in an existing ASI, and also offers more customizable parameters. Choose this option if you’ve already deployed the ASI separately by using the <a href="https://fwd.aws/xYyYy">ASI Quick Start</a>, or by deploying another Atlassian product from a Quick Start (<a href="https://fwd.aws/Wz3Qb">Jira Software/Service Desk Data Center</a>, <a href="https://aws.amazon.com/quickstart/architecture/confluence/">Confluence Data Center</a>, <a href="https://fwd.aws/BBeJW">Bitbucket Data Center</a>, or <a href="https://aws.amazon.com/quickstart/architecture/crowd">Crowd Data Center</a>).</p>
+<p><strong>Deploy Crowd Data Center into an existing ASI</strong>. This option provisions Crowd in an existing ASI, and also offers more customizable parameters. Choose this option if you’ve already deployed the ASI separately by using the <a href="https://fwd.aws/xYyYy">ASI Quick Start</a>, or by deploying another Atlassian product from a Quick Start (<a href="https://fwd.aws/Wz3Qb">Jira Software/Service Desk Data Center</a>, <a href="https://aws.amazon.com/quickstart/architecture/confluence/">Confluence Data Center</a>, <a href="https://fwd.aws/BBeJW">Bitbucket Data Center</a>, or <a href="https://fwd.aws/QXEDE">Crowd Data Center</a>).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Crowd Data Center settings, as discussed later in this guide.</p>
+<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Crowd settings, as discussed later in this guide.</p>
 </div>
 </div>
 </div>
@@ -1225,10 +1228,10 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="sect2">
 <h3 id="_launching_from_a_cloned_quick_start_recommended_for_production">Launching from a cloned Quick Start (recommended for production)</h3>
 <div class="paragraph">
-<p>The fastest way to use the Crowd Quick Start is to launch it directly from its Amazon S3 bucket. However, when you do, any updates we make to the Quick Start templates will propagate directly to your deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected (and possibly breaking) changes to your deployment.</p>
+<p>The fastest way to deploy Crowd with this Quick Start is directly through its AWS Quick Start interface. However, when you deploy Crowd this way, any updates that are made to the Quick Start templates propagate directly to your production deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected changes or break your deployment.</p>
 </div>
 <div class="paragraph">
-<p>As such, on production environments, we recommend that you clone the Crowd Quick Start templates to a custom S3 bucket. Then, launch the templates directly from there. This lets you control when to apply our latest changes to your environment.</p>
+<p>As a best practice, instead of deploying directly through the AWS Quick Start interface, clone the Crowd Quick Start templates to a custom Amazon Simple Storage Service (Amazon S3) bucket. Then, launch the templates directly from the S3 bucket. This practice lets you control when to apply the latest changes to your environment.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1250,13 +1253,13 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 │   └── templates
 │       └── quickstart-vpc-for-atlassian-services.yaml
 └── templates
-    ├── quickstart-crowd-master-with-vpc.template.yaml
-    └── quickstart-crowd-master.template.yaml</pre>
+    ├── quickstart-crowd-dc-with-vpc.template.yaml
+    └── quickstart-crowd-dc.template.yaml</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Install and set up the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">AWS Command Line Interface (CLI)</a>. This tool enables you to create an S3 bucket and upload content to it.</p>
+<p>Install and set up the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html">AWS Command Line Interface (CLI)</a> so that you can create an S3 bucket and upload content to it.</p>
 </li>
 <li>
 <p>Create an S3 bucket in your Region:</p>
@@ -1267,23 +1270,23 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 </div>
 </li>
 <li>
-<p>Choose which Quick Start template you plan to use:</p>
+<p>Choose which Quick Start template to use:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>quickstart-crowd-master-with-vpc.template.yaml</code>: Use this for deploying Crowd into a new ASI (end-to-end deployment).</p>
+<p>quickstart-crowd-dc-with-vpc.template.yaml: Use this template for deploying Crowd into a new ASI (end-to-end deployment).</p>
 </li>
 <li>
-<p><code>quickstart-crowd.template.yaml</code>: Use this for deploying Crowd into an existing ASI.</p>
+<p>quickstart-crowd-dc.template.yaml: Use this template for deploying Crowd into an existing ASI.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>In the template you chose, the <code>QSS3BucketName</code> default value is set to <code>aws-quickstart</code>. Replace this value with the name of the bucket you created earlier (<code>&lt;BUCKET_NAME&gt;</code>).</p>
+<p>In both templates, the <code>QSS3BucketName</code> default value is set to <code>aws-quickstart</code>. Replace this value with the name of the bucket you created earlier (<code>&lt;BUCKET_NAME&gt;</code>).</p>
 </li>
 <li>
-<p>Return to the parent directory of your <em>local</em> clone of the Quick Start templates. From there, upload all the files in your local clone to your S3 bucket:</p>
+<p>Return to the parent directory of your local clone of the Quick Start templates. From there, upload all the files in your local clone to your S3 bucket:</p>
 <div class="listingblock">
 <div class="content">
 <pre>aws s3 cp quickstart-atlassian-crowd s3://&lt;BUCKET_NAME&gt; --recursive --acl public-read</pre>
@@ -1293,7 +1296,7 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 </ol>
 </div>
 <div class="paragraph">
-<p>Once you’ve uploaded everything, you’re ready to deploy your production stack from your S3 bucket.</p>
+<p>After everything is uploaded, you can deploy your production stack from your S3 bucket.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1301,20 +1304,20 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 <p>Sign in to your AWS account on the <a href="https://console.aws.amazon.com/console/home">AWS Console</a>.</p>
 </li>
 <li>
-<p>Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where {product-partner-name} will be built. The template is launched in the <code>us-east-1</code> Region by default.</p>
+<p>Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where {product-partner-name-short} is built. The template is launched in the <code>us-east-2</code> Region by default.</p>
 </li>
 <li>
-<p>Go to <strong>CloudFormation</strong> &gt; <strong>Create Stack</strong>. When specifying a template, paste in the Object URL of the Quick Start template you’ll be using. Choose <strong>Next</strong> to start configuring your deployment.</p>
+<p>Go to <strong>CloudFormation</strong> &gt; <strong>Create Stack</strong>. When specifying a template, paste in the Object URL of the Quick Start template that you are using for the deployment. Choose <strong>Next</strong> to start configuring your deployment.</p>
 </li>
 <li>
-<p>On the <strong>Specify stack</strong> details page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details about each setting, refer to the section matching your deployment type:</p>
+<p>On the <strong>Specify stack</strong> details page, change the stack name, if needed. Review the parameters for the template, and provide values for parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details about each setting, refer to the section matching your deployment type:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#launch-into-a-new-vpc">[launch-into-a-new-vpc]</a> (if you&#8217;re deploying an ASI with Crowd Data Center)</p>
+<p><a href="#launch-into-a-new-vpc">[launch-into-a-new-vpc]</a> (if you&#8217;re deploying an ASI with Crowd)</p>
 </li>
 <li>
-<p><a href="#launch-into-an-existing-vpc">[launch-into-an-existing-vpc]</a> (if you&#8217;re deploying Crowd Data Center into a new ASI)</p>
+<p><a href="#launch-into-an-existing-vpc">[launch-into-an-existing-vpc]</a> (if you&#8217;re deploying Crowd into a new ASI)</p>
 </li>
 </ul>
 </div>
@@ -2190,15 +2193,15 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuring_crowd_data_center">Configuring Crowd Data Center</h2>
+<h2 id="_configuring_crowd">Configuring Crowd</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following procedure will focus on setting up your brand new Crowd Data Center deployment.</p>
+<p>The following procedure helps you set up your new Crowd deployment.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Choose the URL displayed in the Outputs tab of the AWS CloudFormation stack to go to the Crowd setup screen.</p>
+<p>Choose the URL that is displayed in the <strong>Outputs</strong> tab of the AWS CloudFormation stack to go to the Crowd configuration screen.</p>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -2206,14 +2209,14 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectivity-troubleshooting-guide-720405335.html">HTTP Error 503</a> response when you access the URL, it means that Crowd Data Center is still loading. This is expected, and you should wait 2–3 minutes before trying again.
+If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectivity-troubleshooting-guide-720405335.html">HTTP Error 503</a> response when you access the URL, it means that Crowd is still loading. This is expected, and you should wait a couple of minutes before trying again.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>On the <strong>License</strong> page, enter a valid Crowd Data Center license key. If you don’t have a valid license, see <a href="https://my.atlassian.com/products/index">My Atlassian</a>, and sign up for an evaluation Data Center license (you must log in to your Atlassian account).</p>
+<p>On the <strong>License</strong> page, enter a valid Crowd license key. If you don’t have a valid license, see <a href="https://my.atlassian.com/products/index">My Atlassian</a>, and sign up for an evaluation Data Center license (you must log in to your Atlassian account).</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-license.png" alt="License" width="640">
@@ -2222,7 +2225,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 </div>
 </li>
 <li>
-<p>On the Crowd installation screen, choose <strong>New installation</strong> to continue setting up a new Crowd Data Center deployment.</p>
+<p>On the Crowd installation screen, choose <strong>New installation</strong> to continue setting up a new Crowd deployment.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-new-install.png" alt="New install" width="640">
@@ -2236,7 +2239,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-From this screen, you can also choose <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure  focuses on configuring a new Crowd Data Center deployment.
+From this screen, you can also choose <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure focuses on configuring a new Crowd deployment.
 </td>
 </tr>
 </table>
@@ -2252,7 +2255,7 @@ From this screen, you can also choose <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>On the <strong>Options</strong> page, you can edit the name of this Crowd deployment and set the session&#8217;s timeout. We recommend that you leave the base URL unchanged because this setting is imported automatically.</p>
+<p>On the <strong>Options</strong> page, you can edit the name of the Crowd deployment and set the session&#8217;s timeout value. Do not change the base URL, because this setting is imported automatically.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-options.png" alt="qs crowd options">
@@ -2279,12 +2282,12 @@ From this screen, you can also choose <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>Enable any integrated apps on the <strong>Integrated applications</strong> screen. You can also wait until after the setup process to enable these apps.</p>
+<p>Enable any integrated applications on the <strong>Integrated applications</strong> screen. You can also wait until after the configuration process to enable these applications.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-intergratedapps.png" alt="qs crowd intergratedapps">
 </div>
-<div class="title">Figure 9. Crowd integrated apps</div>
+<div class="title">Figure 9. Crowd integrated applications</div>
 </div>
 </li>
 <li>
@@ -2306,9 +2309,9 @@ image::../images/qs-crowd-clustering.png[]</p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="_adding_nodes_to_the_crowd_data_center_cluster">Adding nodes to the Crowd Data Center cluster</h3>
+<h3 id="_adding_nodes_to_the_crowd_cluster">Adding nodes to the Crowd cluster</h3>
 <div class="paragraph">
-<p>By default, your Quick Start deployment will start with a single Crowd node (Auto Scaling group of <code>min=1</code> and <code>max=1</code>). After you&#8217;re ready to add nodes to your cluster, perform the following steps:</p>
+<p>By default, your Quick Start deployment starts with a single Crowd node (Auto Scaling group of <code>min=1</code> and <code>max=1</code>). When you&#8217;re ready to add nodes to your cluster, perform the following steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2316,16 +2319,16 @@ image::../images/qs-crowd-clustering.png[]</p>
 <p>Sign in to the AWS Management Console, use the Region selector in the navigation bar to choose the AWS Region for your deployment, and open the AWS CloudFormation console at <a href="https://console.aws.amazon.com/cloudformation/" class="bare">https://console.aws.amazon.com/cloudformation/</a>.</p>
 </li>
 <li>
-<p>Choose the Crowd Data Center stack. From the <strong>Actions</strong> list, choose <strong>Update Stack</strong>.</p>
+<p>Choose the Crowd stack. From the <strong>Actions</strong> list, choose <strong>Update Stack</strong>.</p>
 </li>
 <li>
 <p>On the <strong>Select Template</strong> page, leave <strong>Use current template</strong> selected, and then choose <strong>Next</strong>.</p>
 </li>
 <li>
-<p>On the <strong>Specify Details</strong> page, in the <strong>Crowd Setup</strong> section of <strong>Parameters</strong>, enter the desired number of cluster nodes in <strong>Minimum number of cluster nodes</strong> and <strong>Maximum number of cluster nodes</strong>, then click through to update the stack. This will set a static number of nodes in your cluster.</p>
+<p>On the <strong>Specify Details</strong> page, in the <strong>Crowd Setup</strong> section of <strong>Parameters</strong>, enter the number of cluster nodes in <strong>Minimum number of cluster nodes</strong> and <strong>Maximum number of cluster nodes</strong>, and then click through to update the stack. This step sets a static number of nodes in your cluster.</p>
 </li>
 <li>
-<p>After the stack finishes updating, verify the number of nodes in your Crowd Data Center cluster. Choose <strong>Clustering</strong> again from the administration console sidebar. The following example shows a cluster scaled up to three instances.</p>
+<p>After the stack finishes updating, verify the number of nodes in your Crowd cluster. Choose <strong>Clustering</strong> again from the administration console sidebar. The following example shows a cluster that is scaled up to three instances.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-clustering-multi.png" alt="qs crowd clustering multi">
@@ -2345,7 +2348,7 @@ image::../images/qs-crowd-clustering.png[]</p>
 <p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (Review the log files in <code>/var/log/atl.log</code> and <code>/var/log/cfn-init.log</code>.)</p>
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console on the <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (Review the log files in <code>/var/log/atl.log</code> and <code>/var/log/cfn-init.log</code>.)</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -2354,7 +2357,7 @@ image::../images/qs-crowd-clustering.png[]</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Please ensure you delete the stack when you finish troubleshooting.
+When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Ensure that you delete the stack when you finish troubleshooting.
 </td>
 </tr>
 </table>
@@ -2366,7 +2369,7 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <p><strong>Q.</strong> I encountered a size limitation error when I deployed the AWS CloudFormation templates.</p>
 </div>
 <div class="paragraph">
-<p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html">AWS documentation</a>.</p>
+<p><strong>A.</strong> Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html">AWS documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -2412,7 +2415,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-26 20:50:17 UTC
+Last updated 2020-08-28 20:37:21 UTC
 </div>
 </div>
 </body>
