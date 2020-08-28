@@ -2,7 +2,7 @@
 
 //These two paragraphs provide an example of the details you can provide. Provide links as appropriate.
 
-This Quick Start deploys a cluster-ready infrastructure for {partner-product-name-short}. An {partner-product-name} license is required. See the https://www.atlassian.com/software/confluence/pricing?tab=self-hosted[Atlassian pricing page] for licensing information.
+This Quick Start deploys a cluster-ready infrastructure for {partner-product-name-short}. A {partner-product-name-short} license is required. See the https://www.atlassian.com/software/confluence/pricing?tab=self-hosted[Atlassian pricing page] for licensing information.
 
 
 
