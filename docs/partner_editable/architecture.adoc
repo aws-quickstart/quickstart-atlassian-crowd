@@ -3,7 +3,7 @@ Deploying this Quick Start for a new https://aws.amazon.com/quickstart/architect
 // Replace this example diagram with your own. Send us your source PowerPoint file. Be sure to follow our guidelines here : http://(we should include these points on our contributors giude)
 [#architecture1]
 .Quick Start architecture for {partner-product-name-short} on AWS
-image::../images/crowd-architecture_diagram.png[Architecture,width=640]
+image::../images/crowd-architecture-diagram.png[Architecture,width=640]
 
 As shown in figure 1, the Quick Start sets up the following:
 
