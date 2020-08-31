@@ -62,7 +62,7 @@
 |Parameter label (name) |Default value|Description|Tomcat context path
 (`TomcatContextPath`)|`**__Requires input__**`|The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading '/'.|Catalina options
 (`CatalinaOpts`)|`**__Requires input__**`|Pass in any additional JVM options to tune Catalina.|JVM heap size override
-(`JvmHeapOverride`)|`**__Requires input__**`|Override the default amount of memory to allocate to the JVM for your instance type. Set size in meg or gig (e.g. 1024m or 1g).|Enable app to process email
+(`JvmHeapOverride`)|`**__Requires input__**`|Override the default amount of memory to allocate to the JVM for your instance type. Set size in MB or GB (e.g. 1024 MB or 1 GB).|Enable app to process email
 (`MailEnabled`)|`true`|Enable mail processing and sending.|Tomcat accept count
 (`TomcatAcceptCount`)|`10`|The maximum queue length for incoming connection requests when all possible request processing threads are in use.|Tomcat connection timeout
 (`TomcatConnectionTimeout`)|`20000`|The number of milliseconds this connector will wait, after accepting a connection, for the request URI line to be presented.|Tomcat default connector port
