@@ -1385,7 +1385,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enable CloudWatch integration
 (<code>CloudWatchIntegration</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Metrics and Logs</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this altogether.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this setting.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cluster node instance type
@@ -1409,16 +1409,16 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cluster node instance volume size
 (<code>ClusterNodeVolumeSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>50</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Size of cluster node root volume in Gb (note - size based upon Application indexes x 4)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of cluster node root volume in GB. Size based on application indexes x 4.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment Automation Git Repository URL
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment automation Git repository URL
 (<code>DeploymentAutomationRepository</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://bitbucket.org/atlassian/dc-deployments-automation.git" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation.git</a></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The deployment automation repository to use for per-node initialization. Leave this as default unless you have customizations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The deployment automation repository to use for per-node initialization. Leave the default value unless you have customizations.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment Automation Branch
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment automation branch
 (<code>DeploymentAutomationBranch</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>master</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The deployment automation repository branch to pull from.</p></td>
@@ -1433,13 +1433,13 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
 (<code>DeploymentAutomationCustomParams</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH key name to use with the repository
 (<code>DeploymentAutomationKeyName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) Key pair name to use with this repository. The key should be imported into the AWS Systems Manager parameter store.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1462,49 +1462,49 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database instance class
 (<code>DBInstanceClass</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>db.m5.large</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RDS instance type.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon RDS instance type.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The database engine version to use
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database engine version
 (<code>DBEngineVersion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The database engine version to use; we&#8217;ll install a suitable minor version for your chosen engine. Make sure that the Crowd version you&#8217;re installing supports the database engine selected.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The database engine version to use. A suitable minor version is installed for your chosen engine. Make sure that the installed Crowd version supports the database engine selected.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RDS Provisioned IOPS
 (<code>DBIops</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1000</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be in the range of 1000 - 30000 and a multiple of 1000. This value is only used with Provisioned IOPS. Note: The ratio of IOPS per allocated-storage must be between 3.00 and 10.00.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be in the range of 1000 - 30000 and a multiple of 1000. This value is used only with Provisioned IOPS. The ratio of IOPS per allocated storage must be between 3.00 and 10.00.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Master (admin) password *
 (<code>DBMasterUserPassword</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &amp;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the master ('postgres') account. Must be at least eight characters and include one uppercase, one lowercase, one number, and one of the following symbols: ! # $ { * : [ = , ] - _ + % &amp;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enable RDS Multi-AZ deployment
 (<code>DBMultiAZ</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a multi-AZ RDS instance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Multi-AZ Amazon RDS instance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application user database password *
 (<code>DBPassword</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database storage
 (<code>DBStorage</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 GB.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database encryption
 (<code>DBStorageEncrypted</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to encrypt the database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to encrypt the database.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database storage type
@@ -1530,16 +1530,16 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use Bastion host
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use bastion host
 (<code>BastionHostRequired</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to grant access to Crowd&#8217;s EC2 instances through the ASI&#8217;s Bastion host (if it exists). If 'true', remember to provide an EC2 Key Pair. If your ASI does not have a Bastion host, set this to 'false'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to grant access to Crowd&#8217;s Amazon EC2 instances through the ASI&#8217;s bastion host (if it exists). If 'true', remember to provide an EC2 key pair. If your ASI does not have a bastion host, set the value to 'false'.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH key pair name
 (<code>KeyPairName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 Key Pairs to allow you to securely access the Bastion host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 key pairs for securely accessing the bastion host.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1568,18 +1568,18 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Permitted IP range
 (<code>CidrBlock</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block allowed to access the Atlassian product. This value should be set to a trusted IP range if you want to give public access use '0.0.0.0/0'.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSL certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Providing this value automatically enables HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use a certificate that you generated outside of Amazon, first import it to AWS Certificate Manager (ACM). After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with ACM, you will receive the ARN after it&#8217;s successfully created.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. DNS (Optional)</caption>
+<caption class="title">Table 6. DNS</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1597,18 +1597,18 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing DNS name
 (<code>CustomDnsName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Crowd Data Center instance. This takes precedence over hosted zone. You must own the domain and configure it to point to the load balancer.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 Hosted Zone
+<td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 hosted zone
 (<code>HostedZone</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Amazon Route 53 private hosted zone in which to create CNAMES.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Application Tuning (Optional)</caption>
+<caption class="title">Table 7. Application Tuning</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1623,81 +1623,81 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Context Path
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat context path
 (<code>TomcatContextPath</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading '/'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalina options
 (<code>CatalinaOpts</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional jvm options to tune Catalina</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional JVM options to tune Catalina.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JVM Heap Size Override
+<td class="tableblock halign-left valign-top"><p class="tableblock">JVM heap size override
 (<code>JvmHeapOverride</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type. Set size in meg or gig (e.g. 1024m or 1g).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable App to Process Email
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable app to process email
 (<code>MailEnabled</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable mail processing and sending</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable mail processing and sending.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Accept Count
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat accept count
 (<code>TomcatAcceptCount</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum queue length for incoming connection requests when all possible request processing threads are in use</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum queue length for incoming connection requests when all possible request processing threads are in use.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Connection Timeout
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat connection timeout
 (<code>TomcatConnectionTimeout</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>20000</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds this Connector will wait, after accepting a connection, for the request URI line to be presented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds this connector will wait, after accepting a connection, for the request URI line to be presented.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Default Connector Port
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat default connector port
 (<code>TomcatDefaultConnectorPort</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8080</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port on which to serve the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port on which to serve the application.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Enable DNS Lookups
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat enable DNS lookups
 (<code>TomcatEnableLookups</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true if you want calls to request.getRemoteHost() to perform DNS lookups in order to return the actual host name of the remote client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true if you want calls to request.getRemoteHost() to perform DNS lookups to return the actual host name of the remote client.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Maximum Threads
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat maximum threads
 (<code>TomcatMaxThreads</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of request processing threads to be created by this Connector, which therefore determines the maximum number of simultaneous requests that can be handled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of request processing threads to be created by this connector, which determines the maximum number of simultaneous requests that can be handled.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Minimum Spare Threads
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat minimum spare threads
 (<code>TomcatMinSpareThreads</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of threads always kept running</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of threads always running.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Protocol
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat protocol
 (<code>TomcatProtocol</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>HTTP/1.1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the protocol to handle incoming traffic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the protocol to handle incoming traffic.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Redirect Port
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat redirect port
 (<code>TomcatRedirectPort</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8443</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to a SSL URI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to an SSL URI.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. AWS Quick Start Configuration</caption>
+<caption class="title">Table 8. AWS Quick Start configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1712,19 +1712,19 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket name
 (<code>QSS3BucketName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket Region
 (<code>QSS3BucketRegion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket is hosted. By default, this is set to us-east-1; do not update it unless you&#8217;re using a custom Quick Start S3 bucket.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket is hosted. By default, this is set to us-east-1. Do not update the value unless using a custom Quick Start S3 bucket.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-atlassian-crowd/</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
@@ -1733,7 +1733,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">ASI identifier
 (<code>ExportPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ATL-</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Each Atlassian Standard Infrastructure (ASI) uses a unique identifier. If you have multiple ASIs within the same AWS region, use this field to specify where to deploy Crowd.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each Atlassian Standard Infrastructure (ASI) uses a unique identifier. If you have multiple ASIs within the same AWS Region, use this field to specify where to deploy Crowd.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1782,7 +1782,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enable CloudWatch integration
 (<code>CloudWatchIntegration</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Metrics and Logs</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this altogether.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables CloudWatch metrics with or without log gathering. If cost is an issue, you can disable this setting.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cluster node instance type
@@ -1794,7 +1794,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of cluster nodes
 (<code>ClusterNodeMax</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of nodes in the cluster.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of nodes in cluster.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Minimum number of cluster nodes
@@ -1806,37 +1806,37 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cluster node instance volume size
 (<code>ClusterNodeVolumeSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>50</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Size of cluster node root volume in Gb (note - size based upon Application indexes x 4)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Size of cluster node root volume in GB (size based on application indexes x 4).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment Automation Git Repository URL
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment automation Git repository URL
 (<code>DeploymentAutomationRepository</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://bitbucket.org/atlassian/dc-deployments-automation.git" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation.git</a></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The deployment automation repository to use for per-node initialization. Leave this as default unless you have customizations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The deployment automation repository to use for per-node initialization. Leave the default setting unless you have customizations.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment Automation Branch
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment automation branch
 (<code>DeploymentAutomationBranch</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>master</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The deployment automation repository branch to pull from.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialize the instance
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ansible playbook to invoke to initialize the instance
 (<code>DeploymentAutomationPlaybook</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws_crowd_dc_node.yml</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Ansible playbook to invoke to initialise the Crowd node on first start.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSH keyname to use with the repository
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH key name to use with repository
 (<code>DeploymentAutomationKeyName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Named Key Pair name to use with this repository. The key should be imported into the SSM parameter store. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) Key pair name to use with this repository. The key should be imported into the AWS Systems Manager parameter store.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Custom command-line parameters for Ansible
 (<code>DeploymentAutomationCustomParams</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters. (Optional)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Optional) Additional command-line options for the <code>ansible-playbook</code> command. See <a href="https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md" class="bare">https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md</a> for more information about overriding parameters.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1859,49 +1859,49 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database instance class
 (<code>DBInstanceClass</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>db.m5.large</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RDS instance type.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RDS instance type</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RDS Provisioned IOPS
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon RDS Provisioned IOPS
 (<code>DBIops</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1000</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be in the range of 1000 - 30000 and a multiple of 1000. This value is only used with Provisioned IOPS. Note: The ratio of IOPS per allocated-storage must be between 3.00 and 10.00.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be in the range of 1000 - 30000 and a multiple of 1000. This value is used only with Provisioned IOPS. The ratio of IOPS per allocated storage must be between 3.00 and 10.00.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Master (admin) password *
 (<code>DBMasterUserPassword</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the master ('postgres') account. Must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 of the following symbols: ! # $ { * : [ = , ] - _ + % &amp;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the master ('postgres') account. Must be at least eight characters and include one uppercase, one lowercase, one number, and one of the following symbols: ! # $ { * : [ = , ] - _ + % &amp;</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enable RDS Multi-AZ deployment
 (<code>DBMultiAZ</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a multi-AZ RDS instance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Multi-AZ Amazon RDS instance.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Application user database password *
 (<code>DBPassword</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least 8 characters and include at least 1 uppercase, 1 lowercase, 1 number, and any symbol except for: [ ] { }</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database storage
 (<code>DBStorage</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 GB.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database encryption
 (<code>DBStorageEncrypted</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to encrypt the database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to encrypt the database.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Database storage type
 (<code>DBStorageType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>General Purpose (SSD)</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Database storage type.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database storage type</p></td>
 </tr>
 </tbody>
 </table>
@@ -1921,16 +1921,16 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy Bastion host
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deploy bastion host
 (<code>BastionHostRequired</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a Bastion host instance. If 'true', then you need to provide an EC2 Key Pair (otherwise, you won&#8217;t be able to use the Bastion host to access Crowd instances).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to provision a bastion host instance. If 'true', provide an Amazon EC2 key pair (otherwise, you won&#8217;t be able to use the bastion host to access Crowd instances).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSH Key Pair Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSH key pair name
 (<code>KeyPairName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 Key Pairs to allow you to securely access the Bastion host</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private EC2 key pairs to securely access the bastion host.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1953,13 +1953,13 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Trusted IP range
 (<code>AccessCIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block allowed to access the Atlassian product. This should be set to a trusted IP range; if you want to give public access use '0.0.0.0/0'.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block allowed to access the Atlassian product. Do not set the value to a trusted IP range. If you want to give public access use '0.0.0.0/0'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
 (<code>AvailabilityZones</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Note: You must specify 2 AZs here; if more are specified only the first 2 will be used.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones (AZ) to use for the subnets in the VPC. You must specify two AZs. If more are specified, only the first two AZs are used.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Make instance internet facing
@@ -1983,25 +1983,25 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">AZ1 public IP address block
 (<code>PublicSubnet1CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the public DMZ subnet 1 located in Availability Zone 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AZ2 public IP address block
 (<code>PublicSubnet2CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the public DMZ subnet 2 located in Availability Zone 2.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SSL Certificate ARN
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSL certificate ARN
 (<code>SSLCertificateARN</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. Supplying this will automatically enable HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that you generated outside of Amazon, you need to first import it to AWS Certificate Manager. After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with AWS Certificate Manager (ACM certificate), you will receive the ARN after it&#8217;s successfully created.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon Resource Name (ARN) of your SSL certificate. This value automatically enables HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use your own certificate that was generated outside of Amazon, first import it to AWS Certificate Manager (ACM). After a successful import, you&#8217;ll receive the ARN. If you want to create a certificate with ACM, you will receive the ARN after it&#8217;s successfully created.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">IP address block for the VPC
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP address block for VPC
 (<code>VPCCIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the VPC.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2024,13 +2024,13 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing DNS name
 (<code>CustomDnsName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Data Center instance. This will take precedence over HostedZone. Please note: you must own the domain and configure it to point at the load balancer.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use custom existing DNS name for your Crowd Data Center instance. Name takes precedence over hosted zone. You must own the domain and configure it to point to the load balancer.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 Hosted Zone
+<td class="tableblock halign-left valign-top"><p class="tableblock">Route 53 hosted zone
 (<code>HostedZone</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Route53 PRIVATE Hosted Zone in which to create cnames</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The domain name of the Amazon Route 53 private hosted zone in which to create CNAMEs.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2050,76 +2050,76 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Context Path
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat context path
 (<code>TomcatContextPath</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading "/"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading '/'.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Catalina options
 (<code>CatalinaOpts</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Pass in any additional jvm options to tune Catalina</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pass in additional JVM options to tune Catalina</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JVM Heap Size Override
+<td class="tableblock halign-left valign-top"><p class="tableblock">JVM heap size override
 (<code>JvmHeapOverride</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type - set size in meg or gig e.g. 1024m or 1g</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override the default amount of memory to allocate to the JVM for your instance type. Set the size in meg or gig (e.g. 1024m or 1g).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable App to Process Email
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable app to process email
 (<code>MailEnabled</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enable mail processing and sending</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable mail processing and sending.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Accept Count
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat accept count
 (<code>TomcatAcceptCount</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum queue length for incoming connection requests when all possible request processing threads are in use</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum queue length for incoming connection requests when all possible request processing threads are in use.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Connection Timeout
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat connection timeout
 (<code>TomcatConnectionTimeout</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>20000</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds this Connector will wait, after accepting a connection, for the request URI line to be presented</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of milliseconds this connector will wait, after accepting a connection, for the request URI line to be presented.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Default Connector Port
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat default connector port
 (<code>TomcatDefaultConnectorPort</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8080</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port on which to serve the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port on which to serve the application.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Enable DNS Lookups
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat enable DNS lookups
 (<code>TomcatEnableLookups</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true if you want calls to request.getRemoteHost() to perform DNS lookups in order to return the actual host name of the remote client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true if you want calls to request.getRemoteHost() to perform DNS lookups to return the host name of the remote client.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Maximum Threads
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat maximum threads
 (<code>TomcatMaxThreads</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>200</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of request processing threads to be created by this Connector, which therefore determines the maximum number of simultaneous requests that can be handled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of request processing threads to be created by this connector, which therefore determines the maximum number of simultaneous requests that can be handled.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Minimum Spare Threads
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat minimum spare threads
 (<code>TomcatMinSpareThreads</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of threads always kept running</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of threads always running.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Protocol
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat protocol
 (<code>TomcatProtocol</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>HTTP/1.1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the protocol to handle incoming traffic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the protocol to handle incoming traffic.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat Redirect Port
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tomcat redirect port
 (<code>TomcatRedirectPort</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>8443</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to a SSL URI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port number for Catalina to use when automatically redirecting a non-SSL connector actioning a redirect to a SSL URI.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2139,19 +2139,19 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket name
 (<code>QSS3BucketName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket Region
 (<code>QSS3BucketRegion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket is hosted. By default, this is set to us-east-1; do not update it unless you&#8217;re using a custom Quick Start S3 bucket.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-atlassian-crowd/</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
@@ -2160,7 +2160,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <td class="tableblock halign-left valign-top"><p class="tableblock">ASI identifier
 (<code>ExportPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ATL-</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment&#8217;s Atlassian Standard Infrastructure. Use different identifiers if you&#8217;re deploying multiple Atlassian Standard Infrastructures in the same AWS region.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier used in all variables (VPCID, SubnetIDs, KeyName) exported from this deployment&#8217;s Atlassian Standard Infrastructure (ASI). Use different identifiers if deploying multiple ASTs in the same AWS Region.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2201,7 +2201,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Choose the URL that is displayed in the <strong>Outputs</strong> tab of the AWS CloudFormation stack to go to the Crowd configuration screen.</p>
+<p>Choose the URL that is displayed in the <strong>Outputs</strong> tab of the AWS CloudFormation stack to go to the Crowd configuration page.</p>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -2216,7 +2216,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 </div>
 </li>
 <li>
-<p>On the <strong>License</strong> page, enter a valid Crowd license key. If you don’t have a valid license, see <a href="https://my.atlassian.com/products/index">My Atlassian</a>, and sign up for an evaluation Data Center license (you must log in to your Atlassian account).</p>
+<p>On the <strong>License</strong> page, provide a valid Crowd license key. If you don’t have a valid license, see <a href="https://my.atlassian.com/products/index">My Atlassian</a>, and sign up for an evaluation Data Center license (you must log in to your Atlassian account).</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-license.png" alt="License" width="640">
@@ -2225,7 +2225,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 </div>
 </li>
 <li>
-<p>On the Crowd installation screen, choose <strong>New installation</strong> to continue setting up a new Crowd deployment.</p>
+<p>On the <strong>Crowd installation</strong> page, choose <strong>New installation</strong> to continue setting up a new Crowd deployment.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-new-install.png" alt="New install" width="640">
@@ -2239,7 +2239,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-From this screen, you can also choose <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure focuses on configuring a new Crowd deployment.
+From this page, you can also choose <strong>Import data from an XML backup</strong> to migrate data from an existing Crowd deployment. See <a href="https://confluence.atlassian.com/x/DAvoE">Migrating Crowd Between Servers</a> for more information. The rest of this procedure focuses on configuring a new Crowd deployment.
 </td>
 </tr>
 </table>
@@ -2264,7 +2264,7 @@ From this screen, you can also choose <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>On the <strong>Internal directory</strong> screen, configure how Crowd should store user, role, and group information. For more information, see <a href="https://confluence.atlassian.com/x/X4AbAQ">Configuring an Internal Directory</a>.</p>
+<p>On the <strong>Internal directory</strong> page, configure how Crowd should store user, role, and group information. For more information, see <a href="https://confluence.atlassian.com/x/X4AbAQ">Configuring an Internal Directory</a>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-internal-directory.png" alt="qs internal directory">
@@ -2273,7 +2273,7 @@ From this screen, you can also choose <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>Use the <strong>Default administrator</strong> screen to create a Crowd administrator account. For more information, see <a href="https://confluence.atlassian.com/x/GwEQCQ">Crowd Administrator</a>.</p>
+<p>Use the <strong>Default administrator</strong> page to create a Crowd administrator account. For more information, see <a href="https://confluence.atlassian.com/x/GwEQCQ">Crowd Administrator</a>.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-first-admin.png" alt="qs crowd first admin">
@@ -2291,7 +2291,7 @@ From this screen, you can also choose <strong>Import data from an XML backup</st
 </div>
 </li>
 <li>
-<p>On the login screen, use the credentials you created earlier for the <strong>Default administrator</strong> screen.</p>
+<p>On the login page, use the credentials you created earlier for the <strong>Default administrator</strong> screen.</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/qs-crowd-login.png" alt="qs crowd login">
@@ -2415,7 +2415,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-29 04:17:11 UTC
+Last updated 2020-08-31 19:28:39 UTC
 </div>
 </div>
 </body>
