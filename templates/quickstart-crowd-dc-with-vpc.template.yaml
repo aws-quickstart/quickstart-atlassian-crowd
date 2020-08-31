@@ -447,7 +447,7 @@ Parameters:
     Type: String
   JvmHeapOverride:
     Default: ''
-    Description: Override the default amount of memory to allocate to the JVM for your instance type. Set the size in meg or gig (e.g. 1024m or 1g).
+    Description: Override the default amount of memory to allocate to the JVM for your instance type. Set size in MB or GB (e.g. 1024 MB or 1 GB).
     Type: String
   InternetFacingLoadBalancer:
     Default: "true"
