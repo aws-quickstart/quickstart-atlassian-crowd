@@ -1,0 +1,13 @@
+---
+global:
+  marketplace-ami: false
+  owner: dc-deployments-syd@atlassian.com
+  qsname: quickstart-atlassian-crowd
+  regions:
+    - us-east-1
+  reporting: true
+
+tests:
+  crowd:
+    parameter_input: params/no-bastion/quickstart-crowd-no-bastion-params.json
+    template_file: quickstart-crowd-dc-with-vpc.template.yaml

@@ -1,6 +1,8 @@
 // There are generally two deployment options. If additional are required, add them here
 
-This Quick Start provides two deployment options:
+This Quick Start includes two AWS CloudFormation templates: the first one builds the {vpc-name} (ASI), which is a virtual private cloud (VPC) that contains the components required by all {partner-company-name} Data Center applications, and then provisions {partner-product-name} into this ASI. The second template provisions {partner-product-name} in an existing ASI.
+
+Using these templates, the Quick Start provides two deployment options:
 
 * *Deploy {partner-product-name} into a new ASI (end-to-end deployment)*. Choose this option if you’re a new user. This option builds the https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/[Atlassian Standard Infrastructure (ASI)], which is a VPC that consists of the subnets, NAT gateways, security groups, and other infrastructure components required by all Atlassian applications. It then deploys {partner-product-name} into this new VPC.
 
