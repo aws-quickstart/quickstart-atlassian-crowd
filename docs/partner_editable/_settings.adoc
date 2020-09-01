@@ -1,4 +1,4 @@
-:quickstart-project-name: quickstart-documentation-base
+:quickstart-project-name: quickstart-atlassian-crowd
 :partner-product-name: Crowd Data Center
 :partner-product-name-short: Crowd
 :partner-company-name: Atlassian
