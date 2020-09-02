@@ -2,21 +2,20 @@ project:
   name: quickstart-atlassian-crowd
   owner: quickstart-eng@amazon.com
   package_lambda: false
-  s3_regional_buckets: true
+  #  s3_regional_buckets: true
   regions:
   - us-west-2
-    #  - ap-south-1
-    #  - eu-west-1
-    #  - eu-north-1
-    #  - us-east-1
-    #  - ca-central-1
-    #  - ap-northeast-1
-    #  - ap-southeast-1
-    #  - us-east-2
-    #  - eu-west-2
-    #  - eu-central-1
-    #  - us-west-1
-    #  - eu-west-3
+  - ap-south-1
+  - eu-west-1
+  - us-east-1
+  - ca-central-1
+  - ap-northeast-1
+  - ap-southeast-1
+  - us-east-2
+  - eu-west-2
+  - eu-central-1
+  - us-west-1
+  - eu-west-3
 tests:
   crowd:
     parameters:
@@ -25,11 +24,12 @@ tests:
       CustomDnsName: qscrowdci.awsqs.com
       DBMasterUserPassword: 'Ae6ii5fcckj4ddi0t!'
       DBMultiAZ: 'false'
-      DBPassword: replaced-by-taskcat-override-file
+      DBPassword: 'Ae6ii5fcckj4ddi0t!'
       DBStorage: '100'
       DBStorageType: Provisioned IOPS
       KeyPairName: replaced-by-taskcat-override-file
       QSS3BucketName: $[taskcat_autobucket]
       QSS3KeyPrefix: quickstart-atlassian-crowd/
-      QSS3BucketRegion: us-west-2
+      QSS3BucketRegion: $[taskcat_current_region]
+      ExportPrefix: $[taskcat_genuuid]
     template: templates/quickstart-crowd-dc-with-vpc.template.yaml
