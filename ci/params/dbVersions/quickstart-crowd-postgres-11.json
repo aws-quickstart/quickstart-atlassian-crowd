@@ -1,0 +1,44 @@
+[
+  {
+    "ParameterKey": "DBMultiAZ",
+    "ParameterValue": "false"
+  },
+  {
+    "ParameterKey": "DBMasterUserPassword",
+    "ParameterValue": "f925dO1ry_"
+  },
+  {
+    "ParameterKey": "CidrBlock",
+    "ParameterValue": "0.0.0.0/0"
+  },
+  {
+    "ParameterKey": "DBEngineVersion",
+    "ParameterValue": "11"
+  },
+  {
+    "ParameterKey": "DBInstanceClass",
+    "ParameterValue": "db.t3.medium"
+  },
+  {
+    "ParameterKey": "DBPassword",
+    "ParameterValue": "$[taskcat_genpass_8S]"
+  },
+  {
+    "ParameterKey": "ClusterNodeInstanceType",
+    "ParameterValue": "t3.medium"
+  },
+  {
+    "ParameterKey": "QSS3BucketName",
+    "ParameterValue": "$[taskcat_autobucket]"
+  },
+  {
+    "ParameterKey": "QSS3KeyPrefix",
+    "ParameterValue": "quickstart-atlassian-crowd/"
+  },
+  {
+      "ParameterKey":"QSS3BucketRegion",
+      "ParameterValue":"us-east-1"
+  }
+]
+
+ZDCD-AWSCONFLUENCE-DEPLOYHTTPS-62-confluence-ssl-and-dns.deplops.com
