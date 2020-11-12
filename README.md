@@ -20,6 +20,13 @@ Alternatively you can invoke
 `submodules/quickstart-atlassian-services/scripts/hooks/update-tags.py`
 manually.
 
+## Deploying for production
+
+For production deployments, avoid launching the Crowd Quick Start from the AWS Quick Start interface. If you do, any changes made to the Quick Start templates will propagate directly to your deployment. These updates sometimes introduce unexpected changes that could break your deployment.
+
+Instead, clone the Crowd Quick Start templates to a custom Amazon Simple Storage Service (Amazon S3) bucket. Then, launch the templates directly from the S3 bucket. This practice lets you control when to apply the latest changes to your environment. See [Launching from a cloned Quick Start (recommended for production)
+](https://aws-quickstart.github.io/quickstart-atlassian-crowd/#_launching_from_a_cloned_quick_start_recommended_for_production) for instructions.
+
 ## Atlassian support
 
 This Quick Start's CloudFormation templates were developed by Atlassian, in collaboration with AWS. To report an issue or request a feature, you can [contact Atlassian directly](https://support.atlassian.com/contact/#/).
