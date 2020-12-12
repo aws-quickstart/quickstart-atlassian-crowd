@@ -17,8 +17,8 @@
 (`DeploymentAutomationRepository`)|`https://bitbucket.org/atlassian/dc-deployments-automation.git`|The deployment automation repository to use for per-node initialization. Leave the default value unless you have customizations.|Deployment automation branch
 (`DeploymentAutomationBranch`)|`master`|The deployment automation repository branch to pull from.|The Ansible playbook to invoke to initialize the instance
 (`DeploymentAutomationPlaybook`)|`aws_crowd_dc_node.yml`|The Ansible playbook to invoke to initialize the Crowd node on first start.|Custom command-line parameters for Ansible
-(`DeploymentAutomationCustomParams`)|`**__Requires input__**`|(Optional) Additional command-line options for the `ansible-playbook` command. See https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md for more information about overriding parameters.|SSH key name to use with the repository
-(`DeploymentAutomationKeyName`)|`**__Requires input__**`|(Optional) Key pair name to use with this repository. The key should be imported into the AWS Systems Manager parameter store.
+(`DeploymentAutomationCustomParams`)|`**__Blank string__**`|(Optional) Additional command-line options for the `ansible-playbook` command. See https://bitbucket.org/atlassian/dc-deployments-automation/src/master/README.md for more information about overriding parameters.|SSH key name to use with the repository
+(`DeploymentAutomationKeyName`)|`**__Blank string__**`|(Optional) Key pair name to use with this repository. The key should be imported into the AWS Systems Manager parameter store.
 |===
 .Database
 [width="100%",cols="16%,11%,73%",options="header",]
@@ -39,7 +39,7 @@
 |===
 |Parameter label (name) |Default value|Description|Use bastion host
 (`BastionHostRequired`)|`true`|Whether to grant access to Crowd's Amazon EC2 instances through the ASI's bastion host (if it exists). If 'true', remember to provide an EC2 key pair. If your ASI does not have a bastion host, set the value to 'false'.|SSH key pair name
-(`KeyPairName`)|`**__Requires input__**`|Public/private EC2 key pairs for securely accessing the bastion host.
+(`KeyPairName`)|`**__Blank string__**`|Public/private EC2 key pairs for securely accessing the bastion host.
 |===
 .Networking
 [width="100%",cols="16%,11%,73%",options="header",]
@@ -47,22 +47,22 @@
 |Parameter label (name) |Default value|Description|Make instance internet facing
 (`InternetFacingLoadBalancer`)|`true`|Controls whether the load balancer should be visible to the internet (true) or only within the VPC (false).|Permitted IP range
 (`CidrBlock`)|`**__Requires input__**`|CIDR block allowed to access the Atlassian product. This value should be set to a trusted IP range if you want to give public access use '0.0.0.0/0'.|SSL certificate ARN
-(`SSLCertificateARN`)|`**__Requires input__**`|Amazon Resource Name (ARN) of your SSL certificate. Providing this value automatically enables HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use a certificate that you generated outside of Amazon, first import it to AWS Certificate Manager (ACM). After a successful import, you'll receive the ARN. If you want to create a certificate with ACM, you will receive the ARN after it's successfully created.
+(`SSLCertificateARN`)|`**__Blank string__**`|Amazon Resource Name (ARN) of your SSL certificate. Providing this value automatically enables HTTPS on the product and load balancer, configured to use the corresponding certificate. If you want to use a certificate that you generated outside of Amazon, first import it to AWS Certificate Manager (ACM). After a successful import, you'll receive the ARN. If you want to create a certificate with ACM, you will receive the ARN after it's successfully created.
 |===
 .DNS
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Existing DNS name
-(`CustomDnsName`)|`**__Requires input__**`|Use custom existing DNS name for your Crowd Data Center instance. This takes precedence over hosted zone. You must own the domain and configure it to point to the load balancer.|Route 53 hosted zone
-(`HostedZone`)|`**__Requires input__**`|The domain name of the Amazon Route 53 private hosted zone in which to create CNAMES.
+(`CustomDnsName`)|`**__Blank string__**`|Use custom existing DNS name for your Crowd Data Center instance. This takes precedence over hosted zone. You must own the domain and configure it to point to the load balancer.|Route 53 hosted zone
+(`HostedZone`)|`**__Blank string__**`|The domain name of the Amazon Route 53 private hosted zone in which to create CNAMES.
 |===
 .Application Tuning
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Tomcat context path
-(`TomcatContextPath`)|`**__Requires input__**`|The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading '/'.|Catalina options
-(`CatalinaOpts`)|`**__Requires input__**`|Pass in any additional JVM options to tune Catalina.|JVM heap size override
-(`JvmHeapOverride`)|`**__Requires input__**`|Override the default amount of memory to allocate to the JVM for your instance type. Set size in MB or GB (e.g. 1024 MB or 1 GB).|Enable app to process email
+(`TomcatContextPath`)|`**__Blank string__**`|The context path of this web application, which is matched against the beginning of each request URI to select the appropriate web application for processing. If used, must include leading '/'.|Catalina options
+(`CatalinaOpts`)|`**__Blank string__**`|Pass in any additional JVM options to tune Catalina.|JVM heap size override
+(`JvmHeapOverride`)|`**__Blank string__**`|Override the default amount of memory to allocate to the JVM for your instance type. Set size in MB or GB (e.g. 1024 MB or 1 GB).|Enable app to process email
 (`MailEnabled`)|`true`|Enable mail processing and sending.|Tomcat accept count
 (`TomcatAcceptCount`)|`10`|The maximum queue length for incoming connection requests when all possible request processing threads are in use.|Tomcat connection timeout
 (`TomcatConnectionTimeout`)|`20000`|The number of milliseconds this connector will wait, after accepting a connection, for the request URI line to be presented.|Tomcat default connector port
