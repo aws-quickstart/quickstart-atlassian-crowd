@@ -50,5 +50,9 @@
     {
         "ParameterKey": "DBInstanceClass",
         "ParameterValue": "db.t3.medium"
+    },
+    {
+        "ParameterKey": "BastionHostRequired",
+        "ParameterValue": "false"
     }
 ]
