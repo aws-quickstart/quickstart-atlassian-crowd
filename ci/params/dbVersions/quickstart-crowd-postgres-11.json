@@ -38,7 +38,9 @@
   {
       "ParameterKey":"QSS3BucketRegion",
       "ParameterValue":"us-east-1"
+  },
+  {
+    "ParameterKey": "BastionHostRequired",
+    "ParameterValue": "false"
   }
 ]
-
-ZDCD-AWSCONFLUENCE-DEPLOYHTTPS-62-confluence-ssl-and-dns.deplops.com
