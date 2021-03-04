@@ -38,5 +38,9 @@
   {
       "ParameterKey":"QSS3BucketRegion",
       "ParameterValue":"us-east-1"
+  },
+  {
+    "ParameterKey": "BastionHostRequired",
+    "ParameterValue": "false"
   }
 ]
