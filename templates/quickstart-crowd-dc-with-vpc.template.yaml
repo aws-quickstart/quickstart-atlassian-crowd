@@ -315,6 +315,7 @@ Parameters:
       - 9
       - 10
       - 11
+      - 12
     Description: "The database engine version to use. A suitable minor version is installed for your chosen engine. Make sure that the installed Crowd version supports the database engine selected."
     Type: String
   DBInstanceClass:
