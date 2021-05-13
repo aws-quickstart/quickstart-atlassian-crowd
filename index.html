@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.12">
+<meta name="generator" content="Asciidoctor 2.0.15">
 <title>Crowd Data Center on the AWS Cloud</title>
 <style>
 
@@ -808,6 +808,7 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_deployment_steps">Deployment steps</a>
 <ul class="sectlevel2">
 <li><a href="#_launching_from_a_cloned_quick_start_recommended_for_production">Launching from a cloned Quick Start (recommended for production)</a></li>
+<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
 <li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
 </ul>
 </li>
@@ -908,7 +909,7 @@ see the pricing pages for each AWS service you use. Prices are subject to change
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-After you deploy the Quick Start, <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">create AWS Cost and Usage Reports</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. These reports provide cost estimates based on usage throughout each month and aggregate the data at the end of the month. For more information, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">What are AWS Cost and Usage Reports?</a>
+After you deploy the Quick Start, create <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Reports</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. These reports provide cost estimates based on usage throughout each month and aggregate the data at the end of the month. For more information, see <a href="https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html" target="_blank" rel="noopener">What are AWS Cost and Usage Reports?</a>
 </td>
 </tr>
 </table>
@@ -1026,7 +1027,7 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 <div class="sect3">
 <h4 id="_resource_quotas">Resource quotas</h4>
 <div class="paragraph">
-<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might request quota increases to avoid exceeding the default limits for any resources that are shared across multiple deployments. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">What is Service Quotas?</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" target="_blank" rel="noopener">AWS service quotas</a>.</p>
+<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources and if this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">What is Service Quotas?</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" target="_blank" rel="noopener">AWS service quotas</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1323,30 +1324,31 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>=== Launch into an existing VPC
-.Crowd setup</p>
-</div>
 </li>
 </ul>
 </div>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Crowd setup</caption>
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.667%;">
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter label (name)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Version *
 (<code>CrowdVersion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>4.0.0</code></p></td>
@@ -1355,7 +1357,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Cluster nodes</caption>
+<caption class="title">Table 2. Cluster nodes</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1432,7 +1434,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Database</caption>
+<caption class="title">Table 3. Database</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1503,7 +1505,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Bastion host utilization</caption>
+<caption class="title">Table 4. Bastion host utilization</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1532,7 +1534,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Networking</caption>
+<caption class="title">Table 5. Networking</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1567,7 +1569,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. DNS</caption>
+<caption class="title">Table 6. DNS</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1596,7 +1598,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Application Tuning</caption>
+<caption class="title">Table 7. Application Tuning</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1685,7 +1687,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. AWS Quick Start configuration</caption>
+<caption class="title">Table 8. AWS Quick Start configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1729,7 +1731,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 <div class="sect2">
 <h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Crowd setup</caption>
+<caption class="title">Table 9. Crowd setup</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1752,7 +1754,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Cluster nodes</caption>
+<caption class="title">Table 10. Cluster nodes</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1829,7 +1831,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Database</caption>
+<caption class="title">Table 11. Database</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1894,7 +1896,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. Bastion host provisioning</caption>
+<caption class="title">Table 12. Bastion host provisioning</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1923,7 +1925,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Networking</caption>
+<caption class="title">Table 13. Networking</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1994,7 +1996,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. DNS (Optional)</caption>
+<caption class="title">Table 14. DNS (Optional)</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -2023,7 +2025,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Application Tuning (Optional)</caption>
+<caption class="title">Table 15. Application Tuning (Optional)</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -2112,7 +2114,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. AWS Quick Start Configuration</caption>
+<caption class="title">Table 16. AWS Quick Start Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -2158,13 +2160,7 @@ Unless you are customizing the Quick Start templates for your own deployment pro
 . On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.
 . Choose <strong>Create stack</strong> to deploy the stack.
 . Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Crowd Data Center deployment is ready.
-. Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Figure 2</a>, to view the created resources.</p>
-</div>
-<div id="cfn_outputs" class="imageblock">
-<div class="content">
-<a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="100%" height="100%"></a>
-</div>
-<div class="title">Figure 2. Crowd Data Center outputs after successful deployment</div>
+. To view the created resources, see the values displayed in the <strong>Outputs</strong> tab for the stack.</p>
 </div>
 </div>
 </div>
@@ -2198,7 +2194,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 <div class="content">
 <img src="images/qs-crowd-license.png" alt="License" width="640">
 </div>
-<div class="title">Figure 3. Crowd licensing</div>
+<div class="title">Figure 2. Crowd licensing</div>
 </div>
 </li>
 <li>
@@ -2207,7 +2203,7 @@ If you get an <a href="https://confluence.atlassian.com/kb/network-and-connectiv
 <div class="content">
 <img src="images/qs-crowd-new-install.png" alt="New install" width="640">
 </div>
-<div class="title">Figure 4. New Crowd installation</div>
+<div class="title">Figure 3. New Crowd installation</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2228,7 +2224,7 @@ From this page, you can also choose <strong>Import data from an XML backup</stro
 <div class="content">
 <img src="images/qs-crowd-dbconfig.png" alt="qs crowd dbconfig">
 </div>
-<div class="title">Figure 5. Crowd database configuration</div>
+<div class="title">Figure 4. Crowd database configuration</div>
 </div>
 </li>
 <li>
@@ -2237,7 +2233,7 @@ From this page, you can also choose <strong>Import data from an XML backup</stro
 <div class="content">
 <img src="images/qs-crowd-options.png" alt="qs crowd options">
 </div>
-<div class="title">Figure 6. Crowd options</div>
+<div class="title">Figure 5. Crowd options</div>
 </div>
 </li>
 <li>
@@ -2246,7 +2242,7 @@ From this page, you can also choose <strong>Import data from an XML backup</stro
 <div class="content">
 <img src="images/qs-internal-directory.png" alt="qs internal directory">
 </div>
-<div class="title">Figure 7. Crowd internal directory</div>
+<div class="title">Figure 6. Crowd internal directory</div>
 </div>
 </li>
 <li>
@@ -2255,7 +2251,7 @@ From this page, you can also choose <strong>Import data from an XML backup</stro
 <div class="content">
 <img src="images/qs-crowd-first-admin.png" alt="qs crowd first admin">
 </div>
-<div class="title">Figure 8. Crowd default administrator</div>
+<div class="title">Figure 7. Crowd default administrator</div>
 </div>
 </li>
 <li>
@@ -2264,7 +2260,7 @@ From this page, you can also choose <strong>Import data from an XML backup</stro
 <div class="content">
 <img src="images/qs-crowd-intergratedapps.png" alt="qs crowd intergratedapps">
 </div>
-<div class="title">Figure 9. Crowd integrated applications</div>
+<div class="title">Figure 8. Crowd integrated applications</div>
 </div>
 </li>
 <li>
@@ -2273,7 +2269,7 @@ From this page, you can also choose <strong>Import data from an XML backup</stro
 <div class="content">
 <img src="images/qs-crowd-login.png" alt="qs crowd login">
 </div>
-<div class="title">Figure 10. Crowd login</div>
+<div class="title">Figure 9. Crowd login</div>
 </div>
 </li>
 <li>
@@ -2310,7 +2306,7 @@ image::../images/qs-crowd-clustering.png[]</p>
 <div class="content">
 <img src="images/qs-crowd-clustering-multi.png" alt="qs crowd clustering multi">
 </div>
-<div class="title">Figure 11. Clustering (multiple nodes)</div>
+<div class="title">Figure 10. Clustering (multiple nodes)</div>
 </div>
 </li>
 </ol>
@@ -2391,16 +2387,16 @@ and to share your customizations with others.</p>
 </div>
 <p class="footer-text">
 <!-- We can use document attributes: -->
-<!-- Generated with Asciidoctor v2.0.12. -->
+<!-- Generated with Asciidoctor v2.0.15. -->
 <a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates and Atlassian. All rights reserved.
 </p>
 </body>
 </html>
 <!--
 repo commit:
-7ef1569b22273582ad83f1aacb6a83fe47794cdc
+75ba8674cd41d5fd7176a3e5249470d6e2951bcd
 
 submodule config:
-+59b9927c61cd1831141cf0350520c89abb2246da docs/boilerplate (heads/main)
+ 1259902ec92fdc66c5cc60b19148a78c3941f43e docs/boilerplate (heads/main)
  2fa94c8fdbca93c1b8f6d769d6f8fdaeba525b50 submodules/quickstart-atlassian-services (v2.0-41-g2fa94c8)
 -->
