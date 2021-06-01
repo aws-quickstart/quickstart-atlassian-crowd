@@ -908,25 +908,32 @@ Resources:
           PolicyDocument:
             Version: 2012-10-17
             Statement:
-              - Action:
-                  - 'autoscaling:DescribeTags'
-                  - 'autoscaling:CreateOrUpdateTags'
-                  - 'ec2:CreateTags'
-                  - 'ec2:DescribeInstances'
-                  - 'ec2:DescribeTags'
-                  - 'route53:ListHostedZones'
-                  - 'route53:ListResourceRecordSet'
-                Effect: Allow
-                Resource: ['*']
-              - Action:
-                  - "route53:ChangeResourceRecordSets"
-                Effect: Allow
+              - Effect: Allow
+                Action: ec2:CreateTags
                 Resource:
-                  - !Sub 'arn:${AWS::Partition}:route53:::healthcheck/*'
-                  - !Sub 'arn:${AWS::Partition}:route53:::healthcheck/*'
-                  - !Sub 'arn:${AWS::Partition}:route53:::change/*'
-                  - !Sub 'arn:${AWS::Partition}:route53:::hostedzone/*'
-                  - !Sub 'arn:${AWS::Partition}:route53:::delegationset/*'
+                  - !Sub "arn:${AWS::Partition}:ec2:*:${AWS::AccountId}:instance/*"
+                  - !Sub "arn:${AWS::Partition}:ec2:*:${AWS::AccountId}:vpc/*"
+              - Effect: Allow
+                Action:
+                  - autoscaling:CreateOrUpdateTags
+                  - route53:ListResourceRecordSets
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:route53:::hostedzone/*"
+                  - !Sub "arn:${AWS::Partition}:autoscaling:*:${AWS::AccountId}:autoScalingGroup:*:autoScalingGroupName/*"
+              - Effect: Allow
+                Action:
+                  - ec2:DescribeInstances
+                  - ec2:DescribeTags
+                  - autoscaling:DescribeTags
+                  - route53:ListHostedZones
+                Resource: "*"
+              - Effect: Allow
+                Action: route53:ChangeResourceRecordSets
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:route53:::hostedzone/*"
+                  - !Sub "arn:${AWS::Partition}:route53:::change/*"
+                  - !Sub "arn:${AWS::Partition}:route53:::healthcheck/*"
+                  - !Sub "arn:${AWS::Partition}:route53:::delegationset/*"
         - PolicyName: SSMParameterPutAccess
           PolicyDocument:
             Version: 2012-10-17
@@ -1258,6 +1265,7 @@ Resources:
       LoadBalancerArn: !Ref LoadBalancer
       Port: 443
       Protocol: HTTPS
+      SslPolicy: "TLSv1.2"
   MainTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -1405,6 +1413,7 @@ Resources:
           Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
         - Key: "atl:quickstart:timestamp"
           Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+      EnableKeyRotation: true
   EncryptionKeyAlias:
     Condition: UseDatabaseEncryption
     Type: AWS::KMS::Alias
