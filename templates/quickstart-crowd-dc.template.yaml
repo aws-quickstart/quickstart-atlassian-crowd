@@ -447,8 +447,8 @@ Parameters:
     Description: Whether to grant access to Crowd's Amazon EC2 instances through the ASI's bastion host (if it exists). If 'true', remember to provide an EC2 key pair. If your ASI does not have a bastion host, set the value to 'false'.
     Type: String
   KeyPairName:
-    ConstraintDescription: Must be the name of an existing Amazon EC2 key pair.
-    Description: Public/private EC2 key pairs for securely accessing the bastion host.
+    ConstraintDescription: Must be the name of an existing EC2 Key Pair. Note the supplied value must not include the file extension.
+    Description: Public/private EC2 Key Pairs (without file extension) to allow you to securely access the Bastion host.
     Type: String
     Default: ''
   MailEnabled:

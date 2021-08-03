@@ -464,8 +464,8 @@ Parameters:
     Description: Whether to provision a bastion host instance. If 'true', provide an Amazon EC2 key pair (otherwise, you won't be able to use the bastion host to access Crowd instances).
     Type: String
   KeyPairName:
-    ConstraintDescription: Must be the name of an existing Amazon EC2 key pair.
-    Description: Public/private EC2 key pairs to securely access the bastion host.
+    ConstraintDescription: Must be the name of an existing EC2 Key Pair. Note the supplied value must not include the file extension.
+    Description: Public/private EC2 Key Pairs (without file extension) to allow you to securely access the Bastion host.
     Type: String
     Default: ''
   MailEnabled:
