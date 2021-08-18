@@ -1404,7 +1404,57 @@ Resources:
             Principal:
               AWS:
                 - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:root"
-            Action: 'kms:*'
+            Action:
+            - kms:RevokeGrant
+            - kms:CreateCustomKeyStore
+            - kms:DisableKeyRotation
+            - kms:ConnectCustomKeyStore
+            - kms:TagResource
+            - kms:ListGrants
+            - kms:RetireGrant
+            - kms:SynchronizeMultiRegionKey
+            - kms:ScheduleKeyDeletion
+            - kms:Decrypt
+            - kms:UntagResource
+            - kms:UpdateCustomKeyStore
+            - kms:CancelKeyDeletion
+            - kms:Sign
+            - kms:DescribeKey
+            - kms:GenerateDataKey
+            - kms:Encrypt
+            - kms:PutKeyPolicy
+            - kms:GenerateDataKeyPair
+            - kms:UpdateKeyDescription
+            - kms:GenerateRandom
+            - kms:GenerateDataKeyWithoutPlaintext
+            - kms:ReEncryptTo
+            - kms:DisableKey
+            - kms:CreateKey
+            - kms:DeleteAlias
+            - kms:ListKeys
+            - kms:DeleteImportedKeyMaterial
+            - kms:UpdatePrimaryRegion
+            - kms:ListKeyPolicies
+            - kms:EnableKey
+            - kms:ListRetirableGrants
+            - kms:ListResourceTags
+            - kms:ReplicateKey
+            - kms:GetPublicKey
+            - kms:UpdateAlias
+            - kms:GetKeyPolicy
+            - kms:ListAliases
+            - kms:Verify
+            - kms:DeleteCustomKeyStore
+            - kms:ReEncryptFrom
+            - kms:DescribeCustomKeyStores
+            - kms:DisconnectCustomKeyStore
+            - kms:CreateGrant
+            - kms:GetKeyRotationStatus
+            - kms:CreateAlias
+            - kms:GenerateDataKeyPairWithoutPlaintext
+            - kms:ImportKeyMaterial
+            - kms:EnableKeyRotation
+            - kms:GetParametersForImport
             Resource: '*'
       Tags:
         - Key: Name
