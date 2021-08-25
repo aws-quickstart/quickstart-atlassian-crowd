@@ -369,7 +369,7 @@ Parameters:
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
     ConstraintDescription: >-
       Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }
-    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }"
+    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }."
     MinLength: 8
     MaxLength: 128
     NoEcho: true
@@ -1172,7 +1172,7 @@ Resources:
       Comment: Route53 cname for the efs
       Name: !If [ UseHostedZone, !Join ['.', [!Ref 'AWS::StackName', 'efs', !Ref 'HostedZone']], '']
       Type: CNAME
-      TTL: '900'
+      TTL: 900
       ResourceRecords:
         - !Join ['.', [!Ref ElasticFileSystem, 'efs', !Ref 'AWS::Region', 'amazonaws.com.']]
   # Database
@@ -1208,7 +1208,7 @@ Resources:
       Comment: Route53 cname for the RDS
       Name: !Join ['.', [!Ref 'AWS::StackName', 'db', !Ref 'HostedZone']]
       Type: CNAME
-      TTL: '900'
+      TTL: 900
       ResourceRecords:
         - !GetAtt DB.Outputs.RDSEndPointAddress
 
@@ -1309,7 +1309,7 @@ Resources:
       Comment: Route53 cname for the ALB
       Name: !Join ['.', [!Ref "AWS::StackName", !Ref 'HostedZone']]
       Type: CNAME
-      TTL: '900'
+      TTL: 900
       ResourceRecords:
         - !GetAtt LoadBalancer.DNSName
   SecurityGroup:
@@ -1404,7 +1404,57 @@ Resources:
             Principal:
               AWS:
                 - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:root"
-            Action: 'kms:*'
+            Action:
+            - kms:CancelKeyDeletion
+            - kms:ConnectCustomKeyStore
+            - kms:CreateAlias
+            - kms:CreateCustomKeyStore
+            - kms:CreateGrant
+            - kms:CreateKey
+            - kms:Decrypt
+            - kms:DeleteAlias
+            - kms:DeleteCustomKeyStore
+            - kms:DeleteImportedKeyMaterial
+            - kms:DescribeCustomKeyStores
+            - kms:DescribeKey
+            - kms:DisableKey
+            - kms:DisableKeyRotation
+            - kms:DisconnectCustomKeyStore
+            - kms:EnableKey
+            - kms:EnableKeyRotation
+            - kms:Encrypt
+            - kms:GenerateDataKey
+            - kms:GenerateDataKeyPair
+            - kms:GenerateDataKeyPairWithoutPlaintext
+            - kms:GenerateDataKeyWithoutPlaintext
+            - kms:GenerateRandom
+            - kms:GetKeyPolicy
+            - kms:GetKeyRotationStatus
+            - kms:GetParametersForImport
+            - kms:GetPublicKey
+            - kms:ImportKeyMaterial
+            - kms:ListAliases
+            - kms:ListGrants
+            - kms:ListKeyPolicies
+            - kms:ListKeys
+            - kms:ListResourceTags
+            - kms:ListRetirableGrants
+            - kms:PutKeyPolicy
+            - kms:ReEncryptFrom
+            - kms:ReEncryptTo
+            - kms:ReplicateKey
+            - kms:RetireGrant
+            - kms:RevokeGrant
+            - kms:ScheduleKeyDeletion
+            - kms:Sign
+            - kms:SynchronizeMultiRegionKey
+            - kms:TagResource
+            - kms:UntagResource
+            - kms:UpdateAlias
+            - kms:UpdateCustomKeyStore
+            - kms:UpdateKeyDescription
+            - kms:UpdatePrimaryRegion
+            - kms:Verify
             Resource: '*'
       Tags:
         - Key: Name

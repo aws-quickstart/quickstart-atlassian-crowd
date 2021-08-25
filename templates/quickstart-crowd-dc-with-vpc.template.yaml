@@ -189,7 +189,7 @@ Parameters:
   # Crowd DC template parameters
   CatalinaOpts:
     Default: ''
-    Description: Pass in additional JVM options to tune Catalina
+    Description: Pass in additional JVM options to tune Catalina.
     Type: String
   CloudWatchIntegration:
     Default: "Metrics and Logs"
@@ -354,7 +354,7 @@ Parameters:
       - db.t2.xlarge
       - db.t2.2xlarge
     ConstraintDescription: Must be a valid Amazon RDS instance class from the selection list.
-    Description: RDS instance type
+    Description: RDS instance type.
     Type: String
   DBIops:
     Default: '1000'
@@ -386,7 +386,7 @@ Parameters:
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
     ConstraintDescription: >-
       Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }
-    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }"
+    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }."
     MinLength: 8
     MaxLength: 128
     NoEcho: true
@@ -408,7 +408,7 @@ Parameters:
       - General Purpose (SSD)
       - Provisioned IOPS
     ConstraintDescription: Must be 'General Purpose (SSD)' or 'Provisioned IOPS'.
-    Description: Database storage type
+    Description: Database storage type.
     Type: String
   DeploymentAutomationRepository:
     Default: "https://bitbucket.org/atlassian/dc-deployments-automation.git"
