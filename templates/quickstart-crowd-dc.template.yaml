@@ -369,7 +369,7 @@ Parameters:
       ^(?=^.{8,255}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*[\[\]\{\}]).*$
     ConstraintDescription: >-
       Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }
-    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }"
+    Description: "Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }."
     MinLength: 8
     MaxLength: 128
     NoEcho: true
@@ -447,8 +447,8 @@ Parameters:
     Description: Whether to grant access to Crowd's Amazon EC2 instances through the ASI's bastion host (if it exists). If 'true', remember to provide an EC2 key pair. If your ASI does not have a bastion host, set the value to 'false'.
     Type: String
   KeyPairName:
-    ConstraintDescription: Must be the name of an existing Amazon EC2 key pair.
-    Description: Public/private EC2 key pairs for securely accessing the bastion host.
+    ConstraintDescription: Must be the name of an existing EC2 Key Pair. Note the supplied value must not include the file extension.
+    Description: Public/private EC2 Key Pairs (without file extension) to allow you to securely access the Bastion host.
     Type: String
     Default: ''
   MailEnabled:
@@ -969,10 +969,10 @@ Resources:
           PropagateAtLaunch: true
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
+          Value: "COMMIT: d0035bd4453dffaf3a28a1bfda1c6057cc27614d"
           PropagateAtLaunch: true
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+          Value: "TIMESTAMP: 2021-08-06T00:53:03Z"
           PropagateAtLaunch: true
 
   ClusterNodeLaunchConfig:
@@ -1141,9 +1141,9 @@ Resources:
           Value: !Ref AWS::StackId
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
+          Value: "COMMIT: d0035bd4453dffaf3a28a1bfda1c6057cc27614d"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+          Value: "TIMESTAMP: 2021-08-06T00:53:03Z"
   EFSMountAz1:
     Type: AWS::EFS::MountTarget
     Properties:
@@ -1172,7 +1172,7 @@ Resources:
       Comment: Route53 cname for the efs
       Name: !If [ UseHostedZone, !Join ['.', [!Ref 'AWS::StackName', 'efs', !Ref 'HostedZone']], '']
       Type: CNAME
-      TTL: '900'
+      TTL: 900
       ResourceRecords:
         - !Join ['.', [!Ref ElasticFileSystem, 'efs', !Ref 'AWS::Region', 'amazonaws.com.']]
   # Database
@@ -1208,7 +1208,7 @@ Resources:
       Comment: Route53 cname for the RDS
       Name: !Join ['.', [!Ref 'AWS::StackName', 'db', !Ref 'HostedZone']]
       Type: CNAME
-      TTL: '900'
+      TTL: 900
       ResourceRecords:
         - !GetAtt DB.Outputs.RDSEndPointAddress
 
@@ -1231,9 +1231,9 @@ Resources:
           Value: !Ref AWS::StackName
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
+          Value: "COMMIT: d0035bd4453dffaf3a28a1bfda1c6057cc27614d"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+          Value: "TIMESTAMP: 2021-08-06T00:53:03Z"
 
   LoadBalancerHTTPListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
@@ -1266,7 +1266,7 @@ Resources:
       LoadBalancerArn: !Ref LoadBalancer
       Port: 443
       Protocol: HTTPS
-      SslPolicy: "TLSv1.2"
+      SslPolicy: "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
   MainTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
@@ -1296,9 +1296,9 @@ Resources:
           Value: !Ref AWS::StackName
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
+          Value: "COMMIT: d0035bd4453dffaf3a28a1bfda1c6057cc27614d"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+          Value: "TIMESTAMP: 2021-08-06T00:53:03Z"
     DependsOn:
       - LoadBalancer
   LoadBalancerCname:
@@ -1309,7 +1309,7 @@ Resources:
       Comment: Route53 cname for the ALB
       Name: !Join ['.', [!Ref "AWS::StackName", !Ref 'HostedZone']]
       Type: CNAME
-      TTL: '900'
+      TTL: 900
       ResourceRecords:
         - !GetAtt LoadBalancer.DNSName
   SecurityGroup:
@@ -1377,9 +1377,9 @@ Resources:
           Value: !Join [' ', [!Ref "AWS::StackName", 'sg']]
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
+          Value: "COMMIT: d0035bd4453dffaf3a28a1bfda1c6057cc27614d"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+          Value: "TIMESTAMP: 2021-08-06T00:53:03Z"
       VpcId:
         Fn::ImportValue: !Sub "${ExportPrefix}VPCID"
   SecurityGroupIngress:
@@ -1404,16 +1404,66 @@ Resources:
             Principal:
               AWS:
                 - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:root"
-            Action: 'kms:*'
+            Action:
+            - kms:CancelKeyDeletion
+            - kms:ConnectCustomKeyStore
+            - kms:CreateAlias
+            - kms:CreateCustomKeyStore
+            - kms:CreateGrant
+            - kms:CreateKey
+            - kms:Decrypt
+            - kms:DeleteAlias
+            - kms:DeleteCustomKeyStore
+            - kms:DeleteImportedKeyMaterial
+            - kms:DescribeCustomKeyStores
+            - kms:DescribeKey
+            - kms:DisableKey
+            - kms:DisableKeyRotation
+            - kms:DisconnectCustomKeyStore
+            - kms:EnableKey
+            - kms:EnableKeyRotation
+            - kms:Encrypt
+            - kms:GenerateDataKey
+            - kms:GenerateDataKeyPair
+            - kms:GenerateDataKeyPairWithoutPlaintext
+            - kms:GenerateDataKeyWithoutPlaintext
+            - kms:GenerateRandom
+            - kms:GetKeyPolicy
+            - kms:GetKeyRotationStatus
+            - kms:GetParametersForImport
+            - kms:GetPublicKey
+            - kms:ImportKeyMaterial
+            - kms:ListAliases
+            - kms:ListGrants
+            - kms:ListKeyPolicies
+            - kms:ListKeys
+            - kms:ListResourceTags
+            - kms:ListRetirableGrants
+            - kms:PutKeyPolicy
+            - kms:ReEncryptFrom
+            - kms:ReEncryptTo
+            - kms:ReplicateKey
+            - kms:RetireGrant
+            - kms:RevokeGrant
+            - kms:ScheduleKeyDeletion
+            - kms:Sign
+            - kms:SynchronizeMultiRegionKey
+            - kms:TagResource
+            - kms:UntagResource
+            - kms:UpdateAlias
+            - kms:UpdateCustomKeyStore
+            - kms:UpdateKeyDescription
+            - kms:UpdatePrimaryRegion
+            - kms:Verify
             Resource: '*'
       Tags:
         - Key: Name
           Value: !Sub ["${StackName} Encryption Key", {StackName: !Ref 'AWS::StackName'}]
         # NOTE: The leading COMMIT/TIMESTAMP are used to locate the position to update; see scripts/update-tags.py
         - Key: "atl:quickstart:commit-id"
-          Value: "COMMIT: 35bde08129b5af2b4dc805dcdc9c944f9d459ba0"
+          Value: "COMMIT: d0035bd4453dffaf3a28a1bfda1c6057cc27614d"
         - Key: "atl:quickstart:timestamp"
-          Value: "TIMESTAMP: 2020-09-01T04:02:21Z"
+          Value: "TIMESTAMP: 2021-08-06T00:53:03Z"
       EnableKeyRotation: true
   EncryptionKeyAlias:
     Condition: UseDatabaseEncryption

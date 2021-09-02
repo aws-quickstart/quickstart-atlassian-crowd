@@ -29,7 +29,7 @@
 (`DBIops`)|`1000`|Must be in the range of 1000 - 30000 and a multiple of 1000. This value is used only with Provisioned IOPS. The ratio of IOPS per allocated storage must be between 3.00 and 10.00.|Master (admin) password *
 (`DBMasterUserPassword`)|`**__Requires input__**`|Password for the master ('postgres') account. Must be at least eight characters and include one uppercase, one lowercase, one number, and one of the following symbols: ! # $ { * : [ = , ] - _ + % &|Enable RDS Multi-AZ deployment
 (`DBMultiAZ`)|`true`|Whether to provision a Multi-AZ Amazon RDS instance.|Application user database password *
-(`DBPassword`)|`**__Requires input__**`|Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }|Database storage
+(`DBPassword`)|`**__Requires input__**`|Must be at least eight characters and include at least one uppercase, one lowercase, one number, and any symbol except for: [ ] { }.|Database storage
 (`DBStorage`)|`200`|Database allocated storage size, in gigabytes (GB). If you choose Provisioned IOPS, storage should be between 100 and 6144 GB.|Database encryption
 (`DBStorageEncrypted`)|`false`|Whether or not to encrypt the database.|Database storage type
 (`DBStorageType`)|`General Purpose (SSD)`|Database storage type.
@@ -39,7 +39,7 @@
 |===
 |Parameter label (name) |Default value|Description|Use bastion host
 (`BastionHostRequired`)|`true`|Whether to grant access to Crowd's Amazon EC2 instances through the ASI's bastion host (if it exists). If 'true', remember to provide an EC2 key pair. If your ASI does not have a bastion host, set the value to 'false'.|SSH key pair name
-(`KeyPairName`)|`**__Blank string__**`|Public/private EC2 key pairs for securely accessing the bastion host.
+(`KeyPairName`)|`**__Blank string__**`|Public/private EC2 Key Pairs (without file extension) to allow you to securely access the Bastion host.
 |===
 .Networking
 [width="100%",cols="16%,11%,73%",options="header",]
