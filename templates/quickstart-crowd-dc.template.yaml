@@ -35,6 +35,8 @@ Metadata:
           - DBStorage
           - DBStorageEncrypted
           - DBStorageType
+          - DBAllowMajorVersionUpgrade
+          - DBMajorVersionUpgradeSwtich
       - Label:
           default: Bastion host utilization
         Parameters:
@@ -109,6 +111,10 @@ Metadata:
         default: Database encryption
       DBStorageType:
         default: Database storage type
+      DBAllowMajorVersionUpgrade:
+        default: Allow major database version upgrade
+      DBMajorVersionUpgradeSwtich:
+        default: DB Major version upgrade switch
       DeploymentAutomationRepository:
         default: Deployment automation Git repository URL
       DeploymentAutomationBranch:
@@ -392,6 +398,22 @@ Parameters:
       - Provisioned IOPS
     ConstraintDescription: Must be 'General Purpose (SSD)' or 'Provisioned IOPS'.
     Description: Database storage type.
+    Type: String
+  DBAllowMajorVersionUpgrade:
+    Default: false
+    AllowedValues:
+      - true
+      - false
+    ConstraintDescription: Must be 'true' or 'false'.
+    Description: Allow major database version upgrade.
+    Type: String
+  DBMajorVersionUpgradeSwtich:
+    Default: Green
+    AllowedValues:
+      - Green
+      - Blue
+    ConstraintDescription: Must be 'Green' or 'Blue'.
+    Description: When updaing DB engine version, new DB parameter group needs to be created. Update this value (If 'Green' then 'Blue' or vice versa) to create new group.
     Type: String
   DeploymentAutomationRepository:
     Default: "https://bitbucket.org/atlassian/dc-deployments-automation.git"
@@ -1196,6 +1218,8 @@ Resources:
         DBSecurityGroup: !Ref SecurityGroup
         DBStorageEncrypted: !Ref DBStorageEncrypted
         DBStorageType: !Ref DBStorageType
+        DBAllowMajorVersionUpgrade: !Ref DBAllowMajorVersionUpgrade
+        DBMajorVersionUpgradeSwtich: !Ref DBMajorVersionUpgradeSwtich
         ExportPrefix: !Ref ExportPrefix
         QSS3BucketName: !Ref QSS3BucketName
         QSS3BucketRegion: !Ref QSS3BucketRegion
