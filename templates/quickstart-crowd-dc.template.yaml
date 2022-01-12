@@ -295,7 +295,6 @@ Parameters:
   DBEngineVersion:
     Default: 10
     AllowedValues:
-      - 9
       - 10
       - 11
       - 12
