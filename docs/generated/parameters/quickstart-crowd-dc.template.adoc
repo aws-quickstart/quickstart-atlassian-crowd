@@ -25,7 +25,7 @@
 |===
 |Parameter label (name) |Default value|Description|Database instance class
 (`DBInstanceClass`)|`db.m5.large`|Amazon RDS instance type.|Database engine version
-(`DBEngineVersion`)|`10`|The database engine version to use. A suitable minor version is installed for your chosen engine. Make sure that the installed Crowd version supports the database engine selected.|RDS Provisioned IOPS
+(`DBEngineVersion`)|`10`|The database engine version to use. A suitable minor version is installed for your chosen engine. Make sure that the installed Crowd version supports the database engine selected. (Warning: Amazon RDS for PostgreSQL 9.6 will reach end of life on January 31st, 2022. Deployments after this date should not be made using this version. If you wish to upgrade to a major version from 9 see: https://confluence.atlassian.com/x/1IRlQQ)|RDS Provisioned IOPS
 (`DBIops`)|`1000`|Must be in the range of 1000 - 30000 and a multiple of 1000. This value is used only with Provisioned IOPS. The ratio of IOPS per allocated storage must be between 3.00 and 10.00.|Master (admin) password *
 (`DBMasterUserPassword`)|`**__Requires input__**`|Password for the master ('postgres') account. Must be at least eight characters and include one uppercase, one lowercase, one number, and one of the following symbols: ! # $ { * : [ = , ] - _ + % &|Enable RDS Multi-AZ deployment
 (`DBMultiAZ`)|`true`|Whether to provision a Multi-AZ Amazon RDS instance.|Application user database password *
