@@ -31,6 +31,7 @@ Metadata:
           default: Database
         Parameters:
           - DBInstanceClass
+          - DBEngineVersion
           - DBIops
           - DBMasterUserPassword
           - DBMultiAZ
