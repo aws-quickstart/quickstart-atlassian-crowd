@@ -1,8 +1,27 @@
 // Edit this placeholder text as necessary to describe the deployment options.
 
-This Partner Solution provides the following deployment options:
+This Partner Solution includes two AWS CloudFormation templates. The first template builds the {vpc-name} (ASI), which is a virtual private cloud (VPC) that contains the components required by all {partner-company-name} applications, and then provisions {partner-product-short-name} into this ASI. The second template provisions {partner-product-short-name} in an existing ASI.
 
-* https://qs_launch_permalink[Deploy {partner-product-short-name} into a new VPC^]. This option builds a new AWS environment that consists of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys {partner-product-short-name} into this new VPC.
-* https://qs_launch_permalink[Deploy {partner-product-short-name} into an existing VPC^]. This option provisions {partner-product-short-name} in your existing AWS infrastructure.
+Using these templates, the solution provides the following deployment options:
+
+* https://fwd.aws/WNMAy[Deploy {partner-product-short-name} into a new ASI (end-to-end deployment)^]. Choose this option if you’re a new user. This option builds the https://aws.amazon.com/quickstart/architecture/atlassian-standard-infrastructure/[Atlassian Standard Infrastructure (ASI)], which is a VPC that consists of the subnets, NAT gateways, security groups, and other infrastructure components required by all Atlassian applications. It then deploys {partner-product-short-name} into this new VPC.
+
+* https://fwd.aws/8gBER[Deploy {partner-product-short-name} into an existing ASI^]. This option provisions {partner-product-short-name} in an existing ASI, and also offers more customizable parameters. Choose this option if you’ve already deployed the ASI separately by using the https://fwd.aws/xYyYy[ASI Partner Solution], or by deploying another Atlassian product from a Partner Solution (https://fwd.aws/Wz3Qb[Jira Software/Service Desk Data Center], https://aws.amazon.com/quickstart/architecture/confluence/[Confluence Data Center], https://fwd.aws/BBeJW[Bitbucket Data Center], or https://fwd.aws/QXEDE[Crowd Data Center]).
 
 This Partner Solution provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and {partner-product-short-name} settings.
+
+
+=== Launching from a cloned Partner Solution (recommended for production)
+
+The fastest way to deploy {partner-product-short-name} with this Partner Solution is directly through its AWS Partner Solution interface. However, when you deploy {partner-product-short-name} this way, any updates that are made to the Partner Solution templates propagate directly to your production deployment. These updates sometimes involve adding or removing parameters, which could introduce unexpected changes or break your deployment.
+
+As a best practice, instead of deploying directly through the AWS Partner Solution interface, clone the {partner-product-short-name} Partner Solution templates to a custom Amazon Simple Storage Service (Amazon S3) bucket. Then, launch the templates directly from the S3 bucket. This practice lets you control when to apply the latest changes to your environment.
+
+include::./_clone_repository.adoc[]
+
+After everything is uploaded, you can deploy your production stack from your S3 bucket.
+
+. Sign in to your AWS account on the https://console.aws.amazon.com/console/home[AWS Console].
+. Check the AWS Region displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where {partner-product-short-name} is built. The template is launched in the `us-east-2` Region by default.
+. Go to *CloudFormation* > *Create Stack*. When specifying a template, paste in the Object URL of the Partner Solution template that you are using for the deployment. Choose *Next* to start configuring your deployment.
+. On the *Specify stack* details page, change the stack name, if needed. Review the parameters for the template, and provide values for parameters that require input. For all other parameters, review the default settings and customize them as necessary.
